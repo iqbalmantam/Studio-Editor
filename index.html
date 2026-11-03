@@ -87,7 +87,7 @@ h1{font-size:18px}
 .mu2{color:#8b8b95;font-size:13px;padding:0 4px}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
-<div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option></select><button class="b p" id="ex">Ekspor</button></div>
+<div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
 <div class="pv"><canvas id="cv" width="720" height="1280"></canvas></div>
 <div class="h"><button class="b" id="pl">▶</button><span id="tm" class="mu">0:00.0 / 0:00.0</span><span id="msg" class="mu" style="flex:1;text-align:right"></span></div>
 <input type="range" id="sc" min="0" max="1000" value="0">
@@ -133,7 +133,7 @@ h1{font-size:18px}
 </div>
 <div class="tp" id="t6">
 <div class="g"><button class="b" id="pj">💾 Simpan proyek</button><button class="b" id="po">📂 Buka proyek</button><button class="b" id="rs2" hidden>↻ Lanjutkan terakhir</button><button class="b" id="fr">📸 Simpan frame</button><button class="b" id="dnl">📥 Download App</button><button class="b p" id="ef">⚡ Ekspor cepat</button></div>
-<select id="pr"><option value="">Preset ekspor</option><option value="0">Reels / TikTok / Shorts 9:16</option><option value="1">YouTube 16:9</option><option value="2">Instagram 1:1</option></select>
+<select id="pr"><option value="">Preset ekspor</option><option value="0">Reels / TikTok / Shorts 9:16</option><option value="1">YouTube 16:9</option><option value="2">Instagram 1:1</option><option value="3">Reels HD 1080×1920</option><option value="4">YouTube 1080p 16:9</option></select>
 <div class="mu">Pintasan (keyboard): Spasi putar, S split, Del hapus, ←/→ geser 1 dtk (Shift 0,1), Ctrl+Z undo, Ctrl+Y redo.</div>
 <div class="wm-foot">Developed by iqbalmantam</div>
 </div>
@@ -167,6 +167,8 @@ h1{font-size:18px}
 <button class="pc" data-p="0"><span class="pi"><u style="width:28px;height:50px"></u></span><span><b>Reels / TikTok / Shorts</b><small>9:16 · vertikal</small></span></button>
 <button class="pc" data-p="1"><span class="pi"><u style="width:56px;height:32px"></u></span><span><b>YouTube</b><small>16:9 · horizontal</small></span></button>
 <button class="pc" data-p="2"><span class="pi"><u style="width:40px;height:40px"></u></span><span><b>Instagram</b><small>1:1 · kotak</small></span></button>
+<button class="pc" data-p="3"><span class="pi"><u style="width:28px;height:50px;border-color:#22d3ee"></u></span><span><b>Reels HD</b><small>1080×1920 · vertikal · lebih tajam</small></span></button>
+<button class="pc" data-p="4"><span class="pi"><u style="width:56px;height:32px;border-color:#22d3ee"></u></span><span><b>YouTube 1080p</b><small>1920×1080 · horizontal · lebih tajam</small></span></button>
 <button class="pc" data-p="auto"><span class="pi"><u style="width:40px;height:30px;border-style:dashed"></u></span><span><b>Otomatis</b><small>Mengikuti orientasi klip pertama</small></span></button>
 </div>
 <div class="hv" id="hv3">
@@ -247,7 +249,7 @@ $('#crs').onclick=()=>{if(nog())return;snap();const g=tgt();if(g){g.br=100;g.ct=
 const dur=s=>Math.max(.05,(s.out-s.in)/(s.sp||1)),total=()=>segs.reduce((a,s)=>a+dur(s),0),start=i=>segs.slice(0,i).reduce((a,s)=>a+dur(s),0);
 const fmt=t=>{t=Math.max(0,t);return Math.floor(t/60)+':'+(t%60).toFixed(1).padStart(4,'0')};
 const msg=m=>{$('#msg').textContent=m};
-const R=[[720,1280,'9:16'],[1280,720,'16:9'],[1080,1080,'1:1']];
+const R=[[720,1280,'9:16'],[1280,720,'16:9'],[1080,1080,'1:1'],[1080,1920,'9:16 HD'],[1920,1080,'16:9 HD']];
 function setR(i){ri=i;W=R[i][0];H=R[i][1];cv.width=W;cv.height=H;$('#rs').textContent='Rasio '+R[i][2]}
 function setSize(land){setR(land?1:0)}
 const F=()=>filt=='none'&&br==100&&ct==100&&sa==100?'':(filt=='none'?'':filt+' ')+'brightness('+br+'%) contrast('+ct+'%) saturate('+sa+'%)';
@@ -299,7 +301,7 @@ $('#sc').oninput=e=>{if(playing)stop();seek(e.target.value/1000*total())};
 $('#sp').onclick=()=>{const l=locate(T);if(!l)return;const s=segs[l.i],d=dur(s);if(l.off<.1||l.off>d-.1)return msg('Geser playhead ke tengah klip dulu');const m=s.in+l.off*s.sp;snap();segs.splice(l.i,1,{...s,out:m},{...s,in:m});sel=l.i+1;tl()};
 $('#dl').onclick=()=>{if(!segs.length)return;if(playing)stop();snap();segs.splice(sel,1);sel=Math.max(0,Math.min(sel,segs.length-1));T=Math.min(T,total());tl();if(segs.length)seek(T);else{cur=-1;v.removeAttribute('src');delete v.dataset.u;dropNv();draw()}};
 $('#sd').onclick=()=>{const s=segs[sel];if(!s)return;if(playing)stop();snap();const o=[.25,.5,1,1.5,2,3,4];s.sp=o[(o.indexOf(s.sp)+1)%o.length];T=Math.min(T,total());tl();msg('Kecepatan '+s.sp+'×')};
-$('#rs').onclick=()=>{snap();setR((ri+1)%3);draw()};
+$('#rs').onclick=()=>{snap();setR((ri+1)%R.length);draw()};
 const tgt=()=>scope=='clip'?segs[sel]:null,nog=()=>scope=='clip'&&!segs[sel]&&(msg('Tambah klip dulu'),true);
 $('#fl').onchange=e=>{if(nog())return;snap();const g=tgt();if(g)g.flt=e.target.value;else filt=e.target.value;tl();sfx();draw()};
 $('#at').onclick=()=>{snap();tx.push({a:T,b:Math.min(Math.max(T+3,3),total()||T+3),t:'Teks baru',x:50,y:50,z:1,c:'#ffffff'});rl();draw()};
@@ -411,7 +413,7 @@ $('#ef').onclick=()=>runExp(()=>fastExport(false));
 const th=d=>new Promise(r=>{let ok=false;const fin=v=>{if(!ok){ok=true;r(v)}};d.onseeked=()=>{const c=document.createElement('canvas');c.width=96;c.height=54;c.getContext('2d').drawImage(d,0,0,96,54);fin(c.toDataURL('image/jpeg',.5))};d.currentTime=Math.min(.1,d.duration/2);setTimeout(()=>fin(''),1500)});
 $('#rt').onclick=()=>{const g=segs[sel];if(!g)return;snap();g.rot=((g.rot||0)+1)%4;draw()};
 $('#fx').onclick=()=>{const g=segs[sel];if(!g)return;snap();g.fl=g.fl?0:1;draw()};
-$('#pr').onchange=e=>{if(e.target.value==='')return;snap();setR(+e.target.value);$('#q').value=e.target.value==1?'8000000':'4000000';draw();msg('Preset diterapkan')};
+$('#pr').onchange=e=>{if(e.target.value==='')return;snap();setR(+e.target.value);$('#q').value=e.target.value==1||e.target.value>=3?'8000000':'4000000';draw();msg('Preset diterapkan')};
 $('#fr').onclick=()=>{draw();cv.toBlob(b=>b&&save(b,'frame.png'),'image/png')};
 $('#vr').onclick=async()=>{if(rec){rec.stop();return}try{const s=await navigator.mediaDevices.getUserMedia({audio:true}),ch=[],r=new MediaRecorder(s);rec=r;r.ondataavailable=e=>ch.push(e.data);r.onstop=()=>{s.getTracks().forEach(t=>t.stop());rec=null;va.src=URL.createObjectURL(new Blob(ch,{type:r.mimeType||'audio/webm'}));$('#vr').textContent='🎙 Rekam ulang VO';$('#vdl').hidden=false;stop();msg('Voice-over tersimpan')};await seek(0);r.start();$('#vr').textContent='⏹ Stop rekam';play()}catch{rec=null;msg('Mikrofon diblokir. Izinkan akses mikrofon di browser lalu coba lagi.')}};
 $('#vdl').onclick=()=>{va.pause();va.removeAttribute('src');va.load();$('#vr').textContent='🎙 Voice-over';$('#vdl').hidden=true;msg('Voice-over dihapus')};
