@@ -20,7 +20,7 @@ h1{font-size:17px;margin:0;flex:1}
 #tl{position:relative;display:flex;height:46px;background:var(--bd);border-radius:8px;overflow:hidden}
 .sg{position:absolute;top:0;bottom:0;background:var(--sg);border-right:1px solid var(--bg);font-size:12px;color:#fff;padding:4px 6px;overflow:hidden;white-space:nowrap;border:2px solid transparent;box-sizing:border-box;cursor:pointer}
 .sg.on{border-color:var(--tx)}
-#zt{min-width:22px;font-size:12px}button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}#ph{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;pointer-events:none;z-index:5}
+#zt{min-width:22px;font-size:12px}.hg{margin-top:16px;font-size:13px;line-height:1.5}.hg summary{cursor:pointer;font-weight:600}.hg ol{padding-left:20px;margin:8px 0}.hg li{margin:4px 0}.hg .hk{color:var(--mu);margin:8px 0;font-size:12px}button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid #60a5fa;outline-offset:2px}@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}#ph{position:absolute;top:0;bottom:0;width:2px;background:#ef4444;pointer-events:none;z-index:5}
 .r{display:grid;grid-template-columns:1fr 64px 64px auto;gap:6px;margin-bottom:6px}
 .r input{min-width:0;padding:8px}
 .mu{color:var(--mu);font-size:13px}
@@ -31,7 +31,7 @@ html,body{height:100%}body{overflow:hidden}
 .w{height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px));max-width:720px;margin:0 auto;padding:6px 12px 0;box-sizing:border-box;display:flex;flex-direction:column;gap:6px}
 .w>*{flex:none;min-width:0}
 h1{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.hd{display:flex;gap:6px;align-items:center}.hd .b,.hd select{padding:8px}.hd #ex{flex:1}
+.hd{display:flex;gap:6px;align-items:center}.hd .b,.hd select{padding:8px}.hd #ex{flex:1 0 auto}.hd select{min-width:0;flex:0 1 auto;max-width:34vw;text-overflow:ellipsis}.hd #q{max-width:30vw}
 .pv,#cv{max-height:32vh}.pv{overflow:hidden}
 #sc{margin:0;padding:0;box-sizing:border-box;width:100%;height:28px}#tl{height:64px}.sg{padding-top:20px}.sg.on{border-width:2px 10px}
 #pn{flex:1 1 auto;min-height:0;overflow-y:auto;padding:2px 0 8px;-webkit-overflow-scrolling:touch}
@@ -160,6 +160,17 @@ h1{font-size:18px}
 <div class="hrow"><button class="np" id="hnew"><i>＋</i><b>Proyek Baru</b></button><button class="rc" id="hres"><i>▶</i><b>Lanjutkan</b></button></div>
 <div class="hs">Proyek terakhir</div>
 <div class="th" id="hth"></div>
+<details class="hg"><summary>📖 Cara pakai singkat</summary>
+<ol>
+<li><b>Tambah video</b> lewat <i>Proyek Baru</i> atau tombol <i>+ Klip</i>.</li>
+<li><b>Potong:</b> geser playhead, tekan <i>Split</i>, pilih klip lalu <i>Hapus</i>. Seret tepi klip di timeline untuk trim.</li>
+<li><b>Presisi:</b> tombol <i>＋</i> di samping waktu memperbesar timeline (atau cubit dua jari di HP).</li>
+<li><b>Percantik:</b> tab <i>Teks</i>, <i>Audio</i>, <i>Efek</i>, dan <i>Ukuran</i> untuk caption, musik, filter, dan rasio.</li>
+<li><b>Ekspor:</b> tab <i>Proyek</i> → <i>⚡ Ekspor cepat</i>. Pilih kualitas: <i>Kecil</i> / <i>Otomatis</i> menjaga ukuran file mendekati aslinya. Biarkan tab tetap terbuka sampai selesai.</li>
+</ol>
+<p class="hk"><b>Pintasan (desktop):</b> Spasi putar/jeda · S split · Delete hapus · ← → geser 1 dtk (Shift 0,1 dtk) · , . geser 1 frame · + − 0 zoom timeline · Ctrl+Z / Ctrl+Y undo/redo</p>
+<p class="hk">🔒 Video diproses di perangkat Anda dan tidak diunggah ke server. Draf tersimpan otomatis di browser ini; simpan proyek ke file untuk cadangan.</p>
+</details>
 <div class="wm-foot" style="margin-top:24px">Developed by iqbalmantam</div>
 </div>
 <div class="hv" id="hv2">
