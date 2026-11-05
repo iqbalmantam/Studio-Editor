@@ -180,7 +180,7 @@ h1{font-size:18px}
 </div>
 <nav class="hn"><button data-v="hv1" class="on"><i>🏠</i>Beranda</button><button data-v="hv2"><i>📱</i>Preset</button><button data-v="hv3"><i>🗂</i>Draf</button></nav>
 </div>
-<script async src="https://cdn.jsdelivr.net/npm/mp4-muxer@5.2.1/build/mp4-muxer.js"></script>
+<script async src="vendor/mp4-muxer.min.js" onerror="var s=document.createElement('script');s.async=1;s.src='https://cdn.jsdelivr.net/npm/mp4-muxer@5.2.1/build/mp4-muxer.js';document.head.appendChild(s)"></script>
 <script>
 const $=q=>document.querySelector(q),cv=$('#cv');let cx=cv.getContext('2d'),v=document.createElement('video');
 v.playsInline=true;v.preload='auto';
