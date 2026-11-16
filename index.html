@@ -55,7 +55,7 @@ h1{font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #sc{grid-column:1;grid-row:5}
 #tl{grid-column:1;grid-row:6}
 .tb{grid-column:2;grid-row:2;margin:0;border:1px solid var(--bd);border-radius:10px;align-self:start;overflow:hidden}
-#pn{grid-column:2;grid-row:3/8}#atl{grid-column:1;grid-row:7}
+#pn{grid-column:2;grid-row:3/10}#atl{grid-column:1;grid-row:7}#ttl{grid-column:1;grid-row:8}#otl{grid-column:1;grid-row:9}
 h1{font-size:18px}
 }
 #atl{position:relative;height:34px;background:var(--bd);border-radius:8px;overflow:hidden;touch-action:none}#atl:empty{display:none}.ab{position:absolute;top:3px;bottom:3px;background:#16a34a;color:#fff;border-radius:6px;font-size:12px;padding:6px 8px;box-sizing:border-box;overflow:hidden;white-space:nowrap;cursor:grab;border:2px solid transparent}.ab.on{border-color:var(--tx)}.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--bd);border-radius:12px;padding:3px;gap:3px}.seg button{border:0;background:none;color:var(--mu);font:inherit;padding:11px;border-radius:10px;cursor:pointer}.seg button.on{background:var(--cd);color:var(--tx);font-weight:700}.chips{display:flex;flex-wrap:wrap;gap:6px}.chip{font:inherit;font-size:13px;color:var(--tx);background:var(--cd);border:1px solid var(--bd);border-radius:999px;padding:9px 12px;cursor:pointer}.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
@@ -85,16 +85,27 @@ h1{font-size:18px}
 .dc{background:#15151b;border-radius:22px;padding:14px;display:grid;gap:12px;margin-bottom:12px}.dc small{color:#8b8b95}
 .dr{display:flex;gap:8px}.dr button,.gb{flex:1;border:0;border-radius:14px;padding:12px;font:inherit;font-size:14px;cursor:pointer;background:#20202a;color:#f4f4f5}.dr .go{background:linear-gradient(120deg,#3b82f6,#22d3ee);color:#07131a;font-weight:700}.gb{width:100%;margin-bottom:10px}
 .mu2{color:#8b8b95;font-size:13px;padding:0 4px}
+.kd{position:absolute;bottom:3px;width:9px;height:9px;margin-left:-5px;background:#ffd400;border:1px solid #000;transform:rotate(45deg);pointer-events:none}
+#ttl{position:relative;background:var(--bd);border-radius:8px;overflow:hidden;touch-action:none;min-height:34px}#ttl:empty{display:none}
+.xb{position:absolute;height:22px;background:#b45309;color:#fff;border-radius:6px;font-size:11px;line-height:18px;padding:0 11px;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:grab;border:2px solid transparent}
+.xb.on{border-color:var(--tx)}.xb::before,.xb::after{content:"";position:absolute;top:0;bottom:0;width:7px;background:rgba(255,255,255,.35)}.xb::before{left:0}.xb::after{right:0}
+.r.on{outline:2px solid var(--ac);outline-offset:2px;border-radius:8px}
+#otl{position:relative;background:var(--bd);border-radius:8px;overflow:hidden;touch-action:none;min-height:34px}#otl:empty{display:none}
+.vb{position:absolute;height:22px;background:#1d4ed8;color:#fff;border-radius:6px;font-size:11px;line-height:18px;padding:0 11px;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:grab;border:2px solid transparent}
+.vb.on{border-color:var(--tx)}.vb::before,.vb::after{content:"";position:absolute;top:0;bottom:0;width:7px;background:rgba(255,255,255,.35)}.vb::before{left:0}.vb::after{right:0}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
 <div class="pv"><canvas id="cv" width="720" height="1280"></canvas></div>
 <div class="h"><button class="b" id="pl" aria-label="Putar / jeda (Spasi)">▶</button><span id="tm" class="mu">0:00.0 / 0:00.0</span><button class="b" id="zo" title="Zoom out timeline ( - )" aria-label="Zoom out timeline">－</button><button class="b" id="zi" title="Zoom in timeline ( + )" aria-label="Zoom in timeline">＋</button><span id="zt" class="mu"></span><span id="msg" class="mu" role="status" aria-live="polite" style="flex:1;text-align:right"></span></div>
 <input type="range" id="sc" min="0" max="1000" value="0">
-<div id="tl" role="group" aria-label="Timeline klip. Klik untuk memilih posisi, seret tepi untuk trim, + / - untuk zoom"><div id="ph" style="left:0"></div></div><div id="atl"></div>
+<div id="tl" role="group" aria-label="Timeline klip. Klik untuk memilih posisi, seret tepi untuk trim, + / - untuk zoom"><div id="ph" style="left:0"></div></div><div id="atl"></div><div id="ttl"></div><div id="otl"></div>
 <div id="pn">
 <div class="tp on" id="t1">
 <div class="g"><button class="b p" onclick="$('#fi').click()">+ Klip</button><button class="b" id="sp">✂ Split</button><button class="b" id="dl">🗑 Hapus</button><button class="b" id="du">⧉ Duplikat</button><button class="b" id="mL">◀ Geser</button><button class="b" id="mR">Geser ▶</button><button class="b" id="ti">⇤ Trim awal</button><button class="b" id="to">Trim akhir ⇥</button><button class="b" id="sd">⚡ Kecepatan</button><button class="b" id="vo">🔊 Volume</button><button class="b" id="fz">❄ Freeze</button><button class="b" id="bs">✂ Bagi rata</button><button class="b" id="dph">⏱ Durasi foto</button><select id="nb" title="Jumlah bagian"><option>2</option><option>3</option><option>4</option><option>5</option></select></div>
+<div class="sh">〰 Speed ramp</div>
+<div class="g"><select id="rpS"><option value="montage">Montage (cepat, lambat, cepat)</option><option value="hero">Hero (normal, lambat, normal)</option><option value="bullet">Bullet (sangat lambat di tengah)</option><option value="flashin">Flash in (lambat ke cepat)</option><option value="flashout">Flash out (cepat ke lambat)</option><option value="jump">Jump (normal lalu cepat)</option></select><button class="b p" id="rpA">〰 Terapkan ke klip terpilih</button><button class="b" id="rpR">↺ Hapus ramp</button></div>
+<div class="mu">Klip dipecah jadi 10 bagian dengan kecepatan mengikuti kurva yang dihaluskan. Kecepatan dasar klip dikalikan kurva. Butuh klip video minimal 1,5 detik.</div>
 <div class="mu">Geser playhead ke posisi yang diinginkan, lalu ketuk Split atau Trim. Seret ujung klip di timeline untuk trim. Foto juga bisa ditambahkan lewat + Klip; atur lamanya dengan Durasi foto.</div>
 </div>
 <div class="tp" id="t2">
@@ -123,13 +134,36 @@ h1{font-size:18px}
 <div style="display:flex;justify-content:space-between;align-items:center"><span class="mu" style="font-size:12px">Atur tingkat warna</span><button class="b" id="crs" style="padding:4px 8px;font-size:12px">↺ Reset warna</button></div>
 <label>Kecerahan<input type="range" id="br" min="50" max="150" value="100"></label><label>Kontras<input type="range" id="ct" min="50" max="150" value="100"></label><label>Saturasi<input type="range" id="sa" min="0" max="200" value="100"></label>
 <div class="sh">🪟 Picture-in-Picture</div>
-<div class="g"><button class="b" id="pa">+ Video PiP</button><button class="b" id="pk">Hapus PiP</button></div>
-<label>Ukuran<input type="range" id="ps" min="15" max="70" value="35"></label><label>Posisi<select id="pp"><option value="0">Kiri atas</option><option value="1">Kanan atas</option><option value="2">Kiri bawah</option><option value="3" selected>Kanan bawah</option></select></label><label>Mulai (dtk)<input type="number" id="pt" step=".1"></label><label>Durasi (dtk)<input type="number" id="pdr" step=".1"></label>
+<div class="g"><button class="b" id="pa">+ Video PiP</button><button class="b" id="pk">Hapus lapisan</button></div>
+<label>Lapisan<select id="pls"></select></label>
+<div class="g"><button class="b" id="pg">🖼 + Gambar</button><button class="b" id="pup">▲ Naikkan</button><button class="b" id="pdn">▼ Turunkan</button></div>
+<div class="mu">Stiker emoji (jadi lapisan yang bisa digeser, diputar, dan di-trim):</div><div id="pem" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+<label>Putar<input type="range" id="prt" min="-180" max="180" value="0"></label>
+<div class="g"><button class="b" id="pfi">⛶ Isi layar</button><button class="b" id="pbk">↧ Di belakang klip utama: Tidak</button></div>
+<label>Ukuran<input type="range" id="ps" min="15" max="400" value="35"></label><label>Posisi<select id="pp"><option value="0">Kiri atas</option><option value="1">Kanan atas</option><option value="2">Kiri bawah</option><option value="3" selected>Kanan bawah</option><option value="4">Bebas (seret di preview)</option></select></label><label>Mulai (dtk)<input type="number" id="pt" step=".1"></label><label>Durasi (dtk)<input type="number" id="pdr" step=".1"></label>
+<label>Opasitas<input type="range" id="pop" min="10" max="100" value="100"></label>
+<label>Bentuk<select id="pmk"><option value="0">Kotak (berbingkai)</option><option value="1">Bulat</option><option value="2">Kotak membulat</option><option value="3">Hati</option><option value="4">Bintang</option><option value="5">Belah ketupat</option></select></label>
+<label>Blend<select id="pbm"><option value="0">Normal</option><option value="1">Screen</option><option value="2">Multiply</option><option value="3">Overlay</option><option value="4">Lighten</option><option value="5">Darken</option><option value="6">Difference</option></select></label>
+<div class="sh">🟩 Chroma key (green screen)</div>
+<div class="g"><button class="b" id="pck">🟩 Chroma key: Mati</button><input type="color" id="pkc" value="#00ff00" title="Warna yang dihapus" style="width:44px;height:36px;padding:0"><button class="b" id="pey">💧 Pipet</button></div>
+<label>Toleransi<input type="range" id="pct" min="0" max="100" value="35"></label><label>Tepi halus<input type="range" id="pcs" min="0" max="100" value="20"></label>
+<div class="mu">Pasang video PiP yang berlatar hijau (atau warna lain), aktifkan Chroma key, lalu naikkan Toleransi sampai latar hilang. Pengaturan PiP kini tersimpan di proyek; saat membuka proyek, pasang ulang file video PiP-nya.</div>
 </div>
 <div class="tp" id="t5">
 <label>Zoom<input type="range" id="zm" min="30" max="300" value="100"></label><label>Geser X<input type="range" id="px" min="-100" max="100" value="0"></label><label>Geser Y<input type="range" id="py" min="-100" max="100" value="0"></label>
 <div class="g"><button class="b" id="rt">⟲ Putar 90°</button><button class="b" id="fx">⇋ Flip</button><button class="b" id="zr">Reset</button></div>
 <div class="mu">Atau seret langsung di layar preview untuk menggeser klip/teks, cubit (pinch) atau scroll untuk zoom.</div>
+<div class="sh">◆ Keyframe animasi</div>
+<div class="g"><button class="b p" id="kfa">◆ Tambah di playhead</button><button class="b" id="kfp">◀ Sebelumnya</button><button class="b" id="kfn">Berikutnya ▶</button><button class="b" id="kfd">🗑 Hapus ini</button><button class="b" id="kfe">Gerak: Linear</button><button class="b" id="kfc">✕ Hapus semua</button></div>
+<label>Putar<input type="range" id="krt" min="-180" max="180" value="0"></label><label>Opasitas<input type="range" id="kop" min="0" max="100" value="100"></label>
+<div class="mu" id="kfi">Tanpa keyframe.</div>
+<div class="sh">🟩 Chroma key klip</div>
+<div class="g"><button class="b" id="cck">🟩 Chroma key: Mati</button><input type="color" id="kcl" value="#00ff00" title="Warna yang dihapus" style="width:44px;height:36px;padding:0"><button class="b" id="cey">💧 Pipet</button></div>
+<label>Toleransi<input type="range" id="cct" min="0" max="100" value="35"></label><label>Tepi halus<input type="range" id="ccs" min="0" max="100" value="20"></label>
+<label>Blend klip<select id="cbm"><option value="0">Normal</option><option value="1">Screen</option><option value="2">Multiply</option><option value="3">Overlay</option><option value="4">Lighten</option><option value="5">Darken</option><option value="6">Difference</option></select></label>
+<div class="mu">Green screen: aktifkan chroma key di klip ini, lalu di tab Efek pasang gambar/video latar sebagai PiP, tekan "Isi layar" dan nyalakan "Di belakang klip utama". Blend klip baru terlihat bila ada lapisan di belakang.</div>
+<div class="sh">🎭 Mask klip</div>
+<label>Bentuk<select id="kmk"><option value="0">Mati</option><option value="1">Bulat</option><option value="2">Kotak membulat</option><option value="3">Hati</option><option value="4">Bintang</option><option value="5">Belah ketupat</option></select></label><label>Ukuran<input type="range" id="kms" min="20" max="100" value="80"></label>
 </div>
 <div class="tp" id="t6">
 <div class="g"><button class="b" id="pj">💾 Simpan proyek</button><button class="b" id="po">📂 Buka proyek</button><button class="b" id="rs2" hidden>↻ Lanjutkan terakhir</button><button class="b" id="fr">📸 Simpan frame</button><button class="b" id="dnl">📥 Download App</button><button class="b p" id="ef">⚡ Ekspor cepat</button></div>
@@ -139,7 +173,7 @@ h1{font-size:18px}
 </div>
 </div>
 <div class="tb"><button class="on" data-t="t1"><span>🎞</span>Klip</button><button data-t="t2"><span>Aa</span>Teks</button><button data-t="t3"><span>🎵</span>Audio</button><button data-t="t4"><span>✨</span>Efek</button><button data-t="t5"><span>📐</span>Ukuran</button><button data-t="t6"><span>💾</span>Proyek</button></div>
-<input type="file" id="fq" accept="video/*" hidden><input type="file" id="fw" accept="image/*" hidden><input type="file" id="fm" accept="audio/*" hidden><input type="file" id="fp" accept=".json" hidden>
+<input type="file" id="fq" accept="video/*" hidden><input type="file" id="fg" accept="image/*" hidden><input type="file" id="fw" accept="image/*" hidden><input type="file" id="fm" accept="audio/*" hidden><input type="file" id="fp" accept=".json" hidden>
 <input type="file" id="fi" accept="video/*,image/*" multiple hidden>
 </div>
 <div id="home" class="on">
@@ -155,6 +189,7 @@ h1{font-size:18px}
 <button data-go="t2"><i>😀</i>Teks &amp; Stiker</button>
 <button data-go="t4"><i>🪟</i>Picture-in-Picture</button>
 <button data-go="t3"><i>🎙</i>Voice-over</button>
+<button data-go="t5"><i>◆</i>Keyframe</button><button data-go="t4"><i>🟩</i>Green Screen</button><button data-go="t5"><i>🎭</i>Mask</button><button data-go="t1"><i>〰</i>Speed Ramp</button><button data-go="t2"><i>🔤</i>Animasi Teks</button><button data-go="t5"><i>🔄</i>Putar &amp; Opasitas</button>
 <button id="hmore"><i>⋯</i>Lainnya</button>
 </div>
 <div class="hrow"><button class="np" id="hnew"><i>＋</i><b>Proyek Baru</b></button><button class="rc" id="hres"><i>▶</i><b>Lanjutkan</b></button></div>
@@ -168,7 +203,7 @@ h1{font-size:18px}
 <li><b>Percantik:</b> tab <i>Teks</i>, <i>Audio</i>, <i>Efek</i>, dan <i>Ukuran</i> untuk caption, musik, filter, dan rasio.</li>
 <li><b>Ekspor:</b> tab <i>Proyek</i> → <i>⚡ Ekspor cepat</i>. Pilih kualitas: <i>Kecil</i> / <i>Otomatis</i> menjaga ukuran file mendekati aslinya. Biarkan tab tetap terbuka sampai selesai.</li>
 </ol>
-<p class="hk"><b>Pintasan (desktop):</b> Spasi putar/jeda · S split · Delete hapus · ← → geser 1 dtk (Shift 0,1 dtk) · , . geser 1 frame · + − 0 zoom timeline · Ctrl+Z / Ctrl+Y undo/redo</p>
+<p class="hk"><b>Pintasan (desktop):</b> Spasi putar/jeda · S split · Delete hapus · ← → geser 1 dtk (Shift 0,1 dtk) · , . geser 1 frame · + − 0 zoom timeline · K tambah keyframe · Ctrl+Z / Ctrl+Y undo/redo</p>
 <p class="hk">🔒 Video diproses di perangkat Anda dan tidak diunggah ke server. Draf tersimpan otomatis di browser ini; simpan proyek ke file untuk cadangan.</p>
 </details>
 <div class="wm-foot" style="margin-top:24px">Developed by iqbalmantam</div>
@@ -196,7 +231,7 @@ h1{font-size:18px}
 const $=q=>document.querySelector(q),cv=$('#cv');let cx=cv.getContext('2d'),v=document.createElement('video');
 v.playsInline=true;v.preload='auto';
 const aels=new Map(),asrc=new Set(),vsrcs=new WeakSet();let freshNext=false,goTab=null,presetNext=null,presetLock=false,segs=[],tx=[],aus=[],sela=-1,T=0,playing=false,cur=-1,sel=0,busy=false,filt='none',W=720,H=1280,done=null,sr=null,ac=null,dst=null,hist=[],rhist=[],ri=0,fill=0,fade=0,br=100,ct=100,sa=100,exp=false,drag=false;
-let fxo={},fxi=60,scope='all';
+let fxo={},fxi=60,scope='all',ovp=null,selx=-1,ovs=[];
 const FXL=[['kb','🔍 Ken Burns'],['pulse','💓 Denyut'],['shake','📳 Goyang'],['rgb','🌈 RGB split'],['glitch','⚡ Glitch'],['pixel','🔲 Pixel'],['mirror','🪞 Cermin'],['vig','◐ Vinyet'],['grain','🎞 Grain film'],['vhs','📼 VHS'],['bars','🎬 Bar sinema'],['leak','🌅 Cahaya bocor'],['snow','❄️ Salju'],['rain','🌧 Hujan']];
 const fcv=[0,1,2,3].map(()=>document.createElement('canvas')),pxc=document.createElement('canvas'),gnc=document.createElement('canvas');let gid=null,gu=null,pxx=null,gtile=null;const GT=720;
 const rnd=(a,b)=>{const x=Math.sin(a*12.9898+b*78.233)*43758.5453;return x-Math.floor(x)};
@@ -267,8 +302,8 @@ const F=()=>filt=='none'&&br==100&&ct==100&&sa==100?'':(filt=='none'?'':filt+' '
 // Undo/redo history stores big base64 strings (thumbnails, photos) once in a pool, not once per snapshot.
 const spm=new Map(),spa=[],pool=s=>{let i=spm.get(s);if(i===undefined){i=spa.length;spa.push(s);spm.set(s,i)}return i};
 const hrep=(k,x)=>(k=='th'||k=='img')&&typeof x=='string'&&x.length>64?{$p:pool(x)}:x,hrev=(k,x)=>x&&typeof x=='object'&&'$p' in x?spa[x.$p]:x;
-const curState=()=>JSON.stringify({segs,tx,aus,filt,br,ct,sa,fade,fill,ri,fxo:{...fxo},fxi},hrep);
-function applyState(s){const o=JSON.parse(s,hrev);segs=o.segs||[];tx=o.tx||[];aus=o.aus||[];if(o.filt!==undefined)filt=o.filt;if(o.br!==undefined)br=o.br;if(o.ct!==undefined)ct=o.ct;if(o.sa!==undefined)sa=o.sa;if(o.fade!==undefined)fade=o.fade;if(o.fill!==undefined){fill=o.fill;$('#ft').textContent='Layar: '+LF[fill]}if(o.ri!==undefined&&o.ri!==ri)setR(o.ri);if(o.fxo!==undefined)fxo=o.fxo;if(o.fxi!==undefined)fxi=o.fxi;sela=Math.min(sela,aus.length-1);sel=Math.min(sel,Math.max(0,segs.length-1));sfx();tl();rl()}
+const curState=()=>JSON.stringify({segs,tx,aus,filt,br,ct,sa,fade,fill,ri,fxo:{...fxo},fxi,ovs:ovs.map(oPar),ovi},hrep);
+function applyState(s){const o=JSON.parse(s,hrev);segs=o.segs||[];tx=o.tx||[];aus=o.aus||[];if(o.ovs!==undefined)ovRestore(o.ovs,o.ovi);if(o.filt!==undefined)filt=o.filt;if(o.br!==undefined)br=o.br;if(o.ct!==undefined)ct=o.ct;if(o.sa!==undefined)sa=o.sa;if(o.fade!==undefined)fade=o.fade;if(o.fill!==undefined){fill=o.fill;$('#ft').textContent='Layar: '+LF[fill]}if(o.ri!==undefined&&o.ri!==ri)setR(o.ri);if(o.fxo!==undefined)fxo=o.fxo;if(o.fxi!==undefined)fxi=o.fxi;sela=Math.min(sela,aus.length-1);sel=Math.min(sel,Math.max(0,segs.length-1));sfx();tl();rl()}
 function snap(){hist.push(curState());rhist=[];if(hist.length>50)hist.shift();autosave()}
 // Draft storage: IndexedDB (no 5 MB quota), mirrored in memory so the synchronous callers (draft(), resumeDraft()) keep working.
 // Falls back to localStorage, and tells the user when neither can save instead of failing silently.
@@ -291,14 +326,51 @@ function swapIn(s,st){if(s.fz||!nvs.ok||nv.dataset.u!==s.u||Math.abs(nvs.t-st)>.
 function load(i,st){return new Promise(r=>{const s=segs[i];if(!s)return r();cur=i;if(s.fz){v.pause();fz0=performance.now()-(st/(ff?ffR:1))*1000;return r()}if(swapIn(s,st))return r();v.volume=s.vol??1;let ok=false;const fin=()=>{if(!ok){ok=true;r()}};const go=()=>{v.playbackRate=s.sp*(ff?ffR:1);v.addEventListener('seeked',fin,{once:true});try{v.currentTime=st}catch{fin()}setTimeout(fin,450)};if(v.dataset.u!==s.u){v.dataset.u=s.u;v.src=s.u;v.addEventListener('loadedmetadata',go,{once:true});v.addEventListener('error',fin,{once:true})}else go()})}
 async function seek(t){if(!segs.length)return;T=Math.min(Math.max(t,0),total());const l=locate(T),s=segs[l.i];await load(l.i,s.in+l.off*s.sp);draw()}
 async function play(){if(!segs.length)return;if(T>=total()-.05)await seek(0);playing=true;$('#pl').textContent='⏸';v.muted=!!ff;if(ma.src&&!ff){ma.volume=$('#mvl').value/100;ma.currentTime=ma.duration?T%ma.duration:0;ma.play().catch(()=>{})}if(va.src&&!ff){va.volume=$('#vvl').value/100;va.currentTime=T;va.play().catch(()=>{})}const s=segs[cur]||segs[0];if(s.fz)fz0=performance.now()-((T-start(cur))/(ff?ffR:1))*1000;else{try{await v.play()}catch(e){if(e&&e.name=='AbortError'){}else{stop();throw e}}}loop()}
-function stop(){playing=false;v.pause();ma.pause();va.pause();pv.pause();aels.forEach(e=>e.pause());if(rec)rec.stop();$('#pl').textContent='▶';if(sr){const r=sr;sr=null;try{r.stop()}catch{}}if(done){const d=done;done=null;d()}}
-function loop(){if(!playing)return;if(ff){if(!hq&&ve&&ve.encodeQueueSize>10)drain();if(hq||hh){requestAnimationFrame(loop);return}}const s=segs[cur];if(!s){stop();return}if(!busy){const el=s.fz?(performance.now()-fz0)/1e3*(ff?ffR:1):0;T=s.fz?start(cur)+el:start(cur)+(v.currentTime-s.in)/s.sp;if(s.fz?el>=dur(s):(v.currentTime>=s.out-.04||v.ended)){if(cur<segs.length-1){const nx=segs[cur+1];if(!ff&&!s.fz&&!nx.fz&&nx.u===s.u&&nx.sp===s.sp&&!v.ended&&Math.abs(v.currentTime-nx.in)<.2){cur++;T=Math.max(T,start(cur))}else{busy=true;v.pause();load(cur+1,segs[cur+1].in).then(()=>{busy=false;if(playing){if(segs[cur].fz)fz0=performance.now();else if(!hT)v.play().catch(()=>{})}})}}else{T=total();draw();if(ff)ef();stop();return}}}if(!busy&&cur<segs.length-1&&dur(s)-(T-start(cur))<2.5){const nx=segs[cur+1];if(nx&&(nx.u!==s.u||Math.abs(nx.in-s.out)>.2||s.fz))prep(cur+1)}auSync();draw();if(ff){ef();rctl()}requestAnimationFrame(loop)}
-function text(o){const fs=Math.round(Math.min(W,H)*.075*(o.z||1));cx.font='800 '+fs+'px system-ui,sans-serif';cx.textAlign='center';cx.textBaseline='middle';cx.lineJoin='round';cx.lineWidth=fs/5;const ls=[];let l='';for(const w of String(o.t||'').split(' ')){const n=l?l+' '+w:w;if(cx.measureText(n).width>W*.88&&l){ls.push(l);l=w}else l=n}ls.push(l);const x0=W*(o.x??50)/100,y0=H*(o.y??50)/100-(ls.length-1)*fs*.6;ls.forEach((s,i)=>{const y=y0+i*fs*1.2;if(o.s==1){const m=cx.measureText(s).width+fs*.5;cx.fillStyle='rgba(0,0,0,.65)';cx.fillRect(x0-m/2,y-fs*.65,m,fs*1.3)}else{cx.strokeStyle='#000';cx.strokeText(s,x0,y)}if(o.s==2){cx.shadowColor=o.c||'#fff';cx.shadowBlur=fs/2}cx.fillStyle=o.s==3?'#ffd400':o.c||'#fff';cx.fillText(s,x0,y);cx.shadowBlur=0})}
+function stop(){playing=false;v.pause();ma.pause();va.pause();pv.pause();ovs.forEach(o=>o.el.pause());aels.forEach(e=>e.pause());if(rec)rec.stop();$('#pl').textContent='▶';if(sr){const r=sr;sr=null;try{r.stop()}catch{}}if(done){const d=done;done=null;d()}}
+function loop(){if(!playing)return;if(ff){if(!hq&&ve&&ve.encodeQueueSize>10)drain();if(hq||hh){requestAnimationFrame(loop);return}}const s=segs[cur];if(!s){stop();return}if(!busy){const el=s.fz?(performance.now()-fz0)/1e3*(ff?ffR:1):0;T=s.fz?start(cur)+el:start(cur)+(v.currentTime-s.in)/s.sp;if(s.fz?el>=dur(s):(v.currentTime>=s.out-.04||v.ended)){if(cur<segs.length-1){const nx=segs[cur+1];if(!ff&&!s.fz&&!nx.fz&&nx.u===s.u&&!v.ended&&Math.abs(v.currentTime-nx.in)<.2){cur++;v.playbackRate=segs[cur].sp;T=Math.max(T,start(cur))}else{busy=true;v.pause();load(cur+1,segs[cur+1].in).then(()=>{busy=false;if(playing){if(segs[cur].fz)fz0=performance.now();else if(!hT)v.play().catch(()=>{})}})}}else{T=total();draw();if(ff)ef();stop();return}}}if(!busy&&cur<segs.length-1&&dur(s)-(T-start(cur))<2.5){const nx=segs[cur+1];if(nx&&(nx.u!==s.u||Math.abs(nx.in-s.out)>.2||s.fz))prep(cur+1)}auSync();draw();if(ff){ef();rctl()}requestAnimationFrame(loop)}
+function text(o,p){p=p===undefined?1:p;const fs=Math.round(Math.min(W,H)*.075*(o.z||1)),an=o.an||0;cx.font=(o.f==1?'700 ':'800 ')+fs+'px '+FONTS[o.f||0];cx.textAlign='center';cx.textBaseline='middle';cx.lineJoin='round';cx.lineWidth=fs/5;const ls=[];let l='';for(const w of String(o.t||'').split(' ')){const n=l?l+' '+w:w;if(cx.measureText(n).width>W*.88&&l){ls.push(l);l=w}else l=n}ls.push(l);
+const x0=W*(o.x??50)/100,yc=H*(o.y??50)/100,y0=yc-(ls.length-1)*fs*.6,e=1-Math.pow(1-p,3),tot=ls.reduce((a,q)=>a+q.length+1,0);let sc=1,oy=0,vis=1e9,used=0;
+if(p<1){if(an==1){const c1=1.70158,c3=c1+1;sc=Math.max(.01,1+c3*Math.pow(p-1,3)+c1*Math.pow(p-1,2))}else if(an==2)oy=(1-e)*fs*1.6;else if(an==3)vis=Math.ceil(tot*p);else if(an==4)oy=-Math.abs(Math.sin(p*Math.PI*3))*(1-p)*fs*1.4;else if(an==5)sc=1+(1-e)*1.2}
+cx.save();cx.translate(x0,yc+oy);cx.scale(sc,sc);cx.translate(-x0,-yc);
+ls.forEach((s,i)=>{const y=y0+i*fs*1.2;let xx=x0;if(vis<1e9){const full=s,n=Math.max(0,vis-used);used+=full.length+1;s=full.slice(0,n);if(!s)return;cx.textAlign='left';xx=x0-cx.measureText(full).width/2}else cx.textAlign='center';
+if(o.s==1){const m=cx.measureText(s).width+fs*.5,bx=cx.textAlign=='left'?xx-fs*.25:x0-m/2;cx.fillStyle='rgba(0,0,0,.65)';cx.fillRect(bx,y-fs*.65,m,fs*1.3)}else{cx.strokeStyle='#000';cx.strokeText(s,xx,y)}
+if(o.s==2){cx.shadowColor=o.c||'#fff';cx.shadowBlur=fs/2}cx.fillStyle=o.s==3?'#ffd400':o.c||'#fff';cx.fillText(s,xx,y);cx.shadowBlur=0});cx.restore();cx.textAlign='center'}
 function draw(){const l=segs.length?locate(T):null,g=l&&segs[l.i];if(!g||(g.flt===undefined&&g.br===undefined&&g.ct===undefined&&g.sa===undefined&&!g.fxo&&g.fxi===undefined&&g.fd===undefined))return draw0();const sv=[filt,br,ct,sa,fade,fxo,fxi];if(g.flt!==undefined)filt=g.flt;if(g.br!==undefined)br=g.br;if(g.ct!==undefined)ct=g.ct;if(g.sa!==undefined)sa=g.sa;if(g.fd!==undefined)fade=g.fd;if(g.fxo)fxo=g.fxo;if(g.fxi!==undefined)fxi=g.fxi;try{draw0()}finally{[filt,br,ct,sa,fade,fxo,fxi]=sv}}
-function draw0(){cx.filter='none';cx.fillStyle='#000';cx.fillRect(0,0,W,H);
+// ===== Tambahan gaya CapCut: mask, keyframe, chroma key, animasi teks =====
+const FONTS=['system-ui,sans-serif','Georgia,"Times New Roman",serif','ui-monospace,Menlo,Consolas,monospace','Impact,"Arial Narrow Bold",sans-serif','"Segoe Script","Bradley Hand","Comic Sans MS",cursive'];
+const BM=['source-over','screen','multiply','overlay','lighten','darken','difference'];
+// Mask: path berpusat di (0,0) berukuran w x h. 1 bulat, 2 kotak membulat, 3 hati, 4 bintang, 5 belah ketupat.
+function maskPath(c,k,w,h){const a=w/2,b=h/2;c.beginPath();
+if(k==1)c.ellipse(0,0,a,b,0,0,Math.PI*2);
+else if(k==2){const r=Math.min(a,b)*.35;if(c.roundRect)c.roundRect(-a,-b,w,h,r);else c.rect(-a,-b,w,h)}
+else if(k==3){c.moveTo(0,b);c.bezierCurveTo(-a*1.25,b*.1,-a*.95,-b*.95,0,-b*.4);c.bezierCurveTo(a*.95,-b*.95,a*1.25,b*.1,0,b);c.closePath()}
+else if(k==4){for(let i=0;i<10;i++){const r=i%2?.45:1,an=-Math.PI/2+i*Math.PI/5;c[i?'lineTo':'moveTo'](Math.cos(an)*a*r,Math.sin(an)*b*r)}c.closePath()}
+else if(k==5){c.moveTo(0,-b);c.lineTo(a,0);c.lineTo(0,b);c.lineTo(-a,0);c.closePath()}
+else c.rect(-a,-b,w,h)}
+// Keyframe: g.kf = [{t (detik di file sumber), z, x, y, r (derajat), o (opasitas %)}], g.ke = 1 untuk gerak halus.
+function kfv(g,t){const K=g.kf;if(!K||!K.length)return null;let a=K[0],b=K[K.length-1];if(t<=a.t)return a;if(t>=b.t)return b;
+for(let i=1;i<K.length;i++)if(t<=K[i].t){a=K[i-1];b=K[i];break}
+let u=(t-a.t)/Math.max(1e-6,b.t-a.t);if(g.ke)u=u*u*(3-2*u);const m=k=>a[k]+(b[k]-a[k])*u;return{z:m('z'),x:m('x'),y:m('y'),r:m('r'),o:m('o')}}
+function kfApply(g,off){const K=kfv(g,g.in+off*(g.sp||1));if(K){g.zm=K.z;g.px=K.x;g.py=K.y;g.ra=K.r;g.op=K.o}}
+// Saat klip punya keyframe, setiap perubahan zoom/geser/putar/opasitas ditulis ke keyframe di playhead (dibuat bila belum ada).
+function kfw(){const g=segs[sel];if(!g||!g.kf||!g.kf.length||!segs.length)return;const l=locate(T);if(!l||l.i!=sel)return;
+const sp=g.sp||1,t=g.in+l.off*sp;g.kf=g.kf.map(q=>({...q}));let k=g.kf.find(q=>Math.abs(q.t-t)<=Math.max(.04*sp,.03));
+if(!k){k={t};g.kf.push(k);g.kf.sort((p,q)=>p.t-q.t)}k.z=g.zm||1;k.x=g.px||0;k.y=g.py||0;k.r=g.ra||0;k.o=g.op??100}
+// Chroma key di ruang CbCr (mengabaikan terang-gelap) + despill agar tepi tidak kehijauan.
+const ckc=document.createElement('canvas');let ckx=null;
+const cbcr=(r,g,b)=>[-.168736*r-.331264*g+.5*b,.5*r-.418688*g-.081312*b];
+function chroma(S,w,h,o,cap){let cw=Math.max(2,Math.round(w)),ch=Math.max(2,Math.round(h));const mx=exp?4096:(cap||480);if(cw>mx){ch=Math.max(2,Math.round(ch*mx/cw));cw=mx}if(ckc.width!=cw||ckc.height!=ch){ckc.width=cw;ckc.height=ch}
+ckx=ckx||ckc.getContext('2d',{willReadFrequently:true});ckx.clearRect(0,0,cw,ch);ckx.drawImage(S,0,0,cw,ch);
+const im=ckx.getImageData(0,0,cw,ch),d=im.data,kc=o.kc||[0,255,0],[kb,kr]=cbcr(kc[0],kc[1],kc[2]),t0=(o.ct??35)/100*140,sf=(o.cs??20)/100*100+1,
+ki=kc[0]>=kc[1]&&kc[0]>=kc[2]?0:kc[1]>=kc[2]?1:2,o1=(ki+1)%3,o2=(ki+2)%3;
+for(let i=0;i<d.length;i+=4){const[cb,cr]=cbcr(d[i],d[i+1],d[i+2]),dist=Math.hypot(cb-kb,cr-kr);let a=(dist-t0)/sf;a=a<0?0:a>1?1:a;
+if(a<1){d[i+3]=d[i+3]*a}
+if(dist<t0+sf*2){const av=(d[i+o1]+d[i+o2])/2;if(d[i+ki]>av)d[i+ki]=av}}
+ckx.putImageData(im,0,0);return ckc}
+function draw0(){cx.filter='none';cx.fillStyle='#000';cx.fillRect(0,0,W,H);ovDraw(true);
 if(!segs.length){cx.fillStyle='#888';cx.font='28px system-ui';cx.textAlign='center';cx.fillText('Tambah klip untuk mulai',W/2,H/2)}
-else{const l=locate(T),g=segs[l.i],S=g.fz?fzs.get(g.fid):v;if(S&&(S.videoWidth||S.width)){const SW=S.videoWidth||S.width,SH=S.videoHeight||S.height,ro=(g.rot||0)%2,vw=ro?SH:SW,vh=ro?SW:SH,k=(fill==1?Math.max:Math.min)(W/vw,H/vh),z=g.zm||1,w=SW*k*z,h=SH*k*z;let a=1;if(fade&&l){const d=dur(g);a=Math.max(0,Math.min(1,l.off/.3,(d-l.off)/.3))}if(!busy&&segs[cur]&&!segs[cur].fz){const vv=Math.max(0,Math.min(1,(segs[cur].vol??1)*a));if(Math.abs(v.volume-vv)>.004)v.volume=vv}if(fill==2)bgDraw(S,SW,SH,Math.max(W/vw,H/vh),a,g);const gf=!HAS_CF&&(F()||(fade==7&&a<1)),rc=cx;if(gf)cx=gstart();cx.filter=F()||'none';cx.globalAlpha=(fade==8||fade==9)?1:a;{const X=fxXf(l),s2=(fade==2?1+(1-a)*.2:fade==6?1-(1-a)*.2:1)*X.z,ex=fade==3?(1-a)*W*.15:0,ey=fade==4?(1-a)*H*.12:0,rt=fade==5?(1-a)*.4:0;if(fade==7&&a<1)cx.filter='blur('+((1-a)*16).toFixed(1)+'px) '+F();cx.save();if(fade==9&&a<1){cx.beginPath();cx.rect(0,0,W*a,H);cx.clip()}cx.translate(W/2+(g.px||0)*W/100+ex+X.x,H/2+(g.py||0)*H/100+ey+X.y);cx.rotate((g.rot||0)*Math.PI/2+rt);cx.scale((g.fl?-1:1)*s2,s2);cx.drawImage(S,-w/2,-h/2,w,h);cx.restore();if(fade==8&&a<1){cx.filter='none';cx.globalAlpha=(1-a)*.9;cx.fillStyle='#fff';cx.fillRect(0,0,W,H)}}cx.globalAlpha=1;cx.filter='none';if(gf){cx=rc;gradeDraw(F(),fade==7&&a<1?(1-a)*16:0)}}}
-fxPre();ovDraw();if(wmi){const w=W*.2,h=w*wmi.height/wmi.width;cx.globalAlpha=.8;cx.drawImage(wmi,W-w-W*.03,H-h-H*.03,w,h);cx.globalAlpha=1}fxPost();for(const o of tx)if(T>=o.a&&T<=o.b&&o.t){cx.globalAlpha=playing?Math.max(0,Math.min(1,(T-o.a)/.25)):1;text(o);cx.globalAlpha=1}ui()}
+else{const l=locate(T),g=segs[l.i],S=g.fz?fzs.get(g.fid):v;if(S&&(S.videoWidth||S.width)){if(g.kf&&g.kf.length)kfApply(g,l.off);const SW=S.videoWidth||S.width,SH=S.videoHeight||S.height,ro=(g.rot||0)%2,vw=ro?SH:SW,vh=ro?SW:SH,k=(fill==1?Math.max:Math.min)(W/vw,H/vh),z=g.zm||1,w=SW*k*z,h=SH*k*z;let a=1;if(fade&&l){const d=dur(g);a=Math.max(0,Math.min(1,g.n0?1:l.off/.3,g.n1?1:(d-l.off)/.3))}if(!busy&&segs[cur]&&!segs[cur].fz){const vv=Math.max(0,Math.min(1,(segs[cur].vol??1)*a));if(Math.abs(v.volume-vv)>.004)v.volume=vv}if(fill==2&&!g.kk)bgDraw(S,SW,SH,Math.max(W/vw,H/vh),a,g);const gf=!HAS_CF&&(F()||(fade==7&&a<1)),rc=cx;if(gf)cx=gstart();cx.filter=F()||'none';cx.globalAlpha=((fade==8||fade==9)?1:a)*((g.op??100)/100);{const X=fxXf(l),s2=(fade==2?1+(1-a)*.2:fade==6?1-(1-a)*.2:1)*X.z,ex=fade==3?(1-a)*W*.15:0,ey=fade==4?(1-a)*H*.12:0,rt=fade==5?(1-a)*.4:0;if(fade==7&&a<1)cx.filter='blur('+((1-a)*16).toFixed(1)+'px) '+F();cx.save();if(fade==9&&a<1){cx.beginPath();cx.rect(0,0,W*a,H);cx.clip()}cx.translate(W/2+(g.px||0)*W/100+ex+X.x,H/2+(g.py||0)*H/100+ey+X.y);cx.rotate((g.rot||0)*Math.PI/2+rt+(g.ra||0)*Math.PI/180);cx.scale((g.fl?-1:1)*s2,s2);if(g.mk){maskPath(cx,g.mk,w*(g.ms||.8),h*(g.ms||.8));cx.clip()}if(g.kbm)cx.globalCompositeOperation=BM[g.kbm]||'source-over';cx.drawImage(g.kk?chroma(S,w,h,{kc:g.kcol,ct:g.ktl,cs:g.kst},720):S,-w/2,-h/2,w,h);cx.restore();if(fade==8&&a<1){cx.filter='none';cx.globalAlpha=(1-a)*.9;cx.fillStyle='#fff';cx.fillRect(0,0,W,H)}}cx.globalAlpha=1;cx.filter='none';if(gf){cx=rc;gradeDraw(F(),fade==7&&a<1?(1-a)*16:0)}}}
+fxPre();ovDraw(false);if(wmi){const w=W*.2,h=w*wmi.height/wmi.width;cx.globalAlpha=.8;cx.drawImage(wmi,W-w-W*.03,H-h-H*.03,w,h);cx.globalAlpha=1}fxPost();for(const o of tx)if(T>=o.a&&T<=o.b&&o.t){const pa=playing?Math.min(1,(T-o.a)/.5):1;cx.globalAlpha=playing?Math.max(0,Math.min(1,(T-o.a)/.25,o.an?(o.b-T)/.25:1)):1;text(o,pa);cx.globalAlpha=1}ui()}
 // Export quality. 'Otomatis' follows the source files' own bitrate (bytes*8/duration, weighted by clip length) +20% headroom,
 // so a heavily compressed source does not balloon into a much larger file. Photos/freezes count as 1.5 Mbps.
 function autoBr(){let bits=0,t=0;for(const g of segs){const d=dur(g);t+=d;bits+=d*(g.bytes&&g.dur?g.bytes*8/g.dur:1.5e6)}const r=t?bits/t:4e6;return Math.round(Math.max(8e5,Math.min(16e6,r*1.2))/1e4)*1e4}
@@ -310,12 +382,12 @@ function vclamp(){if(vsp)return;const t=total()||1;vt0=Math.max(0,Math.min(vt0,t
 function vlay(){vclamp();const k=vt0+'|'+zl+'|'+total()+'|'+(vsp||0);if(k==vk)return;vk=k;const sp=vw();$('#tl').querySelectorAll('.sg').forEach((d,i)=>{const g=segs[i];if(!g)return;d.style.left=((start(i)-vt0)/sp*100)+'%';d.style.width=(dur(g)/sp*100)+'%'});al();$('#zt').textContent=zl>1.01?(zl<10?zl.toFixed(1):Math.round(zl))+'×':''}
 function follow(){if(zl<=1.01||vsp)return;const sp=vw();if(T<vt0||T>vt0+sp*.97)vt0=T-sp*.1}
 function setZoom(z,aT,fr){const t=total()||1;z=Math.max(1,Math.min(z,Math.min(64,t/.5)));if(z<1.02)z=1;const o=vw();fr=fr??Math.max(0,Math.min(1,(aT-vt0)/o));zl=z;vt0=aT-fr*(t/z);vclamp();vk='';vlay();ui()}
-function tl(){const el=$('#tl');el.querySelectorAll('.sg').forEach(e=>e.remove());segs.forEach((s,i)=>{const d=document.createElement('div');d.className='sg'+(i==sel?' on':'');if(s.th){d.style.backgroundImage='url('+s.th+')';d.style.backgroundSize='cover';d.style.textShadow='0 0 3px #000'}d.textContent=(OV(s)?'✨ ':'')+(s.vol===0?'🔇 ':'')+(s.sp!=1?s.sp+'× ':'')+s.name;el.insertBefore(d,$('#ph'))});if(!segs.length){zl=1;vt0=0}vk='';al();sy();ui()}
+function tl(){const el=$('#tl');el.querySelectorAll('.sg').forEach(e=>e.remove());segs.forEach((s,i)=>{const d=document.createElement('div');d.className='sg'+(i==sel?' on':'');if(s.th){d.style.backgroundImage='url('+s.th+')';d.style.backgroundSize='cover';d.style.textShadow='0 0 3px #000'}d.textContent=(s.kf&&s.kf.length?'◆ ':'')+(s.mk?'🎭 ':'')+(OV(s)?'✨ ':'')+(s.vol===0?'🔇 ':'')+(s.sp!=1?s.sp+'× ':'')+s.name;if(s.kf&&i==sel){const L=(s.out-s.in)||1;s.kf.forEach(q=>{if(q.t<s.in-1e-3||q.t>s.out+1e-3)return;const m=document.createElement('i');m.className='kd';m.style.left=Math.max(0,Math.min(100,(q.t-s.in)/L*100))+'%';d.appendChild(m)})}el.insertBefore(d,$('#ph'));});if(!segs.length){zl=1;vt0=0}vk='';al();sy();ui()}
 const num=(o,k,ti)=>{const n=document.createElement('input');n.type='number';n.step='.1';n.title=ti;n.value=(+o[k]).toFixed(1);n.onchange=()=>{snap();o[k]=+n.value;draw()};return n};
-function rl(){const el=$('#tx');el.innerHTML='';tx.forEach((o,i)=>{const r=document.createElement('div');r.className='r';const t=document.createElement('input');t.value=o.t;t.onfocus=()=>{snap();if(!playing)seek(o.a+.01)};t.oninput=()=>{o.t=t.value;draw();autosave()};const x=document.createElement('button');x.className='b';x.textContent='✕';x.onclick=()=>{snap();tx.splice(i,1);rl();draw()};r.append(t,num(o,'a','Mulai'),num(o,'b','Selesai'),x);
+function rl(){const el=$('#tx');el.innerHTML='';if(selx>=tx.length)selx=-1;tx.forEach((o,i)=>{const r=document.createElement('div');r.className='r'+(i==selx?' on':'');const t=document.createElement('input');t.value=o.t;t.onfocus=()=>{snap();if(!playing)seek(o.a+.01)};t.oninput=()=>{o.t=t.value;draw();autosave()};const x=document.createElement('button');x.className='b';x.textContent='✕';x.onclick=()=>{snap();tx.splice(i,1);rl();draw()};r.append(t,num(o,'a','Mulai'),num(o,'b','Selesai'),x);
 const r2=document.createElement('div');r2.className='r2';const c=document.createElement('input');c.type='color';c.title='Warna';c.value=o.c||'#ffffff';c.onpointerdown=snap;c.oninput=()=>{o.c=c.value;draw();autosave()};
-const mk=(k,opts)=>{const e=document.createElement('select');opts.forEach(([l,val])=>{const p=document.createElement('option');p.textContent=l;p.value=val;e.append(p)});e.value=o[k];e.onchange=()=>{snap();o[k]=+e.value;if(k=='y')o.x=50;draw()};return e};
-o.z=o.z||1;o.s=o.s||0;r2.append(c,mk('z',[['Kecil',.7],['Sedang',1],['Besar',1.4],['Raksasa',2.5]]),mk('y',[['Atas',15],['Tengah',50],['Bawah',82]]),mk('s',[['Outline',0],['Kotak',1],['Glow',2],['Kuning',3]]));el.append(r,r2)});$('#nt').style.display=tx.length?'none':'block'}
+const mk=(k,opts)=>{const e=document.createElement('select');opts.forEach(([l,val])=>{const p=document.createElement('option');p.textContent=l;p.value=val;e.append(p)});e.value=o[k];e.onchange=()=>{snap();o[k]=+e.value;if(k=='y')o.x=50;draw();if(k=='an')prevAnim(o)};return e};
+o.z=o.z||1;o.s=o.s||0;o.an=o.an||0;o.f=o.f||0;r2.append(c,mk('z',[['Kecil',.7],['Sedang',1],['Besar',1.4],['Raksasa',2.5]]),mk('y',[['Atas',15],['Tengah',50],['Bawah',82]]),mk('s',[['Outline',0],['Kotak',1],['Glow',2],['Kuning',3]]),mk('f',[['Font: Sans',0],['Font: Serif',1],['Font: Mono',2],['Font: Tebal',3],['Font: Tulis',4]]),mk('an',[['Tanpa animasi',0],['Pop',1],['Naik',2],['Ketik',3],['Memantul',4],['Zoom masuk',5]]));el.append(r,r2)});$('#nt').style.display=tx.length?'none':'block';txl()}
 $('#fi').onchange=async e=>{if(freshNext){freshNext=false;newProject()}for(const f of e.target.files){if(f.type.startsWith('image/')){await addImage(f);continue}const u=URL.createObjectURL(f);const d=await new Promise(r=>{const x=document.createElement('video');x.preload='metadata';x.onloadedmetadata=()=>r(x);x.onerror=()=>r(null);x.src=u});if(!d||!isFinite(d.duration)||d.duration<=0){URL.revokeObjectURL(u);msg('Gagal membaca video '+f.name);continue}const nm=f.name.replace(/\.[^.]+$/,'').slice(0,14);if(pend){let hit=0;pend.segs.forEach(g=>{if(g.name==nm&&!g.fz){g.u=u;hit++}});(pend.aus||[]).forEach(a=>{if(a.name==nm){a.u=u;hit++}});if(!hit)msg('Tidak cocok dengan proyek: '+f.name);if(pend.segs.every(g=>g.u||g.fz)){snap();segs=pend.segs;aus=(pend.aus||[]).filter(a=>a.u);sela=aus.length?0:-1;pend=null;sel=0;tl();rl();await seek(0);msg('Proyek berhasil dimuat!')}else{const left=[...new Set(pend.segs.filter(g=>!g.u&&!g.fz).map(g=>g.name))];msg('Masih butuh file: '+left.join(', '))}continue}if(!segs.length){if(!presetLock)setSize(d.videoWidth>=d.videoHeight);presetLock=false}snap();segs.push({u,name:nm,in:0,out:d.duration,dur:d.duration,bytes:f.size,sp:1,vol:1,th:await th(d)})}e.target.value='';tl();if(segs.length)await seek(T)};
 $('#pl').onclick=()=>playing?stop():play();
 $('#sc').oninput=e=>{if(playing)stop();seek(e.target.value/1000*total())};
@@ -372,20 +444,20 @@ addEventListener('error',e=>oops(e.message));addEventListener('unhandledrejectio
 addEventListener('beforeunload',e=>{if(exp||rec){e.preventDefault();e.returnValue=''}});
 addEventListener('keydown',e=>{if(exp||$('#home').classList.contains('on'))return;const n=e.target.tagName,k=e.key;if(n=='INPUT'||n=='SELECT'||n=='TEXTAREA')return;if(e.ctrlKey||e.metaKey){if(k.toLowerCase()=='z'){e.preventDefault();e.shiftKey?redo():undo()}else if(k.toLowerCase()=='y'){e.preventDefault();redo()}return}
 if(k==' '){e.preventDefault();$('#pl').click()}else if(k=='s'||k=='S')$('#sp').click();else if(k=='Delete'||k=='Backspace')$('#dl').click();else if(k=='+'||k=='='){e.preventDefault();$('#zi').click()}else if(k=='-'||k=='_'){e.preventDefault();$('#zo').click()}else if(k=='0'){setZoom(1,T)}else if(k==','||k=='.'){e.preventDefault();if(playing)stop();seek(T+(k==','?-1:1)/30)}else if(k=='ArrowLeft'||k=='ArrowRight'){e.preventDefault();if(playing)stop();seek(T+(k=='ArrowLeft'?-1:1)*(e.shiftKey?.1:1))}});
-function sy(){const g=segs[sel]||{};$('#zm').value=(g.zm||1)*100;$('#px').value=g.px||0;$('#py').value=g.py||0;sfx()}
+function sy(){const g=segs[sel]||{};$('#zm').value=(g.zm||1)*100;$('#px').value=g.px||0;$('#py').value=g.py||0;kfui();sfx()}
 ['zm','px','py'].forEach(k=>{const e=$('#'+k);e.onpointerdown=()=>{if(segs[sel])snap()};e.oninput=()=>{const g=segs[sel];if(!g)return;g[k]=k=='zm'?e.value/100:+e.value;rdraw()}});
 $('#zr').onclick=()=>{const g=segs[sel];if(!g)return;snap();g.zm=1;g.px=0;g.py=0;g.rot=0;g.fl=0;sy();draw()};
-let rq=0;const rdraw=()=>{if(rq||playing||exp)return;rq=requestAnimationFrame(()=>{rq=0;draw()})};
-let pd=null,td=null;
+let rq=0;const rdraw=()=>{kfw();if(rq||playing||exp)return;rq=requestAnimationFrame(()=>{rq=0;draw()})};
+let pd=null,td=null,od=null;
 cv.onpointerdown=e=>{const r=cv.getBoundingClientRect(),mx=(e.clientX-r.left)/r.width*100,my=(e.clientY-r.top)/r.height*100;
 const hit=[...tx].reverse().find(o=>T>=o.a&&T<=o.b&&o.t&&Math.abs((o.x??50)-mx)<22&&Math.abs((o.y??50)-my)<12);
 const cap=()=>{try{cv.setPointerCapture(e.pointerId)}catch{}};
-if(hit){td={o:hit,x:e.clientX,y:e.clientY,ox:hit.x??50,oy:hit.y??50,s:0};cap();return}
-const g=segs[sel];if(!g)return;pd={x:e.clientX,y:e.clientY,px:g.px||0,py:g.py||0,s:0};cap()};
-cv.onpointermove=e=>{const r=cv.getBoundingClientRect();if(td&&!td.s){td.s=1;snap()}if(pd&&!pd.s){pd.s=1;snap()}if(td){td.o.x=Math.max(5,Math.min(95,td.ox+(e.clientX-td.x)/r.width*100));td.o.y=Math.max(5,Math.min(95,td.oy+(e.clientY-td.y)/r.height*100));rdraw();return}if(!pd)return;const g=segs[sel];if(!g)return;g.px=Math.max(-100,Math.min(100,pd.px+(e.clientX-pd.x)/r.width*100));g.py=Math.max(-100,Math.min(100,pd.py+(e.clientY-pd.y)/r.height*100));sy();rdraw()};
-cv.onpointerup=cv.onpointercancel=()=>{pd=null;td=null};
+if(hit){selx=tx.indexOf(hit);txl();td={o:hit,x:e.clientX,y:e.clientY,ox:hit.x??50,oy:hit.y??50,s:0};cap();return}
+const oh=ovHit(mx/100*W,my/100*H);if(oh>=0){selOv(oh);const r0=ovRect(ovs[oh]);od={x:e.clientX,y:e.clientY,cx:(r0.x+r0.w/2)/W*100,cy:(r0.y+r0.h/2)/H*100,s:0};so();cap();return}const g=segs[sel];if(!g)return;pd={x:e.clientX,y:e.clientY,px:g.px||0,py:g.py||0,s:0};cap()};
+cv.onpointermove=e=>{const r=cv.getBoundingClientRect();if(td&&!td.s){td.s=1;snap()}if(pd&&!pd.s){pd.s=1;snap()}if(td){td.o.x=Math.max(5,Math.min(95,td.ox+(e.clientX-td.x)/r.width*100));td.o.y=Math.max(5,Math.min(95,td.oy+(e.clientY-td.y)/r.height*100));rdraw();return}if(od){if(!od.s){od.s=1;snap()}const o=ovs[ovi];if(o){o.x=Math.max(0,Math.min(100,od.cx+(e.clientX-od.x)/r.width*100));o.y=Math.max(0,Math.min(100,od.cy+(e.clientY-od.y)/r.height*100));rdraw0();so()}return}if(!pd)return;const g=segs[sel];if(!g)return;g.px=Math.max(-100,Math.min(100,pd.px+(e.clientX-pd.x)/r.width*100));g.py=Math.max(-100,Math.min(100,pd.py+(e.clientY-pd.y)/r.height*100));sy();rdraw()};
+cv.onpointerup=cv.onpointercancel=()=>{if(od&&od.s)autosave();pd=null;td=null;od=null};
 const P=new Map();let pz=null;
-cv.addEventListener('pointerdown',e=>{P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size==2){pd=null;td=null;snap();const[a,b]=[...P.values()];pz={d:Math.hypot(a[0]-b[0],a[1]-b[1]),z:segs[sel]?.zm||1}}});
+cv.addEventListener('pointerdown',e=>{P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size==2){pd=null;td=null;od=null;snap();const[a,b]=[...P.values()];pz={d:Math.hypot(a[0]-b[0],a[1]-b[1]),z:segs[sel]?.zm||1}}});
 cv.addEventListener('pointermove',e=>{if(!P.has(e.pointerId))return;P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size==2&&pz&&segs[sel]){const[a,b]=[...P.values()];segs[sel].zm=Math.max(.3,Math.min(3,pz.z*Math.hypot(a[0]-b[0],a[1]-b[1])/pz.d));sy();rdraw()}});
 const pu=e=>{P.delete(e.pointerId);if(P.size<2)pz=null};cv.addEventListener('pointerup',pu);cv.addEventListener('pointercancel',pu);
 $('#zi').onclick=()=>setZoom(zl*2,T);$('#zo').onclick=()=>setZoom(zl/2,T);
@@ -399,17 +471,27 @@ async function addImage(f){const u=URL.createObjectURL(f),im=await loadImg(u);if
 $('#dph').onclick=()=>{const g=segs[sel];if(!g||!g.fz)return msg('Pilih klip foto/freeze dulu');if(playing)stop();snap();const o=[2,3,5,7,10],d=g.out-g.in,i=o.findIndex(x=>Math.abs(x-d)<.05);g.in=0;g.sp=1;g.out=o[(i+1)%o.length];T=Math.min(T,total());tl();msg('Durasi foto '+g.out+' dtk');seek(T)};
 
 $('#fz').onclick=async()=>{const l=locate(T);if(!l)return;const g=segs[l.i];if(g.fz)return msg('Pilih posisi di klip video');if(playing)stop();await seek(T);if(!v.videoWidth)return;snap();const c=document.createElement('canvas');c.width=v.videoWidth;c.height=v.videoHeight;c.getContext('2d').drawImage(v,0,0);const sv=scaled(c,1280).toDataURL('image/jpeg',.75);const t=document.createElement('canvas');t.width=96;t.height=54;t.getContext('2d').drawImage(c,0,0,96,54);const id='f'+Date.now()+Math.random().toString(36).slice(2,5),f={fz:1,fid:id,u:'img',name:'❄ Freeze',in:0,out:2,sp:1,vol:0,th:t.toDataURL('image/jpeg',.5),img:sv},m=g.in+l.off*g.sp,d=dur(g);fzs.set(id,c);const parts=l.off<.1?[f,g]:l.off>d-.1?[g,f]:[{...g,out:m},f,{...g,in:m}];segs.splice(l.i,1,...parts);sel=segs.indexOf(f);tl();msg('Freeze 2 dtk dibuat.');seek(start(sel))};
-let ov=null;const pv=document.createElement('video');pv.playsInline=true;pv.muted=true;pv.preload='auto';pv.onseeked=()=>{if(!playing)draw()};
-function ovDraw(){if(!ov||!pv.videoWidth)return;const t=T-ov.a;if(t<0||t>Math.min(ov.d,pv.duration)){if(!pv.paused)pv.pause();return}const q=ov.in+t;if(playing){if(pv.paused||Math.abs(pv.currentTime-q)>.3){pv.currentTime=q;pv.play().catch(()=>{})}}else{pv.pause();if(Math.abs(pv.currentTime-q)>.05)pv.currentTime=q}const w=W*ov.s/100,h=w*pv.videoHeight/pv.videoWidth,m=W*.03,x=ov.p&1?W-w-m:m,y=ov.p&2?H-h-m:m;cx.save();cx.fillStyle='#fff';cx.fillRect(x-3,y-3,w+6,h+6);cx.drawImage(pv,x,y,w,h);cx.restore()}
-const so=()=>{if(!ov)return;$('#ps').value=ov.s;$('#pp').value=ov.p;$('#pt').value=ov.a.toFixed(1);$('#pdr').value=ov.d.toFixed(1)};
+const mkPv=()=>{const e=document.createElement('video');e.playsInline=true;e.muted=true;e.preload='auto';e.onseeked=()=>{if(!playing)draw()};return e};
+const pv0=mkPv(),ovEls=new Map();let ov=null,ovi=-1,pv=pv0;
+function selOv(i){ovi=ovs[i]?i:-1;ov=ovi>=0?ovs[ovi]:null;pv=ov?ov.el:pv0}
+const oPar=o=>({id:o.id,bk:o.bk,kind:o.kind,emo:o.emo,rot:o.rot,name:o.name,a:o.a,in:o.in,d:o.d,s:o.s,p:o.p,x:o.x,y:o.y,op:o.op,bm:o.bm,mk:o.mk,ck:o.ck,kc:o.kc,ct:o.ct,cs:o.cs});
+function clearOvs(rm){ovs.forEach(o=>{o.el.pause();if(rm)o.el.removeAttribute('src')});ovs=[];selOv(-1);ovp=null}
+function ovRestore(L,i){const next=(L||[]).map(r=>{const b=ovEls.get(r.id);if(!b)return null;delete b.x;delete b.y;delete b.rot;Object.assign(b,r);return b}).filter(Boolean);ovs.forEach(o=>{if(!next.includes(o))o.el.pause()});ovs=next;selOv(Math.max(-1,Math.min(i??ovi,ovs.length-1)))}
+function ovRect(o){const e=o.el,w=W*o.s/100,h=w*e.videoHeight/e.videoWidth,m=W*.03;let x,y;if(o.x!==undefined){x=W*o.x/100-w/2;y=H*o.y/100-h/2}else{x=o.p&1?W-w-m:m;y=o.p&2?H-h-m:m}return{x,y,w,h}}
+function ovHit(px,py){for(let i=ovs.length-1;i>=0;i--){const o=ovs[i],e=o.el;if(o.bk||!e.videoWidth)continue;const t=T-o.a;if(t<0||t>Math.min(o.d,e.duration))continue;const r=ovRect(o),a=-(o.rot||0)*Math.PI/180,dx=px-(r.x+r.w/2),dy=py-(r.y+r.h/2),rx=dx*Math.cos(a)-dy*Math.sin(a),ry=dx*Math.sin(a)+dy*Math.cos(a);if(Math.abs(rx)<=r.w/2&&Math.abs(ry)<=r.h/2)return i}return -1}
+function ovDraw(back){for(const o of ovs)if(!o.bk===!back)ovDraw1(o)}
+function ovDraw1(o){const e=o.el;if(!e.videoWidth)return;const t=T-o.a;if(t<0||t>Math.min(o.d,e.duration)){if(!e.paused)e.pause();return}const q=o.in+t;
+if(playing){if(e.paused||Math.abs(e.currentTime-q)>.3){e.currentTime=q;e.play().catch(()=>{})}}else{e.pause();if(Math.abs(e.currentTime-q)>.05)e.currentTime=q}
+const r=ovRect(o),w=r.w,h=r.h;cx.save();cx.globalAlpha=(o.op??100)/100;if(o.bm)cx.globalCompositeOperation=BM[o.bm]||'source-over';const SS=o.ck?chroma(e,w,h,o):e;cx.translate(r.x+w/2,r.y+h/2);if(o.rot)cx.rotate(o.rot*Math.PI/180);
+if(o.mk){maskPath(cx,o.mk,w,h);cx.save();cx.clip()}else if(!o.ck&&o.kind!='e'&&o.kind!='i'){cx.fillStyle='#fff';cx.fillRect(-w/2-3,-h/2-3,w+6,h+6)}cx.drawImage(SS,-w/2,-h/2,w,h);if(o.mk)cx.restore();
+if(o===ov&&!playing&&!exp&&$('#t4').classList.contains('on')){cx.globalCompositeOperation='source-over';cx.globalAlpha=1;cx.strokeStyle='#4f8cff';cx.lineWidth=Math.max(2,W/360);cx.setLineDash([8,6]);cx.strokeRect(-w/2,-h/2,w,h)}cx.restore()}
+const so=()=>{if(!ov){pui();olx();return}$('#ps').value=ov.s;$('#pp').value=ov.x!==undefined?4:ov.p;$('#prt').value=ov.rot||0;$('#pt').value=ov.a.toFixed(1);$('#pdr').value=ov.d.toFixed(1);pui();olx()};
 $('#pa').onclick=()=>$('#fq').click();
-$('#fq').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;pv.onloadedmetadata=()=>{ov={a:T,in:0,d:pv.duration,s:35,p:3};so();draw();msg('PiP dipasang (suaranya dibisukan)')};pv.src=URL.createObjectURL(f)};
-$('#ps').oninput=e=>{if(ov){ov.s=+e.target.value;draw()}};
-$('#pp').onchange=e=>{if(ov){ov.p=+e.target.value;draw()}};
-$('#pt').onchange=e=>{if(ov){ov.a=Math.max(0,+e.target.value);draw()}};
-$('#pdr').onchange=e=>{if(ov){ov.d=Math.max(.2,Math.min(pv.duration,+e.target.value));draw()}};
-$('#pk').onclick=()=>{ov=null;pv.pause();pv.removeAttribute('src');draw();msg('PiP dihapus')};
-const PJ=()=>JSON.stringify({v:1,segs:segs.filter(g=>!g.fz||g.img).map(({u,...g})=>g),aus:aus.map(({u,...a})=>a),fxo,fxi,tx,ri,fill,fade,br,ct,sa,filt});
+$('#fq').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const el=mkPv(),nm=f.name.replace(/\.[^.]+$/,'').slice(0,14),u=URL.createObjectURL(f);
+el.onloadedmetadata=()=>{snap();let pi=-1;if(ovp&&ovp.length){pi=ovp.findIndex(q=>q.name==nm);if(pi<0)pi=0}const pr=pi>=0?ovp.splice(pi,1)[0]:{};
+const o={id:'o'+Date.now()+Math.random().toString(36).slice(2,5),a:T,in:0,d:el.duration,s:35,p:3,op:100,bm:0,mk:0,ck:0,kc:[0,255,0],ct:35,cs:20,...pr};o.el=el;o.u=u;o.name=nm;o.d=Math.min(o.d,el.duration);o.in=Math.min(o.in||0,Math.max(0,el.duration-.2));
+const at=pr.zi!==undefined?Math.min(pr.zi,ovs.length):ovs.length;delete o.zi;ovs.splice(at,0,o);ovEls.set(o.id,o);selOv(at);if(ovp&&!ovp.length)ovp=null;autosave();so();draw();msg('PiP '+ovs.length+' dipasang (suaranya dibisukan). Seret di preview untuk memindahkan.')};el.src=u};
+const PJ=()=>JSON.stringify({v:1,segs:segs.filter(g=>!g.fz||g.img).map(({u,...g})=>g),aus:aus.map(({u,...a})=>a),fxo,fxi,tx,ri,fill,fade,br,ct,sa,filt,ovl:[...ovs.map((o,i)=>{const{id,...r}=oPar(o);r.zi=i;if(o.kind=='i')r.src=o.src;return r}),...(ovp||[])]});
 $('#vvl').oninput=e=>{va.volume=e.target.value/100};
 $('#rs2').onclick=()=>{const sv=DB.c;if(!sv)return;$('#fp').onchange({target:{files:[{text:async()=>sv}],value:''}});$('#rs2').hidden=true};
 // Load the saved draft (IndexedDB), migrating an old localStorage draft once.
@@ -421,21 +503,21 @@ let ff=false,lastT=-1,ve=null,kf=0,miss=0,ffR=1.5,xab=false,hq=false,hh=false,hT
 // (2) adapts the playback speed so the timeline never advances more than ~1 frame per tick (no dropped frames),
 // (3) pauses while the encoder queue is full or the tab is hidden.
 function ef(fin){if(!ve||ve.state!='configured')return;const n=Math.max(1,Math.round(total()*FPS));if(kf>=n)return;const lim=fin?n:Math.min(n,Math.floor(T*FPS+1e-6)+1);if(kf>=lim)return;const D=Math.round(1e6/FPS),f0=new VideoFrame(cv,{timestamp:Math.round(kf*1e6/FPS),duration:D});ve.encode(f0,{keyFrame:kf%60==0});kf++;for(;kf<lim;kf++){const f=new VideoFrame(f0,{timestamp:Math.round(kf*1e6/FPS),duration:D});ve.encode(f,{keyFrame:kf%60==0});f.close()}f0.close()}
-function rctl(){if(!ff||busy||hT){rw.t=0;return}const now=performance.now(),q=v.getVideoPlaybackQuality&&v.getVideoPlaybackQuality();if(!rw.t){rw.t=now;rw.T=T;rw.n=0;rw.d=q?q.droppedVideoFrames:0;return}rw.n++;if(now-rw.t<350)return;const a=(T-rw.T)*FPS/rw.n;let f=a>.01?Math.max(.7,Math.min(1.3,.85/a)):1.3;if(q&&q.droppedVideoFrames>rw.d)f=Math.min(f,.8);const r0=ffR;ffR=Math.max(.25,Math.min(4,ffR*f));if(Math.abs(ffR-r0)>.01){const s=segs[cur];if(s){if(s.fz){const el=(now-fz0)/1e3*r0;fz0=now-el*1e3/ffR}else v.playbackRate=s.sp*ffR}pv.playbackRate=Math.min(16,ffR)}rw.t=now;rw.T=T;rw.n=0;rw.d=q?q.droppedVideoFrames:0}
-function pauseM(){if(hT)return;hT=performance.now();v.pause();pv.pause()}
+function rctl(){if(!ff||busy||hT){rw.t=0;return}const now=performance.now(),q=v.getVideoPlaybackQuality&&v.getVideoPlaybackQuality();if(!rw.t){rw.t=now;rw.T=T;rw.n=0;rw.d=q?q.droppedVideoFrames:0;return}rw.n++;if(now-rw.t<350)return;const a=(T-rw.T)*FPS/rw.n;let f=a>.01?Math.max(.7,Math.min(1.3,.85/a)):1.3;if(q&&q.droppedVideoFrames>rw.d)f=Math.min(f,.8);const r0=ffR;ffR=Math.max(.25,Math.min(4,ffR*f));if(Math.abs(ffR-r0)>.01){const s=segs[cur];if(s){if(s.fz){const el=(now-fz0)/1e3*r0;fz0=now-el*1e3/ffR}else v.playbackRate=s.sp*ffR}ovs.forEach(o=>o.el.playbackRate=Math.min(16,ffR))}rw.t=now;rw.T=T;rw.n=0;rw.d=q?q.droppedVideoFrames:0}
+function pauseM(){if(hT)return;hT=performance.now();v.pause();pv.pause();ovs.forEach(o=>o.el.pause())}
 function resumeM(){if(!hT||hq||hh)return;fz0+=performance.now()-hT;hT=0;const s=segs[cur];if(playing&&ff&&s&&!s.fz&&!busy)v.play().catch(()=>{})}
 async function drain(){hq=true;pauseM();while(ve&&ve.state=='configured'&&ve.encodeQueueSize>2&&ff)await new Promise(r=>setTimeout(r,6));hq=false;resumeM()}
 document.addEventListener('visibilitychange',()=>{if(!ff)return;if(document.hidden){hh=true;pauseM()}else{hh=false;resumeM()}});
 // While exporting, lock the editing UI (inert) so a stray tap cannot stop playback or edit the timeline; only the button (now "Batal") stays live.
-const XL=['#zo','#zi','#pn','#tl','#atl','#sc','.tb','#pl','#un','#re','#hm','#ff','#q','#cv'];
+const XL=['#zo','#zi','#pn','#tl','#atl','#ttl','#otl','#sc','.tb','#pl','#un','#re','#hm','#ff','#q','#cv'];
 const setExp=on=>{exp=on;const b=$('#ex');if(b)b.textContent=on?'Batal':'Ekspor';XL.forEach(x=>{const e=$(x);if(e)e.inert=on})};
 function cancelExp(){if(!exp)return;xab=true;msg('Membatalkan…');if(playing)stop()}
 let xbusy=false;const runExp=fn=>{if(exp)return cancelExp();if(xbusy)return;xbusy=true;Promise.resolve().then(fn).catch(()=>{}).finally(()=>{xbusy=false})};
-async function mixAudio(D,SR){miss=0;const len=Math.max(1,Math.ceil(D*SR)),oc=new OfflineAudioContext(2,len,SR),dc=new AudioContext({sampleRate:SR});const dec=async u=>{try{return await dc.decodeAudioData(await(await fetch(u)).arrayBuffer())}catch{miss++;return null}};const add=(b,g,when,off,stopAt,rate,lp,fd)=>{if(!b)return;const durPlay=stopAt-when;if(durPlay<=0)return;const s=oc.createBufferSource(),gn=oc.createGain();s.buffer=b;s.playbackRate.value=rate||1;s.loop=!!lp;gn.gain.value=g;if(fd){const f=Math.min(.3,durPlay/2),w0=Math.max(0,when);gn.gain.setValueAtTime(0,w0);gn.gain.linearRampToValueAtTime(g,w0+f);gn.gain.setValueAtTime(g,Math.max(w0+f,stopAt-f));gn.gain.linearRampToValueAtTime(0,stopAt)}s.connect(gn);gn.connect(oc.destination);const w=Math.max(0,when),o=Math.max(0,off||0);if(lp)s.start(w,o);else s.start(w,o,durPlay*(rate||1));s.stop(stopAt)};const ch=new Map();let i=0;for(const s of segs){if(!s.fz&&(s.vol??1)>0){if(!ch.has(s.u))ch.set(s.u,await dec(s.u));add(ch.get(s.u),s.vol??1,start(i),s.in,start(i)+dur(s),s.sp,false,s.fd??fade)}i++}for(const a of aus){if(!a.u||a.at>=D)continue;if(!ch.has(a.u))ch.set(a.u,await dec(a.u));add(ch.get(a.u),a.vol??1,a.at,a.in,Math.min(D,a.at+dur(a)),a.sp)}if(ma.src)add(await dec(ma.src),+$('#mvl').value/100,0,0,D,1,true);if(va.src)add(await dec(va.src),+$('#vvl').value/100,0,0,D,1,false);try{await dc.close()}catch{}return oc.startRendering()}
-let fastWhy='';async function fastExport(auto){fastWhy='';if(!window.Mp4Muxer&&window.VideoEncoder)await new Promise(r=>{const t0=Date.now(),i=setInterval(()=>{if(window.Mp4Muxer||Date.now()-t0>4000){clearInterval(i);r()}},100)});if(!window.VideoEncoder||!window.AudioEncoder||!window.Mp4Muxer||!window.OfflineAudioContext){fastWhy='cepat tidak tersedia: '+['VideoEncoder','AudioEncoder','Mp4Muxer','OfflineAudioContext'].filter(k=>!window[k]).join(', ')+' tidak ada';if(auto)return slowExport();return msg('Browser belum mendukung MP4 ('+fastWhy+'). Pilih format WebM.')}if(!segs.length)return msg('Tambah klip dulu');if(playing)stop();let err=null;const fin=()=>{ff=false;setExp(false);hq=hh=false;hT=0;try{wl&&wl.release()}catch{}wl=null;pv.playbackRate=1;if(segs[cur]&&!segs[cur].fz)v.playbackRate=segs[cur].sp};
+async function mixAudio(D,SR){miss=0;const len=Math.max(1,Math.ceil(D*SR)),oc=new OfflineAudioContext(2,len,SR),dc=new AudioContext({sampleRate:SR});const dec=async u=>{try{return await dc.decodeAudioData(await(await fetch(u)).arrayBuffer())}catch{miss++;return null}};const add=(b,g,when,off,stopAt,rate,lp,fd)=>{if(!b)return;const durPlay=stopAt-when;if(durPlay<=0)return;const s=oc.createBufferSource(),gn=oc.createGain();s.buffer=b;s.playbackRate.value=rate||1;s.loop=!!lp;gn.gain.value=g;if(fd){const f=Math.min(.3,durPlay/2),w0=Math.max(0,when);gn.gain.setValueAtTime(0,w0);gn.gain.linearRampToValueAtTime(g,w0+f);gn.gain.setValueAtTime(g,Math.max(w0+f,stopAt-f));gn.gain.linearRampToValueAtTime(0,stopAt)}s.connect(gn);gn.connect(oc.destination);const w=Math.max(0,when),o=Math.max(0,off||0);if(lp)s.start(w,o);else s.start(w,o,durPlay*(rate||1));s.stop(stopAt)};const ch=new Map();let i=0;for(const s of segs){if(!s.fz&&(s.vol??1)>0){if(!ch.has(s.u))ch.set(s.u,await dec(s.u));add(ch.get(s.u),s.vol??1,start(i),s.in,start(i)+dur(s),s.sp,false,(s.n0||s.n1)?0:(s.fd??fade))}i++}for(const a of aus){if(!a.u||a.at>=D)continue;if(!ch.has(a.u))ch.set(a.u,await dec(a.u));add(ch.get(a.u),a.vol??1,a.at,a.in,Math.min(D,a.at+dur(a)),a.sp)}if(ma.src)add(await dec(ma.src),+$('#mvl').value/100,0,0,D,1,true);if(va.src)add(await dec(va.src),+$('#vvl').value/100,0,0,D,1,false);try{await dc.close()}catch{}return oc.startRendering()}
+let fastWhy='';async function fastExport(auto){fastWhy='';if(!window.Mp4Muxer&&window.VideoEncoder)await new Promise(r=>{const t0=Date.now(),i=setInterval(()=>{if(window.Mp4Muxer||Date.now()-t0>4000){clearInterval(i);r()}},100)});if(!window.VideoEncoder||!window.AudioEncoder||!window.Mp4Muxer||!window.OfflineAudioContext){fastWhy='cepat tidak tersedia: '+['VideoEncoder','AudioEncoder','Mp4Muxer','OfflineAudioContext'].filter(k=>!window[k]).join(', ')+' tidak ada';if(auto)return slowExport();return msg('Browser belum mendukung MP4 ('+fastWhy+'). Pilih format WebM.')}if(!segs.length)return msg('Tambah klip dulu');if(playing)stop();let err=null;const fin=()=>{ff=false;setExp(false);hq=hh=false;hT=0;try{wl&&wl.release()}catch{}wl=null;ovs.forEach(o=>o.el.playbackRate=1);pv.playbackRate=1;if(segs[cur]&&!segs[cur].fz)v.playbackRate=segs[cur].sp};
 try{await seek(0);msg('Menyiapkan audio…');const SR=48000,au=await mixAudio(total(),SR);let acd=null;for(const[c,m]of[['mp4a.40.2','aac'],['opus','opus']]){try{if((await AudioEncoder.isConfigSupported({codec:c,sampleRate:SR,numberOfChannels:2,bitrate:128000})).supported){acd=[c,m];break}}catch{}}if(!acd)throw new Error('encoder audio tidak didukung');const mx=new Mp4Muxer.Muxer({target:new Mp4Muxer.ArrayBufferTarget(),video:{codec:'avc',width:W,height:H},audio:{codec:acd[1],numberOfChannels:2,sampleRate:SR},fastStart:'in-memory',firstTimestampBehavior:'offset'});const ae=new AudioEncoder({output:(c,m)=>mx.addAudioChunk(c,m),error:x=>{err=x}});ve=new VideoEncoder({output:(c,m)=>mx.addVideoChunk(c,m),error:x=>{err=x}});let vc=null;for(const c of ['avc1.640032','avc1.64002A','avc1.4D0032','avc1.42001F']){try{const s=await VideoEncoder.isConfigSupported({codec:c,width:W,height:H,bitrate:qb(),framerate:30});if(s.supported){vc=c;break}}catch{}}if(!vc)throw new Error('encoder video H.264 tidak didukung');ve.configure({codec:vc,width:W,height:H,bitrate:qb(),framerate:30});ae.configure({codec:acd[0],sampleRate:SR,numberOfChannels:2,bitrate:128000});
 for(let o=0;o<au.length;o+=SR){const n=Math.min(SR,au.length-o),d=new Float32Array(n*2);d.set(au.getChannelData(0).subarray(o,o+n),0);d.set(au.getChannelData(1).subarray(o,o+n),n);const a=new AudioData({format:'f32-planar',sampleRate:SR,numberOfFrames:n,numberOfChannels:2,timestamp:Math.round(o/SR*1e6),data:d});ae.encode(a);a.close()}
-xab=false;hq=hh=false;hT=0;rw.t=0;ffR=1.5;kf=0;try{wl=await navigator.wakeLock?.request('screen')}catch{}ff=true;setExp(true);pv.playbackRate=ffR;if(segs[cur]&&!segs[cur].fz)v.playbackRate=segs[cur].sp*ffR;await new Promise((r,j)=>{done=r;play().catch(j)});if(xab)throw new Error('dibatalkan');ef(true);fin();await ve.flush();await ae.flush();if(err)throw err;mx.finalize();await save(new Blob([mx.target.buffer],{type:'video/mp4'}),'video-editan.mp4');if(miss)msg('Selesai, tapi audio '+miss+' file tidak terbaca')}catch(e){done=null;stop();fin();try{ve&&ve.state!='closed'&&ve.close()}catch{}if(xab){xab=false;return msg('Ekspor dibatalkan')}const why=e&&e.message||e;if(auto){fastWhy='cepat gagal: '+why;msg('Ekspor cepat gagal ('+why+'), mencoba cara biasa…');return slowExport()}msg('Ekspor MP4 gagal ('+why+'). Pilih format WebM lalu Ekspor.')}finally{ve=null}}
+xab=false;hq=hh=false;hT=0;rw.t=0;ffR=1.5;kf=0;try{wl=await navigator.wakeLock?.request('screen')}catch{}ff=true;setExp(true);ovs.forEach(o=>o.el.playbackRate=Math.min(16,ffR));pv.playbackRate=ffR;if(segs[cur]&&!segs[cur].fz)v.playbackRate=segs[cur].sp*ffR;await new Promise((r,j)=>{done=r;play().catch(j)});if(xab)throw new Error('dibatalkan');ef(true);fin();await ve.flush();await ae.flush();if(err)throw err;mx.finalize();await save(new Blob([mx.target.buffer],{type:'video/mp4'}),'video-editan.mp4');if(miss)msg('Selesai, tapi audio '+miss+' file tidak terbaca')}catch(e){done=null;stop();fin();try{ve&&ve.state!='closed'&&ve.close()}catch{}if(xab){xab=false;return msg('Ekspor dibatalkan')}const why=e&&e.message||e;if(auto){fastWhy='cepat gagal: '+why;msg('Ekspor cepat gagal ('+why+'), mencoba cara biasa…');return slowExport()}msg('Ekspor MP4 gagal ('+why+'). Pilih format WebM lalu Ekspor.')}finally{ve=null}}
 $('#ef').onclick=()=>runExp(()=>fastExport(false));
 const th=d=>new Promise(r=>{let ok=false;const fin=v=>{if(!ok){ok=true;r(v)}};d.onseeked=()=>{const c=document.createElement('canvas');c.width=96;c.height=54;c.getContext('2d').drawImage(d,0,0,96,54);fin(c.toDataURL('image/jpeg',.5))};d.currentTime=Math.min(.1,d.duration/2);setTimeout(()=>fin(''),1500)});
 $('#rt').onclick=()=>{const g=segs[sel];if(!g)return;snap();g.rot=((g.rot||0)+1)%4;draw()};
@@ -454,13 +536,13 @@ $('#fm').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;m
 $('#mvl').oninput=e=>{ma.volume=e.target.value/100};
 $('#pj').onclick=()=>{if(!segs.length)return msg('Tambah klip dulu');save(new Blob([PJ()],{type:'application/json'}),'proyek.json')};
 $('#po').onclick=()=>$('#fp').click();
-$('#fp').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const p=JSON.parse(await f.text());if(!p.segs)throw 0;for(const g of p.segs)if(g.img){const im=await loadImg(g.img);if(im){fzs.set(g.fid,scaled(im,1920));g.u='img'}}p.segs=p.segs.filter(g=>!g.fz||g.u);if(playing)stop();snap();tx=p.tx||[];setR(p.ri||0);fill=+p.fill||0;fade=+p.fade||0;br=p.br??100;ct=p.ct??100;sa=p.sa??100;filt=p.filt||'none';$('#fl').value=filt;$('#br').value=br;$('#ct').value=ct;$('#sa').value=sa;$('#ft').textContent='Layar: '+LF[fill];$('#fd').value=fade;fxo=p.fxo||{};fxi=p.fxi??60;
+$('#fp').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const p=JSON.parse(await f.text());if(!p.segs)throw 0;for(const g of p.segs)if(g.img){const im=await loadImg(g.img);if(im){fzs.set(g.fid,scaled(im,1920));g.u='img'}}p.segs=p.segs.filter(g=>!g.fz||g.u);if(playing)stop();snap();tx=p.tx||[];setR(p.ri||0);fill=+p.fill||0;fade=+p.fade||0;br=p.br??100;ct=p.ct??100;sa=p.sa??100;filt=p.filt||'none';$('#fl').value=filt;$('#br').value=br;$('#ct').value=ct;$('#sa').value=sa;$('#ft').textContent='Layar: '+LF[fill];$('#fd').value=fade;fxo=p.fxo||{};fxi=p.fxi??60;clearOvs(false);await ovLoad(p.ovl||(p.ovp?[p.ovp]:null));
 const needVid=p.segs.some(g=>!g.u)||((p.aus||[]).some(a=>!a.u));
 if(!needVid){segs=p.segs;aus=(p.aus||[]).filter(a=>a.u);sela=aus.length?0:-1;pend=null;sel=0;syncFx();tl();rl();await seek(0);msg('Proyek berhasil dimuat!')}
 else{pend=p;segs=[];aus=[];syncFx();tl();rl();draw();const names=[...new Set([...p.segs.filter(g=>!g.u).map(g=>g.name),...(p.aus||[]).filter(a=>!a.u).map(a=>a.name)])];msg('Pilih ulang file video asli: '+names.join(', '))}}catch{msg('File proyek tidak valid')}};
 function ael(a){let e=aels.get(a.id);if(!e){e=new Audio();e.preload='auto';e.src=a.u;aels.set(a.id,e)}return e}
 function auSync(){for(const[id,e]of aels)if(!aus.some(a=>a.id==id)&&!e.paused)e.pause();for(const a of aus){if(!a.u)continue;const e=ael(a),d=dur(a),t=T-a.at;if(playing&&!ff&&t>=0&&t<d){const q=a.in+t*a.sp;e.volume=Math.min(1,a.vol??1);if(e.playbackRate!=a.sp)e.playbackRate=a.sp;if(e.paused||Math.abs(e.currentTime-q)>.35){e.currentTime=q;e.play().catch(()=>{})}}else if(!e.paused)e.pause()}}
-function al(){const el=$('#atl');if(!el)return;el.innerHTML='';const t=total()||1;aus.forEach((a,i)=>{const d=document.createElement('div');d.className='ab'+(i==sela?' on':'');const sp=vw();d.style.left=((a.at-vt0)/sp*100)+'%';d.style.width=Math.max(1.5,dur(a)/sp*100)+'%';d.dataset.i=i;d.textContent='🎵 '+(a.vol===0?'🔇 ':'')+a.name;el.append(d)})}
+function al(){txl();olx();const el=$('#atl');if(!el)return;el.innerHTML='';const t=total()||1;aus.forEach((a,i)=>{const d=document.createElement('div');d.className='ab'+(i==sela?' on':'');const sp=vw();d.style.left=((a.at-vt0)/sp*100)+'%';d.style.width=Math.max(1.5,dur(a)/sp*100)+'%';d.dataset.i=i;d.textContent='🎵 '+(a.vol===0?'🔇 ':'')+a.name;el.append(d)})}
 const A=()=>aus[sela]||null,noA=()=>msg('Pilih trek audio dulu (ketuk di jalur hijau di bawah timeline)');
 $('#adt').onclick=()=>{const g=segs[sel];if(!g)return msg('Pilih klip dulu');if(g.fz)return msg('Klip freeze/foto tidak punya audio');if(playing)stop();snap();aus.push({id:'a'+Date.now()+Math.random().toString(36).slice(2,5),u:g.u,name:g.name,in:g.in,out:g.out,sp:g.sp,at:start(sel),vol:g.vol>0?g.vol:1});sela=aus.length-1;g.vol=0;tl();msg('Audio dipisah ke trek hijau di bawah timeline')};
 let ad0=null;$('#atl').onpointerdown=e=>{const b=e.target.closest('.ab');if(!b)return;sela=+b.dataset.i;if(playing)stop();snap();ad0={x:e.clientX,at:aus[sela].at,w:$('#atl').getBoundingClientRect().width||1,T:vw()};e.currentTarget.setPointerCapture(e.pointerId);al()};
@@ -488,7 +570,7 @@ const g=$('#hgo');if(g)g.onclick=resumeDraft;const x=$('#hdel');if(x)x.onclick=(
 document.querySelectorAll('#home .tt[data-d]').forEach(b=>b.onclick=resumeDraft)}
 function showHome(){if(playing)stop();document.querySelector('.hn button[data-v="hv1"]').click();$('#home').classList.add('on')}
 function openEditor(t){goTab=null;freshNext=false;presetNext=null;$('#home').classList.remove('on');const b=document.querySelector('.tb button[data-t="'+t+'"]');if(b)b.click();draw()}
-function newProject(){if(segs.length){clearTimeout(asv);asv=null;saveDraft()}if(playing)stop();const us=[...segs.map(g=>g.u),...aus.map(a=>a.u),ma.src,va.src,pv.src,wmi&&wmi.src].filter(u=>u&&u.startsWith('blob:'));aels.forEach(e=>{e.pause();e.removeAttribute('src');e.load()});aels.clear();asrc.clear();setTimeout(()=>us.forEach(u=>URL.revokeObjectURL(u)),1500);segs=[];tx=[];aus=[];sel=0;sela=-1;T=0;cur=-1;hist=[];rhist=[];pend=null;v.removeAttribute('src');delete v.dataset.u;dropNv();wmi=null;$('#wm').textContent='🖼 Watermark';ov=null;pv.removeAttribute('src');ma.pause();ma.removeAttribute('src');$('#ms').textContent='🎵 Musik';va.pause();va.removeAttribute('src');$('#vr').textContent='🎙 Voice-over';$('#vdl').hidden=true;filt='none';br=ct=sa=100;fill=0;fade=0;$('#fl').value='none';['br','ct','sa'].forEach(k=>$('#'+k).value=100);$('#ft').textContent='Layar: '+LF[0];$('#fd').value=0;fxo={};syncFx();if(presetNext!=null){$('#pr').value=presetNext;$('#pr').onchange({target:{value:String(presetNext)}});presetLock=true;presetNext=null}tl();rl();draw()}
+function newProject(){if(segs.length){clearTimeout(asv);asv=null;saveDraft()}if(playing)stop();const us=[...segs.map(g=>g.u),...aus.map(a=>a.u),ma.src,va.src,...ovs.map(o=>o.u),wmi&&wmi.src].filter(u=>u&&u.startsWith('blob:'));aels.forEach(e=>{e.pause();e.removeAttribute('src');e.load()});aels.clear();asrc.clear();setTimeout(()=>us.forEach(u=>URL.revokeObjectURL(u)),1500);segs=[];tx=[];aus=[];sel=0;sela=-1;T=0;cur=-1;hist=[];rhist=[];pend=null;v.removeAttribute('src');delete v.dataset.u;dropNv();wmi=null;$('#wm').textContent='🖼 Watermark';clearOvs(true);ma.pause();ma.removeAttribute('src');$('#ms').textContent='🎵 Musik';va.pause();va.removeAttribute('src');$('#vr').textContent='🎙 Voice-over';$('#vdl').hidden=true;filt='none';br=ct=sa=100;fill=0;fade=0;$('#fl').value='none';['br','ct','sa'].forEach(k=>$('#'+k).value=100);$('#ft').textContent='Layar: '+LF[0];$('#fd').value=0;fxo={};syncFx();if(presetNext!=null){$('#pr').value=presetNext;$('#pr').onchange({target:{value:String(presetNext)}});presetLock=true;presetNext=null}tl();rl();draw()}
 async function resumeDraft(){const sv=DB.c;if(!sv)return;freshNext=false;presetNext=null;goTab='t1';await $('#fp').onchange({target:{files:[{text:async()=>sv}],value:''}});if(pend)$('#fi').click();else openEditor('t1')}
 $('#fi').addEventListener('change',e=>{if(goTab&&e.target.files.length)openEditor(goTab)});
 $('#fi').addEventListener('cancel',()=>{goTab=null;freshNext=false;presetNext=null});
@@ -503,4 +585,140 @@ document.querySelectorAll('.hn button').forEach(b=>b.onclick=()=>{document.query
 $('#hm').onclick=showHome;
 $('#dnl').onclick=()=>{const b=new Blob([document.documentElement.outerHTML],{type:'text/html'});save(b,'mantam-studio-editor.html')};
 renderHome();
+// ===== Keyframe, mask, PiP lanjutan: UI =====
+function kfui(){const g=segs[sel],n=g&&g.kf?g.kf.length:0,e=$('#kfi');if(!e)return;
+e.textContent=n?n+' keyframe di klip ini. Geser playhead lalu ubah zoom, geser, putar, atau opasitas untuk membuat keyframe baru; nilai di antaranya dihitung otomatis.':'Tanpa keyframe. Tekan Tambah di dua posisi berbeda lalu ubah nilainya di tiap posisi untuk membuat animasi.';
+$('#kfe').textContent='Gerak: '+(g&&g.ke?'Halus':'Linear');$('#krt').value=(g&&g.ra)||0;$('#kop').value=g&&g.op!==undefined?g.op:100;$('#kmk').value=(g&&g.mk)||0;$('#kms').value=Math.round(((g&&g.ms)||.8)*100);kui2();pui()}
+function pui(){let o=null;try{o=ov;plsUi()}catch{}const pa=$('#pa');if(pa)pa.textContent=ovp&&ovp.length?'+ Video PiP ('+ovp.length+' menunggu file)':'+ Video PiP';const bkb=$('#pbk');if(bkb)bkb.textContent='↧ Di belakang klip utama: '+(o&&o.bk?'Ya':'Tidak');const q=(i,v)=>{const x=$(i);if(x)x.value=v};q('#pop',o?o.op??100:100);q('#pmk',o?o.mk||0:0);q('#pbm',o?o.bm||0:0);q('#pct',o?o.ct??35:35);q('#pcs',o?o.cs??20:20);
+const kc=o&&o.kc||[0,255,0];q('#pkc','#'+kc.map(x=>Math.round(x).toString(16).padStart(2,'0')).join(''));const b=$('#pck');if(b)b.textContent='🟩 Chroma key: '+(o&&o.ck?'Aktif':'Mati')}
+(()=>{
+const G=()=>{const g=segs[sel];if(!g)msg('Pilih klip dulu');return g};
+const st=g=>{const l=locate(T);return l&&l.i==sel?g.in+l.off*(g.sp||1):null};
+const cp=g=>{g.kf=(g.kf||[]).map(q=>({...q}));return g.kf};
+const tt=(g,q)=>start(sel)+(q.t-g.in)/(g.sp||1);
+$('#kfa').onclick=()=>{const g=G();if(!g)return;const t=st(g);if(t===null)return msg('Geser playhead ke dalam klip terpilih');if(playing)stop();snap();const K=cp(g),ex=K.find(q=>Math.abs(q.t-t)<.03),n={t,z:g.zm||1,x:g.px||0,y:g.py||0,r:g.ra||0,o:g.op??100};
+if(ex)Object.assign(ex,n,{t:ex.t});else{K.push(n);K.sort((a,b)=>a.t-b.t)}tl();sy();draw();msg('Keyframe ke-'+K.length+' dibuat. Geser playhead lalu ubah nilai untuk membuat gerak.')};
+$('#kfp').onclick=()=>{const g=G();if(!g)return;if(!g.kf||!g.kf.length)return msg('Belum ada keyframe');const ts=g.kf.map(q=>tt(g,q)).filter(x=>x<T-.02);if(!ts.length)return msg('Sudah di keyframe pertama');if(playing)stop();seek(ts[ts.length-1]).then(sy)};
+$('#kfn').onclick=()=>{const g=G();if(!g)return;if(!g.kf||!g.kf.length)return msg('Belum ada keyframe');const ts=g.kf.map(q=>tt(g,q)).filter(x=>x>T+.02);if(!ts.length)return msg('Sudah di keyframe terakhir');if(playing)stop();seek(ts[0]).then(sy)};
+$('#kfd').onclick=()=>{const g=G();if(!g)return;if(!g.kf||!g.kf.length)return msg('Belum ada keyframe');let bi=-1,bd=1e9;g.kf.forEach((q,i)=>{const d=Math.abs(tt(g,q)-T);if(d<bd){bd=d;bi=i}});if(bd>.15)return msg('Geser playhead ke keyframe dulu (◀ ▶)');snap();const K=cp(g);K.splice(bi,1);if(!K.length)delete g.kf;tl();sy();draw()};
+$('#kfc').onclick=()=>{const g=G();if(!g||!g.kf)return;snap();delete g.kf;tl();sy();draw();msg('Semua keyframe dihapus')};
+$('#kfe').onclick=()=>{const g=G();if(!g)return;snap();g.ke=g.ke?0:1;kfui();draw()};
+$('#krt').onpointerdown=$('#kop').onpointerdown=()=>{if(segs[sel])snap()};
+$('#krt').oninput=e=>{const g=segs[sel];if(!g)return;g.ra=+e.target.value;rdraw()};
+$('#kop').oninput=e=>{const g=segs[sel];if(!g)return;g.op=+e.target.value;rdraw()};
+$('#kmk').onchange=e=>{const g=G();if(!g)return;snap();g.mk=+e.target.value;if(!g.mk)delete g.mk;tl();draw()};
+$('#kms').onpointerdown=()=>{if(segs[sel])snap()};
+$('#kms').oninput=e=>{const g=segs[sel];if(!g)return;g.ms=e.target.value/100;rdraw0()};
+// PiP
+})();
+
+// ===== Speed ramp, pratinjau animasi teks, pintasan K =====
+const RAMPS={montage:[2.2,1,.35,1,2.2],hero:[1,.3,.3,1],bullet:[1.6,.15,.15,1.6],flashin:[.3,.6,1.2,2.5],flashout:[2.5,1.2,.6,.3],jump:[1,1,3,3]};
+function rampAt(P,u){const n=P.length-1,x=Math.min(n-1e-9,Math.max(0,u)*n),i=Math.floor(x),f=x-i,e=f*f*(3-2*f);return P[i]+(P[i+1]-P[i])*e}
+function prevAnim(o){if(!segs.length)return;if(playing)stop();seek(Math.max(0,o.a-.3)).then(()=>{play();const iv=setInterval(()=>{if(!playing||T>=Math.min(o.b,o.a+1.6)){clearInterval(iv);if(playing)stop()}},60)})}
+(()=>{
+$('#rpA').onclick=()=>{const g=segs[sel];if(!g)return msg('Pilih klip dulu');if(g.fz)return msg('Speed ramp hanya untuk klip video');const L=g.out-g.in;if(L<1.5)return msg('Klip terlalu pendek untuk ramp (minimal 1,5 detik)');if(playing)stop();
+const P=RAMPS[$('#rpS').value],N=10,base=g.sp||1,out=[];snap();
+for(let k=0;k<N;k++){const c={...g,in:g.in+L*k/N,out:g.in+L*(k+1)/N,sp:+(base*rampAt(P,(k+.5)/N)).toFixed(2),rp:1};if(k>0)c.n0=1;else delete c.n0;if(k<N-1)c.n1=1;else delete c.n1;out.push(c)}
+segs.splice(sel,1,...out);T=Math.min(T,total());tl();seek(start(sel));msg('Speed ramp dibuat: '+out.map(x=>x.sp+'×').join(' ')+'. Durasi baru '+total().toFixed(1)+' dtk')};
+$('#rpR').onclick=()=>{const g=segs[sel];if(!g||!g.rp)return msg('Pilih bagian dari klip yang memakai ramp');if(playing)stop();snap();
+const ok=(a,b)=>a&&b&&a.rp&&b.rp&&a.u===b.u&&Math.abs(a.out-b.in)<1e-6;let i0=sel,i1=sel;while(i0>0&&ok(segs[i0-1],segs[i0]))i0--;while(i1<segs.length-1&&ok(segs[i1],segs[i1+1]))i1++;
+const m={...segs[i0],in:segs[i0].in,out:segs[i1].out,sp:1};delete m.rp;delete m.n0;delete m.n1;segs.splice(i0,i1-i0+1,m);sel=i0;T=Math.min(T,total());tl();seek(Math.min(T,total()));msg('Ramp dihapus, kecepatan kembali 1×')};
+addEventListener('keydown',e=>{if(exp||$('#home').classList.contains('on'))return;const n=e.target.tagName;if(n=='INPUT'||n=='SELECT'||n=='TEXTAREA'||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key=='k'||e.key=='K'){e.preventDefault();$('#kfa').click()}});
+})();
+
+// ===== Trek teks di timeline =====
+const rdraw0=()=>{if(rq||playing||exp)return;rq=requestAnimationFrame(()=>{rq=0;draw()})};
+function txl(){const el=$('#ttl');if(!el)return;el.innerHTML='';if(!tx.length){el.style.height='';return}
+const sp=vw(),idx=tx.map((o,i)=>i).sort((p,q)=>tx[p].a-tx[q].a),rows=[],pos=new Map();
+for(const i of idx){const o=tx[i];let r=rows.findIndex(e=>e<=o.a+1e-6);if(r<0){r=rows.length;rows.push(0)}rows[r]=o.b;pos.set(i,r)}
+el.style.height=(rows.length*26+8)+'px';
+tx.forEach((o,i)=>{const d=document.createElement('div');d.className='xb'+(i==selx?' on':'');d.style.left=((o.a-vt0)/sp*100)+'%';d.style.width=Math.max(2,(o.b-o.a)/sp*100)+'%';d.style.top=(4+pos.get(i)*26)+'px';d.dataset.i=i;d.textContent='Aa '+(o.t||'');el.append(d)})}
+(()=>{let xd=null;const L=$('#ttl');
+L.onpointerdown=e=>{const b=e.target.closest('.xb');if(!b)return;const i=+b.dataset.i,o=tx[i];if(!o)return;selx=i;if(playing)stop();
+const r=b.getBoundingClientRect(),x=e.clientX-r.left,g=Math.min(14,r.width/3);xd={i,m:x<g?'a':x>r.width-g?'b':'m',x:e.clientX,a:o.a,b:o.b,w:L.getBoundingClientRect().width||1,T:vw(),s:0};
+try{L.setPointerCapture(e.pointerId)}catch{}txl();rl()};
+L.onpointermove=e=>{if(!xd)return;const o=tx[xd.i];if(!o)return;const dx=e.clientX-xd.x;if(!xd.s){if(Math.abs(dx)<3)return;xd.s=1;snap()}const dt=dx/xd.w*xd.T,mn=.2,tot=total();
+if(xd.m=='m'){const len=xd.b-xd.a,a=Math.max(0,Math.min(xd.a+dt,Math.max(xd.a,tot-len)));o.a=+a.toFixed(2);o.b=+(a+len).toFixed(2)}
+else if(xd.m=='a')o.a=+Math.max(0,Math.min(xd.b-mn,xd.a+dt)).toFixed(2);
+else o.b=+Math.max(xd.a+mn,Math.min(xd.b+dt,Math.max(xd.b,tot))).toFixed(2);
+txl();rdraw0()};
+L.onpointerup=L.onpointercancel=()=>{if(!xd)return;const d=xd;xd=null;if(d.s){rl();autosave();draw()}else{const o=tx[d.i];if(o)seek(Math.min(total(),o.a+.05))}};
+})();
+
+// ===== PiP multi-lapis: daftar lapisan, trek overlay, kontrol =====
+function plsUi(){const e=$('#pls');if(!e)return;const k=ovs.map(o=>o.id+o.name+(o.bk?'b':'')).join('|')+'#'+ovi;if(e.dataset.k===k)return;e.dataset.k=k;e.innerHTML='';
+if(!ovs.length){const q=document.createElement('option');q.textContent='(belum ada PiP)';e.append(q);e.disabled=true;return}e.disabled=false;
+ovs.forEach((o,i)=>{const q=document.createElement('option');q.value=i;q.textContent='Lapisan '+(i+1)+': '+(o.bk?'↧ ':'')+(o.kind=='e'?o.emo+' ':o.kind=='i'?'🖼 ':'')+o.name;e.append(q)});e.value=ovi}
+function olx(){const el=$('#otl');if(!el)return;el.innerHTML='';if(!ovs.length){el.style.height='';return}
+const sp=vw(),idx=ovs.map((o,i)=>i).sort((p,q)=>ovs[p].a-ovs[q].a),rows=[],pos=new Map();
+for(const i of idx){const o=ovs[i],e=o.a+Math.min(o.d,o.el.duration||o.d);let r=rows.findIndex(x=>x<=o.a+1e-6);if(r<0){r=rows.length;rows.push(0)}rows[r]=e;pos.set(i,r)}
+el.style.height=(rows.length*26+8)+'px';
+ovs.forEach((o,i)=>{const dd=Math.min(o.d,o.el.duration||o.d),d=document.createElement('div');d.className='vb'+(i==ovi?' on':'');d.style.left=((o.a-vt0)/sp*100)+'%';d.style.width=Math.max(2,dd/sp*100)+'%';d.style.top=(4+pos.get(i)*26)+'px';d.dataset.i=i;d.textContent=(o.bk?'↧ ':'')+(o.kind=='e'?o.emo:o.kind=='i'?'🖼':'🪟')+' '+o.name;el.append(d)})}
+(()=>{
+const L2=$('#otl');let o2=null;
+L2.onpointerdown=e=>{const b=e.target.closest('.vb');if(!b)return;const i=+b.dataset.i,o=ovs[i];if(!o)return;if(playing)stop();const r=b.getBoundingClientRect(),x=e.clientX-r.left,g=Math.min(14,r.width/3);
+o2={i,m:x<g?'a':x>r.width-g?'b':'m',x:e.clientX,a:o.a,in:o.in,d:o.d,w:L2.getBoundingClientRect().width||1,T:vw(),s:0};try{L2.setPointerCapture(e.pointerId)}catch{}selOv(i);so()};
+L2.onpointermove=e=>{if(!o2)return;const o=ovs[o2.i];if(!o)return;const dx=e.clientX-o2.x;if(!o2.s){if(Math.abs(dx)<3)return;o2.s=1;snap()}const dt=dx/o2.w*o2.T,mx=o.el.duration||o2.d;
+if(o2.m=='m')o.a=+Math.max(0,o2.a+dt).toFixed(2);
+else if(o2.m=='b')o.d=+Math.max(.2,Math.min(mx-o2.in,o2.d+dt)).toFixed(2);
+else{const k=Math.max(-o2.in,-o2.a,Math.min(o2.d-.2,dt));o.a=+(o2.a+k).toFixed(2);o.in=+(o2.in+k).toFixed(2);o.d=+(o2.d-k).toFixed(2)}
+so();rdraw0()};
+L2.onpointerup=L2.onpointercancel=()=>{if(!o2)return;const d=o2;o2=null;if(d.s){autosave();draw()}else{const o=ovs[d.i];if(o)seek(Math.min(total(),o.a+.05))}};
+const O=()=>{if(!ov){msg('Pasang video PiP dulu');return null}return ov},sn=()=>{if(ov)snap()},up=()=>{draw();autosave()};
+$('#pls').onchange=e=>{selOv(+e.target.value);so();draw()};
+$('#ps').onpointerdown=sn;$('#ps').oninput=e=>{if(!ov)return;ov.s=+e.target.value;rdraw0();autosave()};
+$('#pp').onchange=e=>{const o=O();if(!o)return;snap();const v=+e.target.value;if(v<4){o.p=v;delete o.x;delete o.y}else if(o.x===undefined&&o.el.videoWidth){const r=ovRect(o);o.x=(r.x+r.w/2)/W*100;o.y=(r.y+r.h/2)/H*100}up();so()};
+$('#pt').onchange=e=>{const o=O();if(!o)return;snap();o.a=Math.max(0,+e.target.value);up();so()};
+$('#pdr').onchange=e=>{const o=O();if(!o)return;snap();o.d=Math.max(.2,Math.min((o.el.duration||o.d)-o.in,+e.target.value));up();so()};
+$('#pk').onclick=()=>{const o=O();if(!o)return;if(playing)stop();snap();o.el.pause();ovs.splice(ovi,1);selOv(Math.min(ovi,ovs.length-1));up();so();msg('Lapisan PiP dihapus')};
+$('#pop').onpointerdown=sn;$('#pop').oninput=e=>{if(ov){ov.op=+e.target.value;rdraw0();autosave()}};
+$('#pmk').onchange=e=>{const o=O();if(!o)return;snap();o.mk=+e.target.value;up()};
+$('#pbm').onchange=e=>{const o=O();if(!o)return;snap();o.bm=+e.target.value;up()};
+$('#pck').onclick=()=>{const o=O();if(!o)return;snap();o.ck=o.ck?0:1;if(!o.kc)o.kc=[0,255,0];pui();up()};
+$('#pkc').onpointerdown=sn;$('#pkc').oninput=e=>{if(!ov)return;const h=e.target.value;ov.kc=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));rdraw0();autosave()};
+$('#pct').onpointerdown=sn;$('#pct').oninput=e=>{if(ov){ov.ct=+e.target.value;rdraw0();autosave()}};
+$('#pcs').onpointerdown=sn;$('#pcs').oninput=e=>{if(ov){ov.cs=+e.target.value;rdraw0();autosave()}};
+if(!('EyeDropper' in window))$('#pey').hidden=true;
+$('#pey').onclick=async()=>{const o=O();if(!o)return;try{const r=await new EyeDropper().open(),h=r.sRGBHex;snap();o.kc=[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));o.ck=1;pui();up()}catch{}};
+})();
+
+// ===== Overlay gambar & stiker emoji, rotasi, urutan lapisan =====
+const mkStatic=c=>{c.videoWidth=c.width;c.videoHeight=c.height;c.duration=3600;c.paused=true;c.currentTime=0;c.pause=()=>{};c.play=()=>Promise.resolve();return c};
+function mkSticker(kind,payload,name,pr){let c;
+if(kind=='e'){c=document.createElement('canvas');c.width=c.height=256;const g=c.getContext('2d');g.font='200px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';g.textAlign='center';g.textBaseline='middle';g.fillText(payload,128,140)}
+else c=scaled(payload,512);
+mkStatic(c);const o={id:'o'+Date.now()+Math.random().toString(36).slice(2,5),el:c,kind,name,a:T,in:0,d:3,s:kind=='e'?22:35,p:3,op:100,bm:0,mk:0,ck:0,kc:[0,255,0],ct:35,cs:20,rot:0,...(pr||{})};
+o.el=c;o.kind=kind;o.name=name;if(kind=='e')o.emo=payload;else if(!o.src){let u=c.toDataURL('image/webp',.85);if(!u.startsWith('data:image/'))u=c.toDataURL('image/png');o.src=u}return o}
+async function ovLoad(L){const rest=[];if(L)for(const q of L){let o=null;if(q.kind=='e'&&q.emo)o=mkSticker('e',q.emo,q.name||q.emo,q);else if(q.kind=='i'&&q.src){const im=await loadImg(q.src);if(im)o=mkSticker('i',im,q.name||'gambar',q)}
+if(o){o.zi=q.zi;ovs.push(o);ovEls.set(o.id,o)}else rest.push({...q})}
+ovs.sort((a,b)=>(a.zi??1e9)-(b.zi??1e9));ovs.forEach(o=>delete o.zi);ovp=rest.length?rest:null;selOv(ovs.length?0:-1)}
+(()=>{
+const addO=(o,m)=>{if(playing)stop();snap();ovs.push(o);ovEls.set(o.id,o);selOv(ovs.length-1);autosave();so();draw();msg(m)};
+const em=$('#pem');['🔥','❤️','⭐','😂','👍','🎉','💯','✨','👀','🚀','😍','🙏'].forEach(x=>{const b=document.createElement('button');b.className='b';b.textContent=x;b.style.cssText='flex:0 0 auto;min-width:46px;font-size:20px;padding:6px';b.onclick=()=>addO(mkSticker('e',x,x),'Stiker '+x+' dipasang. Seret di preview; atur waktu di trek biru.');em.append(b)});
+$('#pg').onclick=()=>$('#fg').click();
+$('#fg').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{const o=mkSticker('i',im,f.name.replace(/\.[^.]+$/,'').slice(0,14));URL.revokeObjectURL(u);addO(o,'Gambar dipasang. Seret di preview; atur waktu di trek biru.')};im.onerror=()=>{URL.revokeObjectURL(u);msg('Gambar tidak bisa dibaca')};im.src=u};
+const O=()=>{if(!ov){msg('Pasang overlay dulu');return null}return ov},up=()=>{draw();autosave()};
+$('#prt').onpointerdown=()=>{if(ov)snap()};$('#prt').oninput=e=>{if(!ov)return;ov.rot=+e.target.value;rdraw0();autosave()};
+$('#pup').onclick=()=>{const o=O();if(!o)return;if(ovi>=ovs.length-1)return msg('Sudah paling atas');snap();[ovs[ovi],ovs[ovi+1]]=[ovs[ovi+1],ovs[ovi]];selOv(ovi+1);up();so()};
+$('#pdn').onclick=()=>{const o=O();if(!o)return;if(ovi<=0)return msg('Sudah paling bawah');snap();[ovs[ovi],ovs[ovi-1]]=[ovs[ovi-1],ovs[ovi]];selOv(ovi-1);up();so()};
+})();
+
+// ===== Chroma key & blend klip utama; overlay di belakang klip =====
+function rgb2hex(c){return '#'+(c||[0,255,0]).map(x=>Math.round(x).toString(16).padStart(2,'0')).join('')}
+function hex2rgb(h){return [1,3,5].map(i=>parseInt(h.slice(i,i+2),16))}
+function kui2(){const g=segs[sel],q=(i,v)=>{const x=$(i);if(x)x.value=v};const b=$('#cck');if(b)b.textContent='🟩 Chroma key: '+(g&&g.kk?'Aktif':'Mati');q('#kcl',rgb2hex(g&&g.kcol));q('#cct',g&&g.ktl!==undefined?g.ktl:35);q('#ccs',g&&g.kst!==undefined?g.kst:20);q('#cbm',(g&&g.kbm)||0)}
+(()=>{
+const G=()=>{const g=segs[sel];if(!g)msg('Pilih klip dulu');return g},sn=()=>{if(segs[sel])snap()};
+$('#cck').onclick=()=>{const g=G();if(!g)return;snap();g.kk=g.kk?0:1;if(!g.kcol)g.kcol=[0,255,0];if(g.ktl===undefined){g.ktl=35;g.kst=20}kui2();draw();autosave()};
+$('#kcl').onpointerdown=sn;$('#kcl').oninput=e=>{const g=segs[sel];if(!g)return;g.kcol=hex2rgb(e.target.value);rdraw0();autosave()};
+$('#cct').onpointerdown=sn;$('#cct').oninput=e=>{const g=segs[sel];if(g){g.ktl=+e.target.value;rdraw0();autosave()}};
+$('#ccs').onpointerdown=sn;$('#ccs').oninput=e=>{const g=segs[sel];if(g){g.kst=+e.target.value;rdraw0();autosave()}};
+$('#cbm').onchange=e=>{const g=G();if(!g)return;snap();g.kbm=+e.target.value;if(!g.kbm)delete g.kbm;draw();autosave()};
+if(!('EyeDropper' in window))$('#cey').hidden=true;
+$('#cey').onclick=async()=>{const g=G();if(!g)return;try{const r=await new EyeDropper().open();snap();g.kcol=hex2rgb(r.sRGBHex);g.kk=1;if(g.ktl===undefined){g.ktl=35;g.kst=20}kui2();draw();autosave()}catch{}};
+const O=()=>{if(!ov){msg('Pasang overlay dulu');return null}return ov};
+$('#pbk').onclick=()=>{const o=O();if(!o)return;snap();o.bk=o.bk?0:1;if(!o.bk)delete o.bk;pui();draw();autosave();olx();plsUi()};
+$('#pfi').onclick=()=>{const o=O();if(!o)return;if(!o.el.videoWidth)return msg('Tunggu overlay selesai dimuat');snap();const asp=o.el.videoWidth/o.el.videoHeight;o.s=+Math.max(100,100*H*asp/W).toFixed(1);o.x=50;o.y=50;o.rot=0;draw();autosave();so()};
+})();
 </script></body></html>
