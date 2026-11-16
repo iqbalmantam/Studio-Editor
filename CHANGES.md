@@ -49,3 +49,33 @@ Semua perubahan ada di `index.html` (vendor tidak diubah). Diuji di Chromium: ke
 - Chroma key bekerja di ruang warna CbCr tanpa algoritma matting lanjutan, jadi rambut halus/tepi transparan bisa kurang rapi dibanding CapCut.
 - Gambar overlay disimpan ke proyek dalam resolusi maksimal 512 px.
 - Belum ada: stabilisasi, hapus background, TTS, template, auto-caption berbasis model (masih pengenalan suara browser lewat mikrofon).
+
+## Tampilan gaya CapCut
+- Blok `<style id="cc-skin">` dan `<script id="cc-skin-js">` di `index.html`; logika editor tidak diubah.
+- Desktop: bilah atas, panel alat kiri dengan tab ikon, pemutar tengah, toolbar timeline (undo, redo, split, hapus, zoom), trek dengan playhead putih.
+- HP: pemutar di atas, toolbar timeline, panel alat dan bilah ikon bawah.
+- Warna: latar gelap #0b0b0c, panel #1b1b1d, aksen cyan #2de3e8.
+
+## Tampilan CapCut, tahap 2
+- Desktop: panel Detail di kanan (tab Video dan Klip), panel kiri berisi Teks, Audio, Efek, Proyek. Di HP semua tab tetap satu panel.
+- Klip video di timeline menampilkan strip thumbnail; klip audio menampilkan gelombang suara.
+- Ikon beranda memakai SVG, bukan emoji.
+
+## Tampilan CapCut, tahap 3
+- Penggaris waktu (0:00, 0:02, ...) di atas timeline; jaraknya menyesuaikan zoom.
+- Thumbnail klip video kini berupa deretan frame berbeda sepanjang klip yang di-trim (foto dan freeze tetap memakai satu gambar).
+- Logo Mantam (burung phoenix) tidak diubah.
+
+## Tampilan CapCut, tahap 4 (rombak)
+- Urutan trek seperti CapCut: overlay, teks, video utama, audio. Playhead putih menembus semua trek.
+- Tab Media (pertama): tombol Impor besar dan pustaka klip proyek; ketuk klip untuk pindah ke posisinya.
+- Bar pemutar: waktu berjalan cyan, tombol rasio, layar penuh.
+- Format dan kualitas ekspor pindah ke popover di samping tombol Ekspor. Judul proyek di tengah bilah atas.
+- Logo Mantam tidak diubah.
+
+## Optimasi dan fitur baru
+- Performa: tidak ada lagi timer yang berjalan terus untuk playhead, penggaris, dan pustaka media; pembaruan hanya terjadi saat ada perubahan. Beban saat diam turun dari sekitar 0,044 detik ke 0,002 detik per 3 detik. Pembaruan berhenti saat tab tersembunyi.
+- Thumbnail dibuat satu per satu, berhenti saat video diputar, dan cache dibatasi (40 thumbnail, 120 gelombang suara).
+- Pengaman error: kendala tak terduga menampilkan pesan singkat, tidak spam, dan tidak menghentikan editor. Peringatan sebelum menutup tab saat ekspor berjalan.
+- Fitur: klik atau seret penggaris untuk pindah posisi, tombol Pas layar, daftar pintasan keyboard (tombol di bilah atas atau tekan ?).
+- Diuji: desktop, HP, dan laptop kecil (impor, split, undo, duplikat, hapus, seek, zoom, pemutaran, ekspor sampai file MP4 jadi), tanpa error.
