@@ -251,6 +251,16 @@ details,.gd{background:var(--cd);border:0;border-radius:6px}
 #cc-trk button:hover{background:#38383c}#cc-trk button.on{background:var(--ac);color:#031a1c}
 #cc-trk svg{width:14px;height:14px}
 #tl[data-lock="1"],#atl[data-lock="1"],#ttl[data-lock="1"],#otl[data-lock="1"]{opacity:.55;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 6px,transparent 6px 12px)}
+</style><style id="cc-skin15">
+#cc-tpl{margin-top:10px}.cc-tg{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px}
+.cc-tg button{display:grid;place-items:center;min-height:46px;padding:4px;border:0;border-radius:6px;background:#232326;cursor:pointer;overflow:hidden}
+.cc-tg button:hover{background:#2e2e32;outline:1px solid var(--ac)}.cc-tg span{display:inline-block;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+</style><style id="cc-skin16">
+#cc-bt{display:grid;gap:8px;margin-top:10px}
+#cc-bt .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+#cc-bt select{width:auto;min-width:120px}
+#cc-beats{position:absolute;inset:0;pointer-events:none}
+#cc-beats i{position:absolute;bottom:0;width:2px;height:9px;margin-left:-1px;background:var(--ac);opacity:.9}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -652,7 +662,7 @@ $('#fq').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;c
 el.onloadedmetadata=()=>{snap();let pi=-1;if(ovp&&ovp.length){pi=ovp.findIndex(q=>q.name==nm);if(pi<0)pi=0}const pr=pi>=0?ovp.splice(pi,1)[0]:{};
 const o={id:'o'+Date.now()+Math.random().toString(36).slice(2,5),a:T,in:0,d:el.duration,s:35,p:3,op:100,bm:0,mk:0,ck:0,kc:[0,255,0],ct:35,cs:20,...pr};o.el=el;o.u=u;o.name=nm;o.d=Math.min(o.d,el.duration);o.in=Math.min(o.in||0,Math.max(0,el.duration-.2));
 const at=pr.zi!==undefined?Math.min(pr.zi,ovs.length):ovs.length;delete o.zi;ovs.splice(at,0,o);ovEls.set(o.id,o);selOv(at);if(ovp&&!ovp.length)ovp=null;autosave();so();draw();msg('PiP '+ovs.length+' dipasang (suaranya dibisukan). Seret di preview untuk memindahkan.')};el.src=u};
-const PJ=()=>JSON.stringify({v:1,segs:segs.filter(g=>!g.fz||g.img).map(({u,...g})=>g),aus:aus.map(({u,...a})=>a),fxo,fxi,tx,ri,fill,fade,br,ct,sa,filt,ovl:[...ovs.map((o,i)=>{const{id,...r}=oPar(o);r.zi=i;if(o.kind=='i')r.src=o.src;return r}),...(ovp||[])]});
+const PJ=()=>JSON.stringify({v:1,segs:segs.filter(g=>!g.fz||g.img).map(({u,...g})=>g),aus:aus.map(({u,...a})=>a),fxo,fxi,tx,ri,fill,fade,br,ct,sa,filt,trk:(window.ccTrkGet?ccTrkGet():undefined),bt:(window.ccBtGet?ccBtGet():undefined),ovl:[...ovs.map((o,i)=>{const{id,...r}=oPar(o);r.zi=i;if(o.kind=='i')r.src=o.src;return r}),...(ovp||[])]});
 $('#vvl').oninput=e=>{va.volume=e.target.value/100};
 $('#rs2').onclick=()=>{const sv=DB.c;if(!sv)return;$('#fp').onchange({target:{files:[{text:async()=>sv}],value:''}});$('#rs2').hidden=true};
 // Load the saved draft (IndexedDB), migrating an old localStorage draft once.
@@ -697,7 +707,7 @@ $('#fm').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;m
 $('#mvl').oninput=e=>{ma.volume=e.target.value/100};
 $('#pj').onclick=()=>{if(!segs.length)return msg('Tambah klip dulu');save(new Blob([PJ()],{type:'application/json'}),'proyek.json')};
 $('#po').onclick=()=>$('#fp').click();
-$('#fp').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const p=JSON.parse(await f.text());if(!p.segs)throw 0;for(const g of p.segs)if(g.img){const im=await loadImg(g.img);if(im){fzs.set(g.fid,scaled(im,1920));g.u='img'}}p.segs=p.segs.filter(g=>!g.fz||g.u);if(playing)stop();snap();tx=p.tx||[];setR(p.ri||0);fill=+p.fill||0;fade=+p.fade||0;br=p.br??100;ct=p.ct??100;sa=p.sa??100;filt=p.filt||'none';$('#fl').value=filt;$('#br').value=br;$('#ct').value=ct;$('#sa').value=sa;$('#ft').textContent='Layar: '+LF[fill];$('#fd').value=fade;fxo=p.fxo||{};fxi=p.fxi??60;clearOvs(false);await ovLoad(p.ovl||(p.ovp?[p.ovp]:null));
+$('#fp').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const p=JSON.parse(await f.text());if(!p.segs)throw 0;for(const g of p.segs)if(g.img){const im=await loadImg(g.img);if(im){fzs.set(g.fid,scaled(im,1920));g.u='img'}}p.segs=p.segs.filter(g=>!g.fz||g.u);if(playing)stop();snap();tx=p.tx||[];setR(p.ri||0);fill=+p.fill||0;fade=+p.fade||0;br=p.br??100;ct=p.ct??100;sa=p.sa??100;filt=p.filt||'none';$('#fl').value=filt;$('#br').value=br;$('#ct').value=ct;$('#sa').value=sa;$('#ft').textContent='Layar: '+LF[fill];$('#fd').value=fade;fxo=p.fxo||{};fxi=p.fxi??60;window.ccTrkLoad&&ccTrkLoad(p.trk);window.ccBtLoad&&ccBtLoad(p.bt);clearOvs(false);await ovLoad(p.ovl||(p.ovp?[p.ovp]:null));
 const needVid=p.segs.some(g=>!g.u)||((p.aus||[]).some(a=>!a.u));
 if(!needVid){segs=p.segs;aus=(p.aus||[]).filter(a=>a.u);sela=aus.length?0:-1;pend=null;sel=0;syncFx();tl();rl();await seek(0);msg('Proyek berhasil dimuat!')}
 else{pend=p;segs=[];aus=[];syncFx();tl();rl();draw();const names=[...new Set([...p.segs.filter(g=>!g.u).map(g=>g.name),...(p.aus||[]).filter(a=>!a.u).map(a=>a.name)])];msg('Pilih ulang file video asli: '+names.join(', '))}}catch{msg('File proyek tidak valid')}};
@@ -731,7 +741,7 @@ const g=$('#hgo');if(g)g.onclick=resumeDraft;const x=$('#hdel');if(x)x.onclick=(
 document.querySelectorAll('#home .tt[data-d]').forEach(b=>b.onclick=resumeDraft)}
 function showHome(){if(playing)stop();document.querySelector('.hn button[data-v="hv1"]').click();$('#home').classList.add('on')}
 function openEditor(t){goTab=null;freshNext=false;presetNext=null;$('#home').classList.remove('on');const b=document.querySelector('.tb button[data-t="'+t+'"]');if(b)b.click();draw()}
-function newProject(){if(segs.length){clearTimeout(asv);asv=null;saveDraft()}if(playing)stop();const us=[...segs.map(g=>g.u),...aus.map(a=>a.u),ma.src,va.src,...ovs.map(o=>o.u),wmi&&wmi.src].filter(u=>u&&u.startsWith('blob:'));aels.forEach(e=>{e.pause();e.removeAttribute('src');e.load()});aels.clear();asrc.clear();setTimeout(()=>us.forEach(u=>URL.revokeObjectURL(u)),1500);segs=[];tx=[];aus=[];sel=0;sela=-1;T=0;cur=-1;hist=[];rhist=[];pend=null;v.removeAttribute('src');delete v.dataset.u;dropNv();wmi=null;$('#wm').textContent='🖼 Watermark';clearOvs(true);ma.pause();ma.removeAttribute('src');$('#ms').textContent='🎵 Musik';va.pause();va.removeAttribute('src');$('#vr').textContent='🎙 Voice-over';$('#vdl').hidden=true;filt='none';br=ct=sa=100;fill=0;fade=0;$('#fl').value='none';['br','ct','sa'].forEach(k=>$('#'+k).value=100);$('#ft').textContent='Layar: '+LF[0];$('#fd').value=0;fxo={};syncFx();if(presetNext!=null){$('#pr').value=presetNext;$('#pr').onchange({target:{value:String(presetNext)}});presetLock=true;presetNext=null}tl();rl();draw()}
+function newProject(){window.ccTrkLoad&&ccTrkLoad(null);window.ccBtLoad&&ccBtLoad(null);if(segs.length){clearTimeout(asv);asv=null;saveDraft()}if(playing)stop();const us=[...segs.map(g=>g.u),...aus.map(a=>a.u),ma.src,va.src,...ovs.map(o=>o.u),wmi&&wmi.src].filter(u=>u&&u.startsWith('blob:'));aels.forEach(e=>{e.pause();e.removeAttribute('src');e.load()});aels.clear();asrc.clear();setTimeout(()=>us.forEach(u=>URL.revokeObjectURL(u)),1500);segs=[];tx=[];aus=[];sel=0;sela=-1;T=0;cur=-1;hist=[];rhist=[];pend=null;v.removeAttribute('src');delete v.dataset.u;dropNv();wmi=null;$('#wm').textContent='🖼 Watermark';clearOvs(true);ma.pause();ma.removeAttribute('src');$('#ms').textContent='🎵 Musik';va.pause();va.removeAttribute('src');$('#vr').textContent='🎙 Voice-over';$('#vdl').hidden=true;filt='none';br=ct=sa=100;fill=0;fade=0;$('#fl').value='none';['br','ct','sa'].forEach(k=>$('#'+k).value=100);$('#ft').textContent='Layar: '+LF[0];$('#fd').value=0;fxo={};syncFx();if(presetNext!=null){$('#pr').value=presetNext;$('#pr').onchange({target:{value:String(presetNext)}});presetLock=true;presetNext=null}tl();rl();draw()}
 async function resumeDraft(){const sv=DB.c;if(!sv)return;freshNext=false;presetNext=null;goTab='t1';await $('#fp').onchange({target:{files:[{text:async()=>sv}],value:''}});if(pend)$('#fi').click();else openEditor('t1')}
 $('#fi').addEventListener('change',e=>{if(goTab&&e.target.files.length)openEditor(goTab)});
 $('#fi').addEventListener('cancel',()=>{goTab=null;freshNext=false;presetNext=null});
@@ -1295,6 +1305,8 @@ function paint(b,k,t){const on=t=='lock'?ccL[k]:t=='vis'?ccH[k]:ccM[k];b.classLi
 b.title=({lock:on?'Buka kunci trek':'Kunci trek',vis:on?'Tampilkan trek':'Sembunyikan trek',aud:on?'Aktifkan suara trek':'Bisukan trek'})[t];b.setAttribute('aria-label',b.title)}
 defs.forEach(([k,t])=>{const b=document.createElement('button');b.type='button';btn[k+t]=b;b.addEventListener('pointerdown',e=>e.stopPropagation());
 b.onclick=()=>{const m=t=='lock'?ccL:t=='vis'?ccH:ccM;const key=t=='vis'?(k=='ov'?'ov':'text'):(t=='aud'?(k=='main'?'main':'audio'):k);m[key]=!m[key];paint(b,k,t);if(t=='lock'){const el=$(TR[k]);if(el)el.dataset.lock=ccL[k]?'1':'';}try{draw()}catch{}};paint(b,k,t);root.append(b)});
+window.ccTrkGet=()=>{const o={},f=(m,n)=>{const a=Object.keys(m).filter(k=>m[k]);if(a.length)o[n]=a};f(ccL,'l');f(ccH,'h');f(ccM,'m');return Object.keys(o).length?o:undefined};
+window.ccTrkLoad=t=>{for(const m of [ccL,ccH,ccM])for(const k in m)m[k]=false;if(t){(t.l||[]).forEach(k=>ccL[k]=true);(t.h||[]).forEach(k=>ccH[k]=true);(t.m||[]).forEach(k=>ccM[k]=true)}defs.forEach(([k,tp])=>paint(btn[k+tp],k,tp));for(const k in TR){const el=$(TR[k]);if(el)el.dataset.lock=ccL[k]?'1':''}try{draw()}catch{}};
 const lastPos={};function place(){const rs=defs.map(([k,t])=>{const el=$(TR[k]);if(!el||!el.offsetParent)return null;const r=el.getBoundingClientRect();return r.height<10?null:r});
 defs.forEach(([k,t],n)=>{const b=btn[k+t],r=rs[n],id=k+t;if(!r){if(lastPos[id]!=='x'){b.style.display='none';lastPos[id]='x'}return}
 const i=t=='lock'?0:1,key=Math.round(r.left)+','+Math.round(r.top+r.height/2);if(lastPos[id]===key)return;lastPos[id]=key;b.style.display='grid';b.style.left=(r.left+4+i*26)+'px';b.style.top=(r.top+r.height/2-11)+'px'})}
@@ -1310,6 +1322,69 @@ sel=Math.max(0,Math.min(sel,segs.length-1));T=Math.min(T,total());tl();if(segs.l
 const rb=document.createElement('button');rb.type='button';rb.className='b cc-ib';rb.title='Hapus dan rapatkan (Shift+Del)';rb.setAttribute('aria-label','Hapus dan rapatkan');rb.innerHTML=S(IC.rip);rb.onclick=ripple;
 const dl=document.querySelector('#cc-tbar .cc-ib[title^="Hapus"]');if(dl)dl.after(rb);else $('#cc-tbar').append(rb);
 window.addEventListener('keydown',e=>{const t=e.target&&e.target.tagName;if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;if(e.key==='Delete'&&e.shiftKey){e.preventDefault();e.stopPropagation();ripple()}},true);
+})();
+</script>
+<script id="cc-skin15-js">
+(()=>{
+const $=s=>document.querySelector(s);
+const TPL=[
+['Judul besar','font:800 17px system-ui;color:#fff;text-shadow:0 0 2px #000,0 0 2px #000',{z:1.4,f:3,s:0,y:50,an:5,c:'#ffffff',sw:1.4},'JUDUL'],
+['Subtitle','font:600 13px system-ui;color:#fff;background:#000;padding:1px 6px;border-radius:3px',{z:1,f:0,s:1,y:82,an:0,c:'#ffffff'},'Subtitle di sini'],
+['Lower third','font:700 13px system-ui;color:#fff;background:rgba(0,0,0,.6);padding:1px 6px',{z:1,f:0,s:0,y:82,an:2,c:'#ffffff',sw:0,bg:'#000000',ba:.6},'Nama · Jabatan'],
+['Neon','font:800 15px system-ui;color:#00e5ff;text-shadow:0 0 6px #00e5ff',{z:1.4,f:3,s:2,y:50,an:1,c:'#00e5ff'},'NEON'],
+['Kuning pop','font:800 15px system-ui;color:#ffe600;text-shadow:0 0 2px #000',{z:1.4,f:3,s:3,y:15,an:4,c:'#ffe600'},'WOW!'],
+['Elegan','font:italic 600 15px Georgia,serif;color:#f5e6c8;letter-spacing:2px',{z:1,f:1,s:0,y:50,an:2,c:'#f5e6c8',sw:.3,sh:4,ls:3},'Elegan'],
+['Mesin ketik','font:600 13px ui-monospace,monospace;color:#fff;background:#000;padding:1px 6px',{z:1,f:2,s:1,y:50,an:3,c:'#ffffff'},'Mengetik...'],
+['Komik','font:800 15px "Segoe Script","Comic Sans MS",cursive;color:#ffeb3b;text-shadow:0 0 2px #7a0000,0 0 2px #7a0000',{z:1.4,f:4,s:0,y:15,an:4,c:'#ffeb3b',sw:2,sc:'#7a0000'},'BOOM!']];
+const box=document.createElement('div');box.id='cc-tpl';box.innerHTML='<div class="sh">Template teks</div><div class="cc-tg"></div><div class="mu">Pilih teks lalu ketuk template untuk mengganti gayanya, atau ketuk tanpa pilihan untuk menambah teks baru di playhead.</div>';
+const g=box.querySelector('.cc-tg');
+TPL.forEach(([n,css,props,txt])=>{const b=document.createElement('button');b.type='button';b.title=n;b.setAttribute('aria-label','Template '+n);const sp=document.createElement('span');sp.style.cssText=css;sp.textContent=n;b.append(sp);
+b.onclick=()=>{try{if(playing)stop();snap();let o=(selx>=0&&tx[selx])||null;if(!o){o={a:T,b:Math.min(Math.max(T+3,3),total()||T+3),t:txt,x:50,y:50,z:1,c:'#ffffff'};tx.push(o);selx=tx.length-1}
+for(const k of ['sw','sc','bg','ba','sh','ls','op'])delete o[k];Object.assign(o,props);o.x=50;rl();draw();autosave();if(o.an&&typeof prevAnim==='function')prevAnim(o);msg('Template "'+n+'" dipakai')}catch(e){}};g.append(b)});
+const ts=$('#cc-ts');(ts?ts.parentNode:$('#t2')).insertBefore(box,ts||null);
+})();
+</script>
+<script id="cc-skin16-js">
+(()=>{
+const $=s=>document.querySelector(s);
+let beats=[],bpm=0,src='';
+// ---- deteksi tempo dan ketukan
+async function analyze(url){const ab=await(await fetch(url)).arrayBuffer();const AC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
+const buf=await new AC(1,1,44100).decodeAudioData(ab);const sr=buf.sampleRate,d=buf.getChannelData(0),H=.01,hop=Math.round(sr*H),lim=Math.min(d.length,sr*360),n=Math.floor(lim/hop);if(n<200)throw new Error('pendek');
+const e=new Float32Array(n);for(let i=0;i<n;i++){let s=0;const a=i*hop,b=Math.min(lim,a+hop*2);for(let j=a;j<b;j++)s+=d[j]*d[j];e[i]=Math.log(1+1000*Math.sqrt(s/(b-a)))}
+const f=new Float32Array(n);for(let i=1;i<n;i++)f[i]=Math.max(0,e[i]-e[i-1]);
+const lo=Math.round(.333/H),hi=Math.round(1/H),ac=new Float64Array(hi+2);let bl=lo,best=-1;
+for(let L=lo-1;L<=hi+1;L++){let s=0;for(let i=L;i<n;i++)s+=f[i]*f[i-L];ac[L]=s;if(L>=lo&&L<=hi&&s>best){best=s;bl=L}}
+let P=bl;const y0=ac[bl-1],y1=ac[bl],y2=ac[bl+1],den=y0-2*y1+y2;if(den<0)P=bl+.5*(y0-y2)/den;
+let bp=0,bs=-1;const steps=Math.max(8,Math.round(P));for(let q=0;q<steps;q++){const p=q*P/steps;let s=0;for(let t=p;t<n-1;t+=P)s+=f[Math.round(t)];if(s>bs){bs=s;bp=p}}
+const pk=t=>{const c=Math.round(t);let m=0;for(let k=-2;k<=2;k++){const i=c+k;if(i>=0&&i<n&&f[i]>m)m=f[i]}return m};let a1=0,a2=0,c1=0;for(let t=bp;t<n-1;t+=P){a1+=pk(t);a2+=pk(t+P/2);c1++}if(c1>3&&a2>.7*a1&&P/2*H>=.333)P/=2;
+const out=[];for(let t=bp;t<n-1;t+=P){const sec=t*H;out.push(+sec.toFixed(3))}
+return{beats:out,bpm:Math.round(60/(P*H)*10)/10,dur:n*H}}
+// ---- penanda di penggaris
+const ru=$('#cc-ruler'),bl=document.createElement('div');bl.id='cc-beats';bl.setAttribute('aria-hidden','true');let bk='';
+function drawBeats(){if(!ru)return;if(!bl.parentNode){ru.append(bl);bk=''}let sp,t0;try{sp=vw();t0=vt0}catch{return}if(!sp||!isFinite(sp))return;
+const key=[beats.length,t0,sp,ru.clientWidth,bl.childElementCount>0].join('|');if(key===bk)return;bk=key;let h='';for(const t of beats){if(t<t0-.01||t>t0+sp+.01)continue;h+='<i style="left:'+((t-t0)/sp*100)+'%"></i>'}bl.innerHTML=h}
+const r0=window.__ccRul;window.__ccRul=()=>{if(r0)r0();drawBeats()};
+// ---- proyek
+window.ccBtGet=()=>beats.length?{b:beats,bpm,src}:undefined;
+window.ccBtLoad=o=>{beats=o&&o.b?o.b:[];bpm=o&&o.bpm||0;src=o&&o.src||'';bk='';stat();try{drawBeats()}catch{}};
+// ---- panel
+const box=document.createElement('div');box.id='cc-bt';box.className='cc-box';
+box.innerHTML='<div class="sh">Beat sync</div><div class="row"><button type="button" class="b" id="cc-bd">🎵 Deteksi ketukan</button><button type="button" class="b" id="cc-bx">Hapus penanda</button></div><div class="mu" id="cc-bs">Pasang musik atau pisahkan audio klip, lalu ketuk Deteksi ketukan.</div><div class="row"><select id="cc-bn" title="Potong setiap"><option value="1">Tiap 1 ketukan</option><option value="2" selected>Tiap 2 ketukan</option><option value="4">Tiap 4 ketukan</option><option value="8">Tiap 8 ketukan</option></select><button type="button" class="b" id="cc-bcut">✂ Potong di ketukan</button></div>';
+$('#t3').append(box);const st=$('#cc-bs');
+function stat(){st.textContent=beats.length?bpm+' BPM · '+beats.length+' ketukan ditandai di penggaris':'Pasang musik atau pisahkan audio klip, lalu ketuk Deteksi ketukan.'}
+let busy=false;
+$('#cc-bd').onclick=async()=>{if(busy)return;let url='',map=t=>t;
+if(ma&&ma.src){url=ma.src}else if(aus.length){const a=aus[0];url=a.u;map=t=>t>=(a.in||0)&&t<=(a.out??1e9)?a.at+(t-(a.in||0))/(a.sp||1):null}
+if(!url)return msg('Pasang musik atau pisahkan audio klip dulu');busy=true;st.textContent='Menganalisis audio...';
+try{const r=await analyze(url);beats=r.beats.map(map).filter(t=>t!==null&&t>=0);bpm=r.bpm;src=ma&&ma.src===url?'musik':'audio';bk='';stat();drawBeats();msg(bpm+' BPM terdeteksi')}
+catch(e){beats=[];bpm=0;st.textContent='Audio tidak bisa dianalisis (terlalu pendek atau format tidak didukung).'}finally{busy=false}};
+$('#cc-bx').onclick=()=>{beats=[];bpm=0;bk='';stat();drawBeats()};
+$('#cc-bcut').onclick=()=>{try{if(!beats.length)return msg('Deteksi ketukan dulu');if(!segs.length)return;if(ccL&&ccL.main)return msg('Trek terkunci. Buka kunci dulu untuk mengedit.');if(playing)stop();
+const N=+$('#cc-bn').value,pts=beats.filter((t,i)=>i%N===0&&t>.2).sort((a,b)=>b-a).slice(0,300);let cuts=0;const ok=pts.some(t=>{const l=locate(t);if(!l)return false;const d=dur(segs[l.i]);return l.off>=.25&&l.off<=d-.25});if(!ok)return msg('Tidak ada titik potong yang cocok');snap();
+for(const t of pts){const l=locate(t);if(!l)continue;const s=segs[l.i],d=dur(s);if(l.off<.25||l.off>d-.25)continue;const m=s.in+l.off*s.sp;segs.splice(l.i,1,{...s,out:m},{...s,in:m});cuts++}
+sel=Math.min(sel,segs.length-1);tl();msg('Klip dipecah di '+cuts+' titik ketukan')}catch(e){msg('Gagal memotong di ketukan')}};
+stat();
 })();
 </script>
 </body></html>
