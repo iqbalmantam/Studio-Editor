@@ -1,0 +1,3 @@
+Berkas selfie_segmentation.js dan ss_assets.js berasal dari paket npm @mediapipe/selfie_segmentation
+(Google MediaPipe), berlisensi Apache License 2.0: https://www.apache.org/licenses/LICENSE-2.0
+Dimuat hanya saat fitur Hapus latar dipakai.
