@@ -401,6 +401,79 @@ html.cc-light #home .th>*{background-color:#e5e7eb}
  #home .hrow{max-width:980px;margin:0 auto 18px}
  #home .hs,#home .th,#home .hg,#home .wm-foot{max-width:980px;margin-left:auto;margin-right:auto}
 }
+</style><style id="cc-skin20a">
+#cc-guides{position:absolute;inset:0;pointer-events:none;z-index:4}
+#cc-guides i{position:absolute;display:none;background:#ff3b8d;box-shadow:0 0 0 .5px rgba(255,255,255,.55)}
+</style><style id="cc-skin20b">
+/* ===== bilah alat kontekstual, lembar, dan elemen bantu ===== */
+#cc-qa,#cc-addrow{display:none}
+html.cc-web .cc-pc{display:none}
+html.cc-web .b.cc-dsk{display:none}
+#cc-sheet{position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;flex-direction:column;max-height:60vh;background:var(--pn);color:var(--tx);border-radius:18px 18px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.22)}
+#cc-sheet.on{display:flex}
+.cc-sh-h{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px}
+.cc-sh-h b{font-size:15px;font-weight:600}
+.cc-sh-x,.cc-pc{width:36px;height:36px;border-radius:50%;border:0;background:var(--ac);color:#fff;place-items:center;cursor:pointer;display:grid}
+.cc-sh-b{overflow:auto;padding:4px 16px calc(16px + env(safe-area-inset-bottom,0px));display:grid;gap:12px;align-content:start}
+#cc-sheet .sh{display:none}
+.cc-chips{display:flex;flex-wrap:wrap;gap:8px}
+.cc-chips .chip{padding:10px 14px;font-size:14px;border-radius:10px;cursor:pointer}
+.cc-sl{display:grid;grid-template-columns:90px 1fr 40px;gap:8px;align-items:center;font-size:13px;color:var(--mu)}
+.cc-sl output{text-align:right;color:var(--tx);font-size:12px}
+.cc-sl input[type=color]{grid-column:2/4;width:100%;height:34px;border:0;border-radius:8px;background:var(--cd);padding:2px}
+.cc-pgrid{display:grid;grid-template-columns:repeat(3,46px);gap:6px;justify-content:center}
+.cc-dot{width:46px;height:46px;padding:0!important;border-radius:10px!important;position:relative}
+.cc-dot::after{content:"";position:absolute;inset:0;margin:auto;width:12px;height:12px;border-radius:50%;background:currentColor;opacity:.55}
+.cc-ti{width:100%;box-sizing:border-box;padding:12px;font-size:16px;border-radius:10px}
+#cc-addrow{gap:8px;padding:6px 10px;background:var(--pn);overflow-x:auto}
+#cc-addrow button{display:flex;align-items:center;gap:6px;padding:8px 14px;border:0;border-radius:999px;background:var(--cd);color:var(--tx);font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+#cc-endplus{position:fixed;width:36px;height:36px;display:none;place-items:center;border:0;border-radius:8px;background:#fff;color:#111827;box-shadow:0 1px 6px rgba(0,0,0,.3);z-index:44;cursor:pointer;padding:0}
+#cc-qa{gap:2px;overflow-x:auto;scrollbar-width:none;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));background:var(--pn);border-top:1px solid var(--ln);-webkit-overflow-scrolling:touch}
+#cc-qa::-webkit-scrollbar{display:none}
+#cc-qa button{flex:0 0 auto;min-width:68px;display:grid;justify-items:center;gap:4px;padding:8px 6px 6px;border:0;border-radius:12px;background:none;color:var(--tx);font:inherit;cursor:pointer}
+#cc-qa button span{display:grid;place-items:center;height:26px}
+#cc-qa button em{font-style:normal;font-size:11px;font-weight:500;white-space:nowrap}
+#cc-qa button:active{background:var(--cd)}
+#cc-qa .cc-back{border-right:1px solid var(--ln);border-radius:0;margin-right:4px}
+#cc-qa .cc-danger{color:#e5484d}
+/* tanda pilih yang jelas */
+html.cc-web #tl:not([data-sel="1"]) .sg.on,html.cc-web #otl:not([data-sel="1"]) .vb.on,html.cc-web #ttl:not([data-sel="1"]) .xb.on,html.cc-web #atl:not([data-sel="1"]) .ab.on{border-width:1px!important;border-color:rgba(127,127,127,.55)!important}
+html.cc-web #tl[data-sel="1"] .sg.on,html.cc-web #otl[data-sel="1"] .vb.on,html.cc-web #ttl[data-sel="1"] .xb.on,html.cc-web #atl[data-sel="1"] .ab.on{border-color:#17c3e6!important;box-shadow:0 0 0 2px rgba(23,195,230,.35)}
+.cc-fr{width:34px;height:34px}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){
+ html.cc-web .b.cc-dsk{display:inline-grid}
+ #cc-sheet{left:50%;right:auto;width:440px;transform:translateX(-50%);bottom:190px;border-radius:16px;max-height:55vh}
+}
+@media not all and (min-width:900px) and (min-height:480px) and (pointer:fine){
+ html.cc-web .w{grid-template-rows:auto minmax(0,1fr) repeat(8,auto) auto auto}
+ html.cc-web .w>.pv{grid-row:2;max-height:none;min-height:0}
+ html.cc-web .w #cv{max-height:100%;max-width:100%}
+ html.cc-web .w>.h{grid-row:3;flex-wrap:wrap}
+ html.cc-web .h #cc-fs{order:1}html.cc-web .h #tm{order:2}html.cc-web .h #cc-fb{order:3}html.cc-web .h #pl{order:4}html.cc-web .h #cc-ff{order:5}html.cc-web .h #cc-ratio{order:6}
+ html.cc-web .h #msg{order:9;flex:0 0 100%!important;text-align:center!important}html.cc-web .h #tm{white-space:nowrap}html.cc-web .h #msg:empty{display:none}
+ html.cc-web .w>#cc-addrow{grid-row:11;display:flex}
+ html.cc-web .w>#cc-qa{grid-row:12;display:flex}
+ html.cc-web .w>.tb{display:none}
+ html.cc-web .w>#pn{display:none}
+ body.cc-pn-open .w>#pn{display:block;position:fixed;left:0;right:0;bottom:0;max-height:58vh;overflow:auto;z-index:65;border-radius:18px 18px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.24);padding:12px 16px calc(20px + env(safe-area-inset-bottom,0px));margin:0}
+ html.cc-web body.cc-sh-open .w{padding-bottom:var(--sh-h,0px)}
+ body.cc-sh-open .w>#cc-tbar,body.cc-sh-open .w>#cc-ruler,body.cc-sh-open .w>#sc,body.cc-sh-open .w>#otl,body.cc-sh-open .w>#ttl,body.cc-sh-open .w>#tl,body.cc-sh-open .w>#atl,body.cc-sh-open .w>#cc-addrow,body.cc-sh-open .w>#cc-qa{display:none}
+ body.cc-sh-open #cc-endplus,body.cc-sh-open #cc-trk{display:none}
+ body.cc-pn-open .cc-pc{display:grid;float:right}
+ html.cc-web body.cc-pn-open .cc-pt,body.cc-pn-open .w>#pn .cc-pt{display:block;margin:6px 0 12px}
+}
+</style><style id="cc-skin20c">
+#home .cc-allbtn{display:none}
+@media(max-width:899px){
+ #home #hv1{display:flex;flex-direction:column}
+ #home #hv1>*{order:3}
+ #home #hv1>.hero{order:0}#home #hv1>.hrow{order:1}#home #hv1>.fg{order:2}
+ #home .fg{grid-template-columns:repeat(4,1fr);gap:6px;padding:12px 6px;margin-top:4px}
+ #home .fg:not(.cc-all) button:nth-child(n+8):not(.cc-allbtn){display:none}
+ #home .fg button{font-size:11.5px;gap:4px}
+ #home .fg .cc-allbtn{display:grid}
+ #home .hrow .np{min-height:120px}
+}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -763,10 +836,10 @@ let pd=null,td=null,od=null;
 cv.onpointerdown=e=>{const r=cv.getBoundingClientRect(),mx=(e.clientX-r.left)/r.width*100,my=(e.clientY-r.top)/r.height*100;
 const hit=[...tx].reverse().find(o=>T>=o.a&&T<=o.b&&o.t&&Math.abs((o.x??50)-mx)<22&&Math.abs((o.y??50)-my)<12);
 const cap=()=>{try{cv.setPointerCapture(e.pointerId)}catch{}};
-if(hit){selx=tx.indexOf(hit);txl();td={o:hit,x:e.clientX,y:e.clientY,ox:hit.x??50,oy:hit.y??50,s:0};cap();return}
-const oh=ovHit(mx/100*W,my/100*H);if(oh>=0){selOv(oh);const r0=ovRect(ovs[oh]);od={x:e.clientX,y:e.clientY,cx:(r0.x+r0.w/2)/W*100,cy:(r0.y+r0.h/2)/H*100,s:0};so();cap();return}const g=segs[sel];if(!g)return;pd={x:e.clientX,y:e.clientY,px:g.px||0,py:g.py||0,s:0};cap()};
-cv.onpointermove=e=>{const r=cv.getBoundingClientRect();if(td&&!td.s){td.s=1;snap()}if(pd&&!pd.s){pd.s=1;snap()}if(td){td.o.x=Math.max(5,Math.min(95,td.ox+(e.clientX-td.x)/r.width*100));td.o.y=Math.max(5,Math.min(95,td.oy+(e.clientY-td.y)/r.height*100));rdraw();return}if(od){if(!od.s){od.s=1;snap()}const o=ovs[ovi];if(o){o.x=Math.max(0,Math.min(100,od.cx+(e.clientX-od.x)/r.width*100));o.y=Math.max(0,Math.min(100,od.cy+(e.clientY-od.y)/r.height*100));rdraw0();so()}return}if(!pd)return;const g=segs[sel];if(!g)return;g.px=Math.max(-100,Math.min(100,pd.px+(e.clientX-pd.x)/r.width*100));g.py=Math.max(-100,Math.min(100,pd.py+(e.clientY-pd.y)/r.height*100));sy();rdraw()};
-cv.onpointerup=cv.onpointercancel=()=>{if(od&&od.s)autosave();pd=null;td=null;od=null};
+if(hit){selx=tx.indexOf(hit);txl();td={o:hit,x:e.clientX,y:e.clientY,ox:hit.x??50,oy:hit.y??50,s:0};cap();window.ccPick&&ccPick('tx');return}
+const oh=ovHit(mx/100*W,my/100*H);if(oh>=0){selOv(oh);const r0=ovRect(ovs[oh]);od={x:e.clientX,y:e.clientY,cx:(r0.x+r0.w/2)/W*100,cy:(r0.y+r0.h/2)/H*100,s:0};so();cap();window.ccPick&&ccPick('ov');return}const g=segs[sel];if(!g)return;pd={x:e.clientX,y:e.clientY,px:g.px||0,py:g.py||0,s:0};cap();window.ccPick&&ccPick('clip')};
+cv.onpointermove=e=>{const r=cv.getBoundingClientRect();if(td&&!td.s){td.s=1;snap()}if(pd&&!pd.s){pd.s=1;snap()}if(td){td.o.x=Math.max(5,Math.min(95,td.ox+(e.clientX-td.x)/r.width*100));td.o.y=Math.max(5,Math.min(95,td.oy+(e.clientY-td.y)/r.height*100));window.ccGd&&ccGd(1,td.o);rdraw();return}if(od){if(!od.s){od.s=1;snap()}const o=ovs[ovi];if(o){o.x=Math.max(0,Math.min(100,od.cx+(e.clientX-od.x)/r.width*100));o.y=Math.max(0,Math.min(100,od.cy+(e.clientY-od.y)/r.height*100));window.ccGd&&ccGd(2,o);rdraw0();so()}return}if(!pd)return;const g=segs[sel];if(!g)return;g.px=Math.max(-100,Math.min(100,pd.px+(e.clientX-pd.x)/r.width*100));g.py=Math.max(-100,Math.min(100,pd.py+(e.clientY-pd.y)/r.height*100));window.ccGd&&ccGd(3,g);sy();rdraw()};
+cv.onpointerup=cv.onpointercancel=()=>{window.ccGdOff&&ccGdOff();if(od&&od.s)autosave();pd=null;td=null;od=null};
 const P=new Map();let pz=null;
 cv.addEventListener('pointerdown',e=>{P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size==2){pd=null;td=null;od=null;snap();const[a,b]=[...P.values()];pz={d:Math.hypot(a[0]-b[0],a[1]-b[1]),z:segs[sel]?.zm||1}}});
 cv.addEventListener('pointermove',e=>{if(!P.has(e.pointerId))return;P.set(e.pointerId,[e.clientX,e.clientY]);if(P.size==2&&pz&&segs[sel]){const[a,b]=[...P.values()];segs[sel].zm=Math.max(.3,Math.min(3,pz.z*Math.hypot(a[0]-b[0],a[1]-b[1])/pz.d));sy();rdraw()}});
@@ -1617,9 +1690,9 @@ const spL=bar.querySelector('.sp'),sp2=document.createElement('span');sp2.classN
 function layout(){
  if(mq.matches){
   // desktop: putar dan waktu di tengah toolbar timeline; undo/redo di bilah atas
-  spL.after(pl,tm,sp2);hd2.prepend(un,re);hd1.append(msg);pv.append(ra,fs);
+  spL.after(...[window.ccFB,pl,window.ccFF,tm,sp2].filter(Boolean));hd2.prepend(un,re);hd1.append(msg);pv.append(ra,fs);
  }else{
-  bar.prepend(un,re);h.append(pl,tm,msg,ra,fs);sp2.remove();
+  bar.prepend(un,re);h.append(...[window.ccFB,pl,window.ccFF,tm,msg,ra,fs].filter(Boolean));sp2.remove();
  }
  syncRail();try{window.__ccPh&&window.__ccPh();window.__ccRul&&window.__ccRul()}catch{}
 }
@@ -1631,6 +1704,172 @@ function ptSync(){const on=($('.tb button.on')||{}).dataset;pt.textContent=(on&&
 new MutationObserver(ptSync).observe($('.tb'),{attributes:true,subtree:true,attributeFilter:['class']});ptSync();
 // beranda: sidebar kiri di desktop
 const hn=$('#home .hn');if(hn){const top=document.createElement('div');top.id='cc-hs';top.innerHTML='<span class="hd-logo cc-hl"></span><button type="button" class="cc-new">'+S('<path d="M12 5v14M5 12h14"/>',20)+'<b>Buat baru</b></button>';hn.prepend(top);top.querySelector('.cc-new').onclick=()=>{const n=$('#hnew');if(n)n.click()}}
+})();
+</script>
+<script id="cc-skin20a-js">
+(()=>{
+const pv=document.querySelector('.pv'),cv=document.getElementById('cv');if(!pv||!cv)return;
+const g=document.createElement('div');g.id='cc-guides';g.setAttribute('aria-hidden','true');
+const L={};['v','h','l','r','t','b'].forEach(k=>{const i=document.createElement('i');L[k]=i;g.append(i)});pv.append(g);
+let was=false;const TH=2.2;
+function show(f){const cr=cv.getBoundingClientRect(),pr=pv.getBoundingClientRect(),x0=cr.left-pr.left,y0=cr.top-pr.top,w=cr.width,h=cr.height;
+const V=(el,p,on)=>{el.style.display=on?'block':'none';if(on){el.style.left=(x0+w*p/100-1)+'px';el.style.top=y0+'px';el.style.width='2px';el.style.height=h+'px'}};
+const Hh=(el,p,on)=>{el.style.display=on?'block':'none';if(on){el.style.top=(y0+h*p/100-1)+'px';el.style.left=x0+'px';el.style.height='2px';el.style.width=w+'px'}};
+V(L.v,50,f.v);V(L.l,0,f.l);V(L.r,100,f.r);Hh(L.h,50,f.h);Hh(L.t,0,f.t);Hh(L.b,100,f.b);
+const any=!!(f.v||f.h||f.l||f.r||f.t||f.b);if(any&&!was){try{navigator.vibrate&&navigator.vibrate(10)}catch{}}was=any}
+window.ccGd=(kind,o)=>{try{let x,y,hw=0,hh=0;const f={};
+if(kind===1){x=o.x??50;y=o.y??50}else if(kind===2){x=o.x;y=o.y;const r=ovRect(o);hw=r.w/2/W*100;hh=r.h/2/H*100}else{x=50+(o.px||0);y=50+(o.py||0)}
+if(Math.abs(x-50)<TH){x=50;f.v=1}if(Math.abs(y-50)<TH){y=50;f.h=1}
+if(kind===2){if(Math.abs(x-hw)<TH){x=hw;f.l=1}if(Math.abs(x+hw-100)<TH){x=100-hw;f.r=1}if(Math.abs(y-hh)<TH){y=hh;f.t=1}if(Math.abs(y+hh-100)<TH){y=100-hh;f.b=1}}
+if(kind===3){o.px=x-50;o.py=y-50}else{o.x=x;o.y=y}show(f)}catch{}};
+window.ccGdOff=()=>{for(const k in L)L[k].style.display='none';was=false};
+})();
+</script>
+<script id="cc-skin20b-js">
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const S=(p,z)=>'<svg viewBox="0 0 24 24" width="'+(z||24)+'" height="'+(z||24)+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
+const IC={
+add:'<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/>',
+text:'<path d="M5 6V4h14v2M12 4v16M9 20h6"/>',
+audio:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+ov:'<rect x="3" y="5" width="18" height="14" rx="2"/><rect x="11" y="11" width="8" height="6" rx="1.5"/>',
+fx:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/>',
+ratio:'<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10v-0M8 10h3M16 14h-3"/>',
+proj:'<path d="M5 3h11l4 4v13a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M8 3v6h8V3M8 21v-7h8v7"/>',
+media:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/>',
+back:'<path d="M15 5l-7 7 7 7"/>',
+split:'<path d="M12 2v20"/><rect x="4" y="7" width="5" height="10" rx="1"/><rect x="15" y="7" width="5" height="10" rx="1"/>',
+speed:'<circle cx="12" cy="13" r="8"/><path d="M12 13l4-4M9 3h6"/>',
+vol:'<path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16 9a4 4 0 0 1 0 6"/>',
+crop:'<path d="M6 2v14a2 2 0 0 0 2 2h14M2 6h14a2 2 0 0 1 2 2v14"/>',
+rot:'<path d="M20 12a8 8 0 1 1-3-6.2M20 4v5h-5"/>',
+flip:'<path d="M12 3v18M8 7L3 12l5 5V7zM16 7l5 5-5 5V7z"/>',
+anim:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/>',
+bg:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1-5 5-7 8-7s7 2 8 7"/>',
+color:'<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
+mask:'<circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/>',
+dup:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',
+frz:'<path d="M12 2v20M4 7l16 10M20 7L4 17"/>',
+del:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',
+move:'<path d="M8 6l-5 6 5 6M16 6l5 6-5 6"/>',
+more:'<circle cx="5" cy="12" r="1.6" fill="currentColor"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/><circle cx="19" cy="12" r="1.6" fill="currentColor"/>',
+pos:'<path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/>',
+edit:'<path d="M4 20h4L19 9l-4-4L4 16v4zM14 6l4 4"/>',
+tpl:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/>',
+order:'<path d="M12 3l9 5-9 5-9-5 9-5zM3 13l9 5 9-5"/>',
+prev:'<path d="M18 5v14M14 6l-8 6 8 6V6z" fill="currentColor"/>',
+next:'<path d="M6 5v14M10 6l8 6-8 6V6z" fill="currentColor"/>'
+};
+const w=$('.w');
+const mqD=matchMedia('(min-width:900px) and (min-height:480px) and (pointer:fine)');
+const pn=$('#pn');
+// ---------- panel penuh sebagai lembar (HP)
+const pcl=document.createElement('button');pcl.type='button';pcl.className='cc-pc';pcl.setAttribute('aria-label','Selesai');pcl.innerHTML=S('<path d="M5 12l5 5 9-10"/>',20);pn.prepend(pcl);
+function openPanel(t,title){const b=$('.tb button[data-t="'+t+'"]');if(b)b.click();closeSheet();const pt=pn.querySelector('.cc-pt');if(pt&&title)pt.textContent=title;if(!mqD.matches)document.body.classList.add('cc-pn-open')}
+function closePanel(){document.body.classList.remove('cc-pn-open')}
+pcl.onclick=closePanel;
+// ---------- lembar kecil
+const sh=document.createElement('div');sh.id='cc-sheet';sh.setAttribute('role','dialog');sh.innerHTML='<div class="cc-sh-h"><b></b><button type="button" class="cc-sh-x" aria-label="Selesai"></button></div><div class="cc-sh-b"></div>';document.body.append(sh);
+const shT=sh.querySelector('b'),shB=sh.querySelector('.cc-sh-b'),shX=sh.querySelector('.cc-sh-x');shX.innerHTML=S('<path d="M5 12l5 5 9-10"/>',20);
+let moved=[],shKind=null;
+function setSh(){const on=sh.classList.contains('on');if(on&&mqD.matches){const r=pn.getBoundingClientRect(),st=sh.style;st.left=r.left+'px';st.top=r.top+'px';st.width=r.width+'px';st.maxHeight=r.height+'px';st.bottom='auto';st.right='auto';st.transform='none';st.borderRadius='0';document.documentElement.style.setProperty('--sh-h','0px')}else{sh.style.cssText='';document.documentElement.style.setProperty('--sh-h',on?Math.ceil(sh.getBoundingClientRect().height)+'px':'0px')}}
+if(window.ResizeObserver)new ResizeObserver(setSh).observe(sh);
+function adopt(n){if(!n)return;const ph=document.createComment('cc');n.parentNode.insertBefore(ph,n);moved.push([n,ph]);shB.append(n)}
+function closeSheet(){moved.forEach(([n,ph])=>{if(ph.parentNode){ph.parentNode.insertBefore(n,ph);ph.remove()}});moved=[];shB.innerHTML='';sh.classList.remove('on');document.body.classList.remove('cc-sh-open');shKind=null;setSh()}
+function openSheet(title,build){closePanel();closeSheet();shT.textContent=title;shKind=kind||'root';build(shB,adopt);sh.classList.add('on');document.body.classList.add('cc-sh-open');requestAnimationFrame(setSh)}
+shX.onclick=closeSheet;document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSheet();closePanel()}});
+const chip=(t,fn,on)=>{const b=document.createElement('button');b.type='button';b.className='chip'+(on?' on':'');b.textContent=t;b.onclick=fn;return b};
+const row=(...c)=>{const d=document.createElement('div');d.className='cc-chips';d.append(...c);return d};
+const slider=(lab,min,max,val,oninp,onstart)=>{const l=document.createElement('label');l.className='cc-sl';l.innerHTML='<span>'+lab+'</span><input type="range" min="'+min+'" max="'+max+'" value="'+val+'"><output>'+val+'</output>';const i=l.querySelector('input'),o=l.querySelector('output');i.addEventListener('pointerdown',()=>onstart&&onstart(),true);i.oninput=()=>{o.textContent=i.value;oninp(+i.value)};return l};
+// ---------- pilihan (kind)
+let kind=null;
+const TRK={clip:'#tl',ov:'#otl',tx:'#ttl',aud:'#atl'},ITEM={clip:'.sg',ov:'.vb',tx:'.xb',aud:'.ab'};
+window.ccPick=k=>{if(kind!==k){if(sh.classList.contains('on')&&shKind!==(k||'root'))closeSheet();kind=k}render()};
+const inR=(e,el)=>{if(!el||!el.offsetParent)return false;const r=el.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right&&e.clientY>=r.top&&e.clientY<=r.bottom};
+let dn=null;
+document.addEventListener('pointerdown',e=>{dn=null;for(const k in TRK){if(inR(e,$(TRK[k]))){const it=$$(TRK[k]+' '+ITEM[k]).find(x=>{const r=x.getBoundingClientRect();return e.clientX>=r.left&&e.clientX<=r.right});dn={k,hit:!!it,x:e.clientX,y:e.clientY};return}}},true);
+document.addEventListener('pointerup',e=>{if(!dn)return;const d=dn;dn=null;const moved=Math.hypot(e.clientX-d.x,e.clientY-d.y)>10;if(d.hit)setTimeout(()=>ccPick(d.k),0);else if(!moved)setTimeout(()=>ccPick(null),0)},true);
+// ---------- aksi
+const click=id=>()=>{const b=$(id);if(b)b.click()};
+const guard=()=>{try{return !!segs[sel]}catch{return false}};
+function addText(){closeSheet();$('#at').click();try{ccPick('tx');editText()}catch{}}
+const pin=document.createElement('input');pin.type='file';pin.accept='video/*,image/*';pin.hidden=true;document.body.append(pin);
+pin.onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const img=f.type.startsWith('image/'),tg=$(img?'#fg':'#fq');if(!tg||!tg.onchange)return;const n0=ovs.length;tg.onchange({target:{files:[f],value:''}});const t0=Date.now(),iv=setInterval(()=>{if(ovs.length>n0){clearInterval(iv);ccPick('ov');openPos()}else if(Date.now()-t0>5000)clearInterval(iv)},120)};
+function addPip(){closeSheet();closePanel();pin.click()}
+async function srcDims(g){if(g.fz){const im=fzs.get(g.fid);return im?[im.videoWidth||im.naturalWidth||im.width,im.videoHeight||im.naturalHeight||im.height]:null}
+try{if(cur!==sel)await seek(start(sel)+.02)}catch{}const a=v.videoWidth,b=v.videoHeight;return a&&b?[a,b]:null}
+function openCrop(){if(!guard())return msg('Tambah klip dulu');const g=segs[sel];
+openSheet('Crop',(b,ad)=>{const info=document.createElement('div');info.className='mu';info.textContent='Pilih bentuk cepat, lalu atur tepi dengan penggeser.';b.append(info);
+const mk=(lab,t)=>chip(lab,async()=>{const gg=segs[sel];if(!gg)return;const d=await srcDims(gg);if(!d)return msg('Ukuran klip belum terbaca, putar sebentar lalu coba lagi');snap();
+if(t===null){delete gg.cr}else{let[sw,sh2]=d;if((gg.rot||0)%2)[sw,sh2]=[sh2,sw];const a=sw/sh2;let c=[0,0,0,0];if(t<a){const x=Math.min(45,(1-t/a)/2*100);c=[x,0,x,0]}else{const y=Math.min(45,(1-a/t)/2*100);c=[0,y,0,y]}gg.cr=c.map(q=>Math.round(q*10)/10)}
+draw();autosave();document.dispatchEvent(new Event('pointerup'))});
+b.append(row(mk('Bebas',null),mk('1:1',1),mk('4:5',4/5),mk('9:16',9/16),mk('16:9',16/9),mk('4:3',4/3)));ad($('#cc-cr'))})}
+function openPos(){if(!ov)return msg('Pilih overlay dulu');
+openSheet('Posisi dan ukuran PiP',b=>{const o=ov,at=(px,py)=>chip('',()=>{if(!ov)return;snap();const r=ovRect(ov),hw=r.w/2/W*100,hh=r.h/2/H*100,m=3;ov.x=px===0?hw+m:px===2?100-hw-m:50;ov.y=py===0?hh+m:py===2?100-hh-m:50;draw();autosave()});
+const g=document.createElement('div');g.className='cc-pgrid';for(let y=0;y<3;y++)for(let x=0;x<3;x++){const c=at(x,y);c.classList.add('cc-dot');c.setAttribute('aria-label','Posisi '+['atas','tengah','bawah'][y]+' '+['kiri','tengah','kanan'][x]);g.append(c)}
+b.append(g);
+b.append(slider('Ukuran',5,100,Math.round(o.s||35),v2=>{if(ov){ov.s=v2;draw()}},()=>snap()));
+b.append(slider('Opasitas',0,100,Math.round(o.op??100),v2=>{if(ov){ov.op=v2;draw()}},()=>snap()));
+b.append(row(chip('Isi layar',click('#pfi')),chip('Naikkan',click('#pup')),chip('Turunkan',click('#pdn')),chip('Hapus',()=>{click('#pk')();closeSheet();ccPick(null)})));
+const hint=document.createElement('div');hint.className='mu';hint.textContent='Tip: seret langsung di layar untuk menggeser; garis merah muda membantu meluruskan.';b.append(hint)})}
+function openSpeed(){if(!guard())return;const cur0=segs[sel].sp||1;
+openSheet('Kecepatan',b=>{const set=v2=>{const s=segs[sel];if(!s)return;if(playing)stop();snap();s.sp=v2;T=Math.min(T,total());tl();msg('Kecepatan '+v2+'×');openSpeed()};b.append(row(...[.25,.5,1,1.5,2,3,4].map(q=>chip(q+'×',()=>set(q),q===cur0))));
+const m=document.createElement('div');m.className='mu';m.textContent='Untuk kurva kecepatan, buka Lainnya.';b.append(m)})}
+function openVol(){if(!guard())return;const g=segs[sel];if(g.fz)return msg('Klip foto atau freeze tidak memiliki suara');
+openSheet('Volume',b=>{const sl=slider('Volume',0,100,Math.round((g.vol??1)*100),q=>{const s=segs[sel];if(!s)return;s.vol=q/100;if(!playing)v.volume=s.vol;tl()},()=>snap());b.append(sl);b.append(row(chip('Bisukan',()=>{const s=segs[sel];if(!s)return;snap();s.vol=0;if(!playing)v.volume=0;tl();openVol()})))})}
+function openMove(){openSheet('Pindahkan klip',b=>{b.append(row(chip('◀ Ke kiri',click('#mL')),chip('Ke kanan ▶',click('#mR'))));const m=document.createElement('div');m.className='mu';m.textContent='Atau tahan klip di timeline lalu seret.';b.append(m)})}
+function openMaskFor(selId){const s=$(selId);if(!s)return;openSheet('Mask',(b,ad)=>{const lab=s.closest('label');ad(lab);const p=lab&&lab.nextElementSibling;if(p&&p.classList.contains('cc-mk'))ad(p)})}
+function openRatio(){openSheet('Rasio layar',b=>{b.append(row(...[0,1,2,3,4].map(i=>chip(R[i][2],()=>{snap();setR(i);draw();openRatio()},ri===i))))})}
+function editText(){const o=tx[selx];if(!o)return msg('Pilih teks dulu');
+openSheet('Edit teks',b=>{const inp=document.createElement('input');inp.type='text';inp.className='cc-ti';inp.value=o.t||'';inp.placeholder='Tulis teks...';inp.addEventListener('pointerdown',()=>snap(),{once:true});inp.oninput=()=>{const q=tx[selx];if(q){q.t=inp.value;draw();autosave()}};b.append(inp);
+b.append(row(...[['Kecil',.7],['Sedang',1],['Besar',1.4],['Raksasa',2.5]].map(([n,z])=>chip(n,()=>{snap();o.z=z;draw();autosave();editText()},o.z===z))));
+b.append(row(chip('Atas',()=>{snap();o.y=15;o.x=50;draw();autosave()}),chip('Tengah',()=>{snap();o.y=50;o.x=50;draw();autosave()}),chip('Bawah',()=>{snap();o.y=82;o.x=50;draw();autosave()})));
+const c=document.createElement('label');c.className='cc-sl';c.innerHTML='<span>Warna</span><input type="color" value="'+(o.c||'#ffffff')+'">';c.querySelector('input').oninput=e=>{o.c=e.target.value;draw();autosave()};c.querySelector('input').addEventListener('pointerdown',()=>snap(),true);b.append(c);setTimeout(()=>inp.focus(),50)})}
+const delText=()=>{if(selx<0||!tx[selx])return;snap();tx.splice(selx,1);selx=-1;rl();draw();autosave();closeSheet();ccPick(null)};
+// ---------- bilah alat
+const qa=document.createElement('nav');qa.id='cc-qa';qa.setAttribute('aria-label','Menu alat');w.append(qa);
+const mk=(ic,lab,fn)=>({ic,lab,fn});
+const MODES={
+root:()=>[mk('add','Tambah',()=>$('#fi').click()),mk('text','Teks',()=>openPanel('t2','Teks')),mk('audio','Audio',()=>openPanel('t3','Audio')),mk('ov','Overlay',addPip),mk('fx','Efek',()=>openPanel('t4','Efek dan filter')),mk('ratio','Rasio',openRatio),mk('media','Pustaka',()=>openPanel('t0','Media')),mk('proj','Proyek',()=>openPanel('t6','Proyek'))],
+clip:()=>[mk('back','Kembali',()=>ccPick(null)),mk('split','Split',click('#sp')),mk('speed','Kecepatan',openSpeed),mk('vol','Volume',openVol),mk('crop','Crop',openCrop),mk('rot','Putar',click('#rt')),mk('flip','Cermin',click('#fx')),mk('anim','Animasi',()=>openSheet('Animasi dan fade',(b,ad)=>{ad($('#cc-an'));ad($('#cc-af'))})),mk('bg','Hapus latar',()=>openSheet('Hapus latar (AI)',(b,ad)=>ad($('#cc-bg')))),mk('color','Warna',()=>openSheet('Warna lanjutan',(b,ad)=>ad($('#cc-cg')))),mk('mask','Mask',()=>openMaskFor('#kmk')),mk('move','Pindah',openMove),mk('dup','Duplikat',click('#du')),mk('frz','Freeze',click('#fz')),mk('del','Hapus',()=>{click('#dl')();ccPick(null)}),mk('more','Lainnya',()=>openPanel('t5','Pengaturan klip'))],
+ov:()=>[mk('back','Kembali',()=>ccPick(null)),mk('pos','Posisi',openPos),mk('mask','Mask',()=>openMaskFor('#pmk')),mk('order','Susun',()=>openSheet('Urutan lapisan',b=>b.append(row(chip('Naikkan',click('#pup')),chip('Turunkan',click('#pdn')),chip('Di belakang klip utama',click('#pbk')))))),mk('del','Hapus',()=>{click('#pk')();ccPick(null)}),mk('more','Lainnya',()=>openPanel('t4','Overlay dan efek'))],
+tx:()=>[mk('back','Kembali',()=>ccPick(null)),mk('edit','Edit',editText),mk('color','Gaya',()=>openSheet('Gaya teks',(b,ad)=>ad($('#cc-ts')))),mk('tpl','Template',()=>openSheet('Template teks',(b,ad)=>ad($('#cc-tpl')))),mk('del','Hapus',delText),mk('more','Lainnya',()=>openPanel('t2','Teks'))],
+aud:()=>[mk('back','Kembali',()=>ccPick(null)),mk('vol','Volume',click('#avl')),mk('split','Split',click('#asp')),mk('del','Hapus',()=>{click('#adl')();ccPick(null)}),mk('more','Lainnya',()=>openPanel('t3','Audio'))]};
+function render(){const items=MODES[kind||'root']();qa.innerHTML='';qa.dataset.mode=kind||'root';
+items.forEach(it=>{const b=document.createElement('button');b.type='button';b.innerHTML='<span>'+S(IC[it.ic])+'</span><em>'+it.lab+'</em>';b.onclick=()=>{try{it.fn()}catch(err){}};if(it.ic==='back')b.classList.add('cc-back');if(it.ic==='del')b.classList.add('cc-danger');qa.append(b)});qa.scrollLeft=0;
+for(const k in TRK){const el=$(TRK[k]);if(el)el.dataset.sel=kind===k?'1':''}}
+render();
+$('.pv').addEventListener('pointerdown',e=>{if(e.target===$('.pv'))setTimeout(()=>ccPick(null),0)});
+// ---------- baris tambah (HP) dan tombol + di ujung klip
+const ar=document.createElement('div');ar.id='cc-addrow';ar.innerHTML='<button type="button" data-k="ov">'+S(IC.add,18)+'<span>Overlay</span></button><button type="button" data-k="tx">'+S(IC.add,18)+'<span>Teks</span></button><button type="button" data-k="aud">'+S(IC.add,18)+'<span>Audio</span></button>';w.append(ar);
+ar.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;if(k==='ov')addPip();else if(k==='tx')addText();else openPanel('t3','Audio')};
+function syncAdd(){const emp=s=>{const e=$(s);return !e||!e.children.length};ar.querySelector('[data-k=ov]').style.display=emp('#otl')?'':'none';ar.querySelector('[data-k=tx]').style.display=emp('#ttl')?'':'none';ar.querySelector('[data-k=aud]').style.display=emp('#atl')?'':'none';ar.style.display=(emp('#otl')||emp('#ttl')||emp('#atl'))?'':'none'}
+['#otl','#ttl','#atl','#tl'].forEach(s=>{const e=$(s);if(e)new MutationObserver(syncAdd).observe(e,{childList:true})});syncAdd();
+const ep=document.createElement('button');ep.type='button';ep.id='cc-endplus';ep.setAttribute('aria-label','Tambah klip');ep.innerHTML=S('<path d="M12 5v14M5 12h14"/>',20);ep.onclick=()=>$('#fi').click();document.body.append(ep);
+function placeEnd(){const t=$('#tl');if(!t||!t.offsetParent||mqD.matches){ep.style.display='none';return}let tot=0;try{tot=total()}catch{}if(!tot){ep.style.display='none';return}const r=t.getBoundingClientRect(),sp=vw(),x=r.left+(tot-vt0)/sp*r.width;const left=Math.min(r.right-40,Math.max(r.left+4,x+6));ep.style.display='grid';ep.style.left=left+'px';ep.style.top=(r.top+r.height/2-18)+'px'}
+const pr0=window.__ccPh;window.__ccPh=()=>{if(pr0)pr0();placeEnd()};placeEnd();
+// ---------- maju mundur satu frame
+function stepFrame(d){try{if(playing)stop();seek(Math.max(0,Math.min(total(),T+d/FPS)))}catch{}}
+function fbtn(d,ic,lab){const b=document.createElement('button');b.type='button';b.className='b cc-ib cc-fr';b.title=lab;b.setAttribute('aria-label',lab);b.innerHTML=S(IC[ic],18);let to=0,iv=0;const clr=()=>{clearTimeout(to);clearInterval(iv)};
+b.addEventListener('pointerdown',e=>{e.preventDefault();stepFrame(d);to=setTimeout(()=>{iv=setInterval(()=>stepFrame(d),70)},380)});['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,clr));return b}
+const fb=fbtn(-1,'prev','Mundur satu frame'),ff=fbtn(1,'next','Maju satu frame');fb.id='cc-fb';ff.id='cc-ff';window.ccFB=fb;window.ccFF=ff;
+$('#pl').before(fb);$('#pl').after(ff);
+// ---------- tombol Crop dan PiP di toolbar timeline (desktop) dan Rasio
+const bar=$('#cc-tbar'),rip=bar.querySelector('.cc-ib[title^="Hapus dan rapatkan"]');
+const tb2=(ic,lab,fn)=>{const b=document.createElement('button');b.type='button';b.className='b cc-ib cc-dsk';b.title=lab;b.setAttribute('aria-label',lab);b.innerHTML=S(IC[ic],20);b.onclick=fn;return b};
+const cropB=tb2('crop','Crop',openCrop),pipB=tb2('ov','Tambah PiP',addPip);(rip||bar.firstChild).after(cropB,pipB);
+})();
+</script>
+<script id="cc-skin20c-js">
+(()=>{
+const $=s=>document.querySelector(s);
+const fg=$('#hv1 .fg');if(fg){const ab=document.createElement('button');ab.type='button';ab.className='cc-allbtn';
+ab.innerHTML='<i><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><rect x="14" y="14" width="6" height="6" rx="1.5"/></svg></i><span>Semua alat</span>';
+ab.onclick=()=>{fg.classList.toggle('cc-all');ab.querySelector('span').textContent=fg.classList.contains('cc-all')?'Sedikit':'Semua alat'};fg.append(ab)}
+// petunjuk sekali saja setelah klip pertama masuk
+let tip=false;try{tip=!!localStorage.getItem('cc_tip')}catch{}
+const tl=$('#tl');if(tl&&!tip)new MutationObserver(()=>{if(tip||!tl.querySelector('.sg'))return;tip=true;try{localStorage.setItem('cc_tip','1')}catch{}try{msg('Tips: ketuk klip di timeline untuk membuka alat edit (Split, Crop, Kecepatan, dan lainnya).')}catch{}}).observe(tl,{childList:true});
 })();
 </script>
 </body></html>
