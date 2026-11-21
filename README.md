@@ -192,3 +192,6 @@ Nilai diukur langsung dari piksel screenshot CapCut (bukan ditebak) dan dipasang
 - HP: tombol atas (tema, resolusi, Ekspor) turun dari 46 ke 32 px dengan radius 9 px; area timeline kini satu pita `#1c1c1c`; toolbar bawah tanpa garis atas.
 - Sheet Rasio memakai deretan tile ikon (tile terpilih berbingkai putih) seperti CapCut.
 - Belum sama: toolbar bawah CapCut berpindah ke sub-toolbar ikon dengan tombol kembali (Efek, Teks), sedangkan di sini Efek dan Teks masih membuka sheet besar; tombol bulat AI melayang di kiri timeline; judul sheet "Ratio" + centang di bawah; layar beranda CapCut bergaya terang dengan hero.
+
+## Ekspor offline per frame (WebCodecs)
+Mode **Akurat** (default, pilih di panel ekspor) merender setiap frame secara berurutan (seek → gambar → `VideoFrame` → encoder H.264), tidak lagi merekam pratinjau real-time. Hasilnya tidak jatuh frame, bebas dari beban perangkat saat bermain, dan audio dicampur offline. Teruji: klip penghitung frame keluar persis 1 langkah per frame, transisi antar klip ikut terekam, dan tombol Batal berhenti bersih. Jika gagal, otomatis kembali ke mode **Cepat (rekam pratinjau)**. Pilihan disimpan di `localStorage.cc_xmode`.

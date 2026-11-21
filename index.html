@@ -1282,7 +1282,7 @@ $('#pbk').onclick=()=>{const o=O();if(!o)return;snap();o.bk=o.bk?0:1;if(!o.bk)de
 $('#pfi').onclick=()=>{const o=O();if(!o)return;if(!o.el.videoWidth)return msg('Tunggu overlay selesai dimuat');snap();const asp=o.el.videoWidth/o.el.videoHeight;o.s=+Math.max(100,100*H*asp/W).toFixed(1);o.x=50;o.y=50;o.rot=0;draw();autosave();so()};
 })();
 </script><!-- PETA MODUL: tema ada di satu <style id="cc-theme"> (urutan = urutan cascade, tiap lapisan diberi label mNN).
-     Skrip m01..m23 dijalankan berurutan; modul belakang boleh membungkus fungsi global modul depan (fxXf, draw0, fxPost), jadi urutan jangan ditukar. -->
+     Skrip m01..m24 dijalankan berurutan; modul belakang boleh membungkus fungsi global modul depan (fxXf, draw0, fxPost), jadi urutan jangan ditukar. -->
 <script id="cc-m01-shell-dasar-ikon">
 // [m01] shell dasar: ikon beranda dan bilah atas
 (()=>{
@@ -2272,6 +2272,58 @@ sld.onchange=()=>{const g=segs[sel];if(g){snap();autosave();prev()}};
 sel_.addEventListener('pointerdown',sync,true);sld.addEventListener('pointerdown',()=>{sync();if(segs[sel])snap()},true);
 new MutationObserver(()=>{mark();sync()}).observe($('#tl'),{childList:true,subtree:true});
 $('#tl').addEventListener('pointerup',()=>setTimeout(sync,0));mark();sync();
+})();
+</script>
+<script id="cc-m24-ekspor-offline-per-frame">
+// [m24] ekspor MP4 offline per frame (WebCodecs): tiap frame keluaran dirender pada waktu pastinya (seek klip, lalu draw, lalu encode),
+// bukan merekam pratinjau yang sedang diputar. Tidak ada frame terlewat atau terduplikasi, dan hasilnya tidak bergantung pada kecepatan perangkat.
+// Mode lama (rekam pratinjau, lebih cepat tapi bisa jatuh frame) tetap ada sebagai pilihan dan sebagai cadangan jika mode ini gagal.
+(()=>{
+const $=s=>document.querySelector(s);
+const live=window.fastExport;if(typeof live!=='function')return;
+let mode='akurat';try{mode=localStorage.getItem('cc_xmode')||'akurat'}catch{}
+const pop=$('#cc-pop'),ms=document.createElement('select');ms.id='cc-xmode';ms.title='Mode ekspor MP4';
+[['akurat','Akurat (per frame, offline)'],['cepat','Cepat (rekam pratinjau)']].forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;ms.append(o)});
+ms.value=mode==='cepat'?'cepat':'akurat';mode=ms.value;
+ms.onchange=()=>{if(exp){ms.value=mode;return msg('Tunggu ekspor selesai dulu')}mode=ms.value;try{localStorage.setItem('cc_xmode',mode)}catch{}};
+if(pop){const l=document.createElement('span');l.className='mu';l.textContent='Mode ekspor MP4';pop.append(l,ms)}
+const seekEl=(e,t)=>new Promise(r=>{let ok=false;const fin=()=>{if(ok)return;ok=true;e.removeEventListener('seeked',fin);clearTimeout(to);r()};const to=setTimeout(fin,2000);e.addEventListener('seeked',fin);try{e.currentTime=t}catch{fin()}});
+async function syncOv(){for(const o of ovs){const e=o.el;if(!e||e.tagName!=='VIDEO'||!e.videoWidth)continue;const t=T-o.a;if(t<0||t>Math.min(o.d,e.duration))continue;const q=o.in+t;try{e.pause()}catch{}if(Math.abs(e.currentTime-q)>.0004)await seekEl(e,q)}}
+const settle=e=>new Promise(r=>{if(!e.requestVideoFrameCallback)return r();const to=setTimeout(r,60);try{e.requestVideoFrameCallback(()=>{clearTimeout(to);r()})}catch{clearTimeout(to);r()}});
+async function renderAt(t){T=t;const l=locate(T),s=segs[l.i];if(!s)return;
+if(s.fz)cur=l.i;else{const st=s.in+l.off*s.sp+.0005;if(cur!==l.i||v.dataset.u!==s.u)await load(l.i,st);cur=l.i;try{v.pause()}catch{}if(Math.abs(v.currentTime-st)>.0004){await seekEl(v,st);await settle(v)}}
+await syncOv();draw()}
+async function offline(){
+if(!window.Mp4Muxer)await new Promise(r=>{const t0=Date.now(),i=setInterval(()=>{if(window.Mp4Muxer||Date.now()-t0>4000){clearInterval(i);r()}},100)});
+if(!window.VideoEncoder||!window.AudioEncoder||!window.Mp4Muxer||!window.OfflineAudioContext)throw new Error('WebCodecs/muxer tidak tersedia');
+if(playing)stop();
+let err=null,ve2=null,wk=null;const t0=T;
+try{
+await seek(0);msg('Menyiapkan audio…');const SR=48000,au=await mixAudio(total(),SR);
+let acd=null;for(const[c,m]of[['mp4a.40.2','aac'],['opus','opus']]){try{if((await AudioEncoder.isConfigSupported({codec:c,sampleRate:SR,numberOfChannels:2,bitrate:128000})).supported){acd=[c,m];break}}catch{}}
+if(!acd)throw new Error('encoder audio tidak didukung');
+const mx=new Mp4Muxer.Muxer({target:new Mp4Muxer.ArrayBufferTarget(),video:{codec:'avc',width:W,height:H},audio:{codec:acd[1],numberOfChannels:2,sampleRate:SR},fastStart:'in-memory',firstTimestampBehavior:'offset'});
+const ae=new AudioEncoder({output:(c,m)=>mx.addAudioChunk(c,m),error:x=>{err=x}});
+ve2=new VideoEncoder({output:(c,m)=>mx.addVideoChunk(c,m),error:x=>{err=x}});
+let vc=null;for(const c of['avc1.640032','avc1.64002A','avc1.4D0032','avc1.42001F']){try{const q=await VideoEncoder.isConfigSupported({codec:c,width:W,height:H,bitrate:qb(),framerate:FPS});if(q.supported){vc=c;break}}catch{}}
+if(!vc)throw new Error('encoder video H.264 tidak didukung');
+ve2.configure({codec:vc,width:W,height:H,bitrate:qb(),framerate:FPS});ae.configure({codec:acd[0],sampleRate:SR,numberOfChannels:2,bitrate:128000});
+for(let o=0;o<au.length;o+=SR){const n=Math.min(SR,au.length-o),d=new Float32Array(n*2);d.set(au.getChannelData(0).subarray(o,o+n),0);d.set(au.getChannelData(1).subarray(o,o+n),n);const a=new AudioData({format:'f32-planar',sampleRate:SR,numberOfFrames:n,numberOfChannels:2,timestamp:Math.round(o/SR*1e6),data:d});ae.encode(a);a.close()}
+xab=false;try{wk=await navigator.wakeLock?.request('screen')}catch{}setExp(true);
+const tot=total(),n=Math.max(1,Math.round(tot*FPS)),D=Math.round(1e6/FPS);
+for(let k=0;k<n;k++){
+if(xab)throw new Error('dibatalkan');if(err)throw err;
+await renderAt(Math.min(k/FPS,tot-1e-4));
+const f=new VideoFrame(cv,{timestamp:Math.round(k*1e6/FPS),duration:D});ve2.encode(f,{keyFrame:k%(FPS*2)==0});f.close();
+while(ve2.encodeQueueSize>6){if(xab||err)break;await new Promise(r=>{const h=()=>{clearTimeout(to);r()},to=setTimeout(h,40);ve2.addEventListener('dequeue',h,{once:true})})}}
+await ve2.flush();await ae.flush();if(err)throw err;mx.finalize();
+await save(new Blob([mx.target.buffer],{type:'video/mp4'}),'video-editan.mp4');if(miss)msg('Selesai, tapi audio '+miss+' file tidak terbaca');
+}finally{try{ve2&&ve2.state!='closed'&&ve2.close()}catch{}try{wk&&wk.release()}catch{}setExp(false);try{await seek(Math.min(t0,total()))}catch{}}
+}
+window.fastExport=async function(auto){
+if(mode==='akurat'&&segs.length){
+try{return await offline()}catch(e){if(xab){xab=false;return msg('Ekspor dibatalkan')}msg('Ekspor akurat gagal ('+(e&&e.message||e)+'), memakai mode cepat…')}}
+return live.call(this,auto)};
 })();
 </script>
 </body></html>
