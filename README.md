@@ -1,4 +1,4 @@
-# Studio-Editor: tambahan gaya CapCut
+# Studio-Editor
 
 Semua perubahan ada di `index.html` (vendor tidak diubah). Diuji di Chromium: keyframe, mask, chroma key, animasi teks, speed ramp, split, undo, simpan/buka proyek, pemulihan PiP, dan ekspor H.264.
 
