@@ -173,3 +173,22 @@ Semua perubahan ada di `index.html` (vendor tidak diubah). Diuji di Chromium: ke
 - Koordinat bingkai dipetakan dengan benar untuk klip yang sudah diputar 90 derajat dan atau dicermin (diuji pada enam kombinasi).
 - Panel geser Crop lama masih ada lewat Lainnya. Lembar alat di HP dibatasi setinggi setengah layar agar pemutar tidak menyusut terlalu kecil.
 - Perbaikan: kelas gagang bingkai sempat bentrok dengan kelas `.w` milik wadah utama sehingga muncul kotak gelap; sudah diganti nama.
+
+## Transisi antar klip
+- Tab Klip (dan lembar "Animasi dan fade" di HP): bagian "Transisi ke klip berikutnya" dengan 11 jenis (Dissolve, Fade hitam, Flash putih, Geser kiri/kanan/atas/bawah, Wipe, Zoom, Blur, Iris) dan durasi 0,2 sampai 1,5 detik. Memilih jenis langsung memutar pratinjau singkat di sambungan klip.
+- Penanda ⇄ cyan muncul di ujung klip yang punya transisi. Tersimpan di proyek, bisa di-undo, dan ikut ekspor (diverifikasi: dissolve 1 detik pada MP4 hasil ekspor berubah merah ke biru bertahap).
+- Cara kerja: frame terakhir klip keluar dibekukan, lalu ditimpa efek di atas awal klip berikutnya. Durasi total dan audio tidak berubah, tidak ada tumpang tindih klip.
+- Batasan: klip keluar tampil diam selama transisi (belum ikut bergerak). Memeriksa transisi dengan menggeser playhead (tanpa memutar) hanya tampil jika frame akhir klip sebelumnya baru saja digambar; gunakan Play atau pilih ulang jenis untuk melihatnya. Tidak berlaku di antara dua potongan yang bersambung dari sumber yang sama.
+
+## Struktur kode (perapian lapisan)
+- Semua CSS lapisan lama (`cc-skin` sampai `cc-skin22`, 24 blok) digabung menjadi satu `<style id="cc-theme">` dengan urutan cascade yang sama. Tiap lapisan diberi label `m01` sampai `m22` di dalamnya, jadi mudah dicari.
+- Skrip lapisan diberi nama yang menjelaskan isinya (mis. `cc-m07-animasi-masuk-keluar`, `cc-m23-transisi-antar-klip`) dan komentar peta modul ada tepat sebelum modul pertama. Urutan modul tetap penting karena modul belakang membungkus fungsi global modul depan (`fxXf`, `draw0`, `fxPost`).
+- Diverifikasi: computed style seluruh elemen sama persis sebelum dan sesudah (desktop terang/gelap dengan klip, HP beranda, HP editor terang/gelap), tanpa selisih.
+- Yang belum: nilai desain masih tersebar (sekitar 58 warna latar, 26 nilai radius, 20 ukuran huruf) dan ikon SVG didefinisikan ulang di beberapa modul. Langkah berikutnya adalah menyatukannya ke satu set token, tetapi itu mengubah tampilan sedikit sehingga perlu acuan screenshot CapCut.
+
+## Palet dan ukuran dari screenshot CapCut HP
+Nilai diukur langsung dari piksel screenshot CapCut (bukan ditebak) dan dipasang sebagai token di `:root` (m01) dan `html.cc-fix` (HP):
+- Latar utama `--bg #141414`, area timeline `--pn #1c1c1c`, toolbar bawah / sheet / baris "Tambah audio" `--cd #262626`, tile terangkat `--raise #393a3c`, tombol atas `--pill #292a2c`, aksen `--ac #00cae0`.
+- HP: tombol atas (tema, resolusi, Ekspor) turun dari 46 ke 32 px dengan radius 9 px; area timeline kini satu pita `#1c1c1c`; toolbar bawah tanpa garis atas.
+- Sheet Rasio memakai deretan tile ikon (tile terpilih berbingkai putih) seperti CapCut.
+- Belum sama: toolbar bawah CapCut berpindah ke sub-toolbar ikon dengan tombol kembali (Efek, Teks), sedangkan di sini Efek dan Teks masih membuka sheet besar; tombol bulat AI melayang di kiri timeline; judul sheet "Ratio" + centang di bawah; layar beranda CapCut bergaya terang dengan hero.

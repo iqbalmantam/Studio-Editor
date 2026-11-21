@@ -93,31 +93,41 @@ h1{font-size:18px}
 #otl{position:relative;background:var(--bd);border-radius:8px;overflow:hidden;touch-action:none;min-height:34px}#otl:empty{display:none}
 .vb{position:absolute;height:22px;background:#1d4ed8;color:#fff;border-radius:6px;font-size:11px;line-height:18px;padding:0 11px;box-sizing:border-box;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:grab;border:2px solid transparent}
 .vb.on{border-color:var(--tx)}.vb::before,.vb::after{content:"";position:absolute;top:0;bottom:0;width:7px;background:rgba(255,255,255,.35)}.vb::before{left:0}.vb::after{right:0}
-</style><style id="cc-skin">
-:root,:root[data-theme=dark],:root:not([data-theme=light]){--bg:#0b0b0c;--pn:#1b1b1d;--cd:#2a2a2d;--bd:#2f2f33;--ln:#38383c;--tx:#f3f3f4;--mu:#8e8e94;--ac:#2de3e8;--sg:#3d4048}
+</style><style id="cc-theme">
+/* ===== m01 shell dasar: token warna, tombol, input ===== */
+:root,:root[data-theme=dark],:root:not([data-theme=light]){--bg:#141414;--pn:#1c1c1c;--cd:#262626;--bd:#303030;--ln:#383838;--raise:#393a3c;--pill:#292a2c;--tx:#f3f3f4;--mu:#8e8e94;--ac:#00cae0;--sg:#3d4048}
 *{scrollbar-width:thin;scrollbar-color:#3a3a3e transparent}
 body{background:var(--bg);font:13px/1.4 Inter,"SF Pro Text",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 .b,select,input:not([type=range]):not([type=color]):not([type=file]){background:var(--cd);border:1px solid transparent;border-radius:6px;color:var(--tx);font-size:13px}
-.b:hover,select:hover{background:#38383c}
+.b:hover,select:hover{background:var(--raise)}
 input[type=range]{background:none;border:0;accent-color:var(--ac)}
-.b.p,.p{background:var(--ac);border-color:var(--ac);color:#031a1c;font-weight:600}.b.p:hover{background:#5df0f3}
+.b.p,.p{background:var(--ac);border-color:var(--ac);color:#031a1c;font-weight:600}
+.b.p:hover{background:#5df0f3}
 button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible{outline:2px solid var(--ac);outline-offset:1px}
 h1{font-size:13px;font-weight:600}
-.w{max-width:none;padding:0;gap:0;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto repeat(8,auto) minmax(0,1fr) auto}
+.w{max-width:none;padding:0;gap:0;display:grid;grid-template-columns:auto 1fr}
 .w>*{grid-column:1/-1}
 .w>.hd{background:#141415;padding:8px 10px}
-.w>.hd:nth-child(1){grid-column:1;grid-row:1}
-.w>.hd:nth-child(2){grid-column:2;grid-row:1;justify-content:flex-end}
-.hd h1{display:none}.hd #ex{flex:0 0 auto;padding:7px 18px;border-radius:6px}.hd #ff{display:none}.hd #q{max-width:26vw}
-.w .pv{background:#000;border-radius:0;max-height:38vh}.w #cv{max-height:38vh}
+.w>.hd:nth-child(1){grid-column:1}
+.w>.hd:nth-child(2){grid-column:2;justify-content:flex-end}
+.hd h1{display:none}
+.hd #ex{flex:0 0 auto;padding:7px 18px;border-radius:6px}
+.hd #ff{display:none}
+.hd #q{max-width:26vw}
+.w .pv{background:#000;border-radius:0;max-height:38vh}
+.w #cv{max-height:38vh}
 .w>.h{padding:6px 12px;gap:6px;background:var(--bg);align-items:center}
 .h #tm{order:1;flex:1;font-size:12px;color:var(--tx);font-variant-numeric:tabular-nums}
-.h #pl{order:2}.h #msg{order:3;flex:1;font-size:11px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.h #pl{order:2}
+.h #msg{order:3;flex:1;font-size:11px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .b.cc-ib{display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border:0;background:none;color:var(--tx);border-radius:6px;cursor:pointer}
-.b.cc-ib:hover{background:#2a2a2d}.b.cc-ib:disabled{opacity:.35}
-.h #pl.cc-ib{width:40px;height:40px}.h #pl svg{width:26px;height:26px}
+.b.cc-ib:hover{background:#2a2a2d}
+.b.cc-ib:disabled{opacity:.35}
+.h #pl.cc-ib{width:40px;height:40px}
+.h #pl svg{width:26px;height:26px}
 #cc-tbar{display:flex;align-items:center;gap:2px;padding:4px 10px;background:var(--pn);border-top:1px solid var(--ln)}
-#cc-tbar .sp{flex:1}#zt{color:var(--mu);font-size:11px;min-width:30px;text-align:center}
+#cc-tbar .sp{flex:1}
+#zt{color:var(--mu);font-size:11px;min-width:30px;text-align:center}
 #sc{height:14px;background:var(--pn);accent-color:#d4d4d8}
 #tl,#atl,#ttl,#otl{background:#141416;border-radius:0;border-top:1px solid #1f1f22}
 #tl{height:64px}
@@ -125,25 +135,35 @@ h1{font-size:13px;font-weight:600}
 .sg.on{border-color:#fff}
 #ph{background:#fff;width:2px;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
 #ph::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top:8px solid #fff;border-bottom:0}
-.ab{background:linear-gradient(#1f7690,#175468);border:1px solid #2b8aa6;border-radius:4px}.ab.on{border-color:#fff}
-.xb{background:#7c5a1b;border-color:#b58230}.xb.on{border-color:#fff}
-.vb{background:#4a3f8f;border-color:#6a5cc4}.vb.on{border-color:#fff}
+.ab{background:linear-gradient(#1f7690,#175468);border:1px solid #2b8aa6;border-radius:4px}
+.ab.on{border-color:#fff}
+.xb{background:#7c5a1b;border-color:#b58230}
+.xb.on{border-color:#fff}
+.vb{background:#4a3f8f;border-color:#6a5cc4}
+.vb.on{border-color:#fff}
 .kd{background:var(--ac)}
 .w>#pn{background:var(--pn);border-radius:12px 12px 0 0;padding:10px 12px}
-.g{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}.g .b,.g select{min-height:40px;font-size:12px}
+.g{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
+.g .b,.g select{min-height:40px;font-size:12px}
 .sh{color:var(--tx);font-size:12px;font-weight:600;margin-top:10px}
-.seg{background:#242427;border-radius:8px}.seg button.on{background:#3a3a3e}
-.chip{border:0;background:var(--cd);border-radius:6px}.chip.on{background:var(--ac);color:#031a1c;font-weight:600}
+.seg{background:#242427;border-radius:8px}
+.seg button.on{background:#3a3a3e}
+.chip{border:0;background:var(--cd);border-radius:6px}
+.chip.on{background:var(--ac);color:#031a1c;font-weight:600}
 details,.gd{background:var(--cd);border:0;border-radius:6px}
 .w>.tb{background:#0b0b0c;border-top:1px solid var(--ln);margin:0;overflow-x:auto}
 .tb button{flex:1 0 64px;font-size:10px;color:#d6d6d9;padding:8px 4px 6px;gap:4px}
-.tb button span{display:grid;place-items:center;height:22px;font-size:0}.tb button.on{color:var(--ac);font-weight:600}
-#home{background:#0b0b0c}#home::before{background:radial-gradient(120% 80% at 15% 0%,#0f3b3f 0%,rgba(11,11,12,0) 70%)}
-.np{background:linear-gradient(120deg,#2de3e8,#19b9d8);color:#031a1c}.np i{background:#031a1c;color:#2de3e8}
+.tb button span{display:grid;place-items:center;height:22px;font-size:0}
+.tb button.on{color:var(--ac);font-weight:600}
+#home{background:#0b0b0c}
+#home::before{background:radial-gradient(120% 80% at 15% 0%,#0f3b3f 0%,rgba(11,11,12,0) 70%)}
+.np{background:linear-gradient(120deg,#2de3e8,#19b9d8);color:#031a1c}
+.np i{background:#031a1c;color:#2de3e8}
 .dr .go{background:linear-gradient(120deg,#2de3e8,#19b9d8);color:#031a1c}
-.fg,.rc,.pc,.dc,.hn{background:#1b1b1d}.fg button i{background:#2a2a2d;border-radius:12px}.hn{border-top-color:var(--ln)}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
-.w{display:grid;grid-template-columns:minmax(340px,27%) minmax(0,1fr);grid-template-rows:44px auto minmax(0,1fr) auto auto auto auto auto auto auto;column-gap:4px;row-gap:0;padding:0 4px 4px}
+.fg,.rc,.pc,.dc,.hn{background:#1b1b1d}
+.fg button i{background:#2a2a2d;border-radius:12px}
+.hn{border-top-color:var(--ln)}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){.w{display:grid;grid-template-columns:minmax(340px,27%) minmax(0,1fr);grid-template-rows:44px auto minmax(0,1fr) auto auto auto auto auto auto auto;column-gap:4px;row-gap:0;padding:0 4px 4px}
 .w>.hd:nth-child(1){grid-column:1;grid-row:1}.w>.hd:nth-child(2){grid-column:2;grid-row:1}
 .hd h1{display:block}.hd #ff{display:inline-block}.hd #q{max-width:none}
 .w>.tb{grid-column:1;grid-row:2;background:var(--pn);border:0;border-radius:6px 6px 0 0;border-bottom:1px solid var(--ln)}
@@ -154,125 +174,141 @@ details,.gd{background:var(--cd);border:0;border-radius:6px}
 .w #cv{max-width:100%;max-height:100%;min-height:0}
 .w>.h{grid-column:2;grid-row:4;background:var(--pn);border-radius:0 0 6px 6px;margin-bottom:4px}
 .w>#cc-tbar{grid-column:1/-1;grid-row:5;border-radius:6px 6px 0 0}
-.w>#sc{grid-column:1/-1;grid-row:6}.w>#tl{grid-column:1/-1;grid-row:7}.w>#atl{grid-column:1/-1;grid-row:8}.w>#ttl{grid-column:1/-1;grid-row:9}.w>#otl{grid-column:1/-1;grid-row:10}
-}
-</style><style id="cc-skin2">
+.w>#sc{grid-column:1/-1;grid-row:6}.w>#tl{grid-column:1/-1;grid-row:7}.w>#atl{grid-column:1/-1;grid-row:8}.w>#ttl{grid-column:1/-1;grid-row:9}.w>#otl{grid-column:1/-1;grid-row:10}}
+/* ===== m02 panel Detail kanan, rel ikon, beranda ===== */
 #cc-right{display:none}
 .sg[style*="background-image"]{background-size:auto 100%!important;background-repeat:repeat-x;background-position:left center;box-shadow:inset 0 0 0 100vmax rgba(0,0,0,.12)}
 .ab{text-shadow:0 0 3px #000;background-repeat:no-repeat;background-size:100% 100%;background-position:center}
-.fg button i{color:var(--ac);font-size:0}.hn i{font-size:0}.hn button.on i,.hn button.on{color:#fff}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
-.w{grid-template-columns:minmax(320px,24%) minmax(0,1fr) minmax(300px,24%)}
+.fg button i{color:var(--ac);font-size:0}
+.hn i{font-size:0}
+.hn button.on i,.hn button.on{color:#fff}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){.w{grid-template-columns:minmax(320px,24%) minmax(0,1fr) minmax(300px,24%)}
 .w>.hd:nth-child(2){grid-column:2/4}
 .tb button[data-t=t1],.tb button[data-t=t5]{display:none}
 .w>#cc-right{display:flex;flex-direction:column;grid-column:3;grid-row:2/5;margin-bottom:4px;background:var(--pn);border-radius:6px;min-height:0}
 #cc-right .rt{display:flex;border-bottom:1px solid var(--ln)}
 #cc-right .rt button{flex:1;background:none;border:0;color:#d6d6d9;padding:13px 4px 11px;font:inherit;font-size:12px;cursor:pointer}
 #cc-right .rt button.on{color:var(--ac);font-weight:600;box-shadow:inset 0 -2px 0 var(--ac)}
-#cc-right .rb{flex:1;min-height:0;overflow-y:auto;padding:10px 12px}
-}
-</style><style id="cc-skin3">
-#cc-ruler{position:relative;height:20px;background:#141416;border-top:1px solid var(--ln);overflow:hidden;pointer-events:none}
+#cc-right .rb{flex:1;min-height:0;overflow-y:auto;padding:10px 12px}}
+/* ===== m03 penggaris waktu ===== */
+#cc-ruler{position:relative;height:20px;background:#141416;border-top:1px solid var(--ln);overflow:hidden}
 #cc-ruler i{position:absolute;top:0;bottom:0;width:0;border-left:1px solid #4a4a50}
 #cc-ruler b{position:absolute;left:4px;top:4px;font:400 10px/1 system-ui,sans-serif;font-style:normal;color:var(--mu);white-space:nowrap;font-variant-numeric:tabular-nums}
 .w{grid-template-rows:auto repeat(9,auto) minmax(0,1fr) auto}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
-.w{grid-template-rows:44px auto minmax(0,1fr) auto auto auto auto auto auto auto auto}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){.w{grid-template-rows:44px auto minmax(0,1fr) auto auto auto auto auto auto auto auto}
 .w>#cc-ruler{grid-column:1/-1;grid-row:6}
-.w>#sc{grid-row:7}.w>#tl{grid-row:8}.w>#atl{grid-row:9}.w>#ttl{grid-row:10}.w>#otl{grid-row:11}
-}
-</style><style id="cc-skin4">
-/* urutan trek ala CapCut: overlay, teks, video utama, audio */
-.w>.hd:nth-child(1){grid-row:1}.w>.hd:nth-child(2){grid-row:1}
-.w>.pv{grid-row:2}.w>.h{grid-row:3}.w>#cc-tbar{grid-row:4}.w>#cc-ruler{grid-row:5}.w>#sc{grid-row:6}
-.w>#otl{grid-row:7}.w>#ttl{grid-row:8}.w>#tl{grid-row:9}.w>#atl{grid-row:10}.w>#pn{grid-row:11}.w>.tb{grid-row:12}
+.w>#sc{grid-row:7}.w>#tl{grid-row:8}.w>#atl{grid-row:9}.w>#ttl{grid-row:10}.w>#otl{grid-row:11}}
+/* ===== m04 urutan trek ala CapCut, tab Media, popover ekspor ===== */
+.w>.hd:nth-child(1){grid-row:1}
+.w>.hd:nth-child(2){grid-row:1}
+.w>.pv{grid-row:2}
+.w>.h{grid-row:3}
+.w>#cc-tbar{grid-row:4}
+.w>#cc-ruler{grid-row:5}
+.w>#sc{grid-row:6}
+.w>#otl{grid-row:7}
+.w>#ttl{grid-row:8}
+.w>#tl{grid-row:9}
+.w>#atl{grid-row:10}
+.w>#pn{grid-row:11}
+.w>.tb{grid-row:12}
 #ph{opacity:0}
 #cc-ph{position:fixed;width:2px;margin-left:-1px;background:#fff;pointer-events:none;z-index:40;display:none}
 #cc-ph::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:12px;height:14px;background:#fff;clip-path:polygon(0 0,100% 0,100% 60%,50% 100%,0 60%)}
-.h #tm .c{color:var(--ac)}.h #tm{letter-spacing:.2px}
-.h #cc-ratio{order:4;width:auto;padding:0 10px;font-size:12px;gap:4px;display:inline-flex;align-items:center;white-space:nowrap}.h #cc-fs{order:5}
+.h #tm .c{color:var(--ac)}
+.h #tm{letter-spacing:.2px}
+.h #cc-ratio{order:4;width:auto;padding:0 10px;font-size:12px;gap:4px;display:inline-flex;align-items:center;white-space:nowrap}
+.h #cc-fs{order:5}
 #cc-pop{position:fixed;display:none;top:46px;right:10px;width:250px;background:#262629;border:1px solid var(--ln);border-radius:8px;padding:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.55)}
-#cc-pop.on{display:grid;gap:8px}#cc-pop b{font-size:12px;font-weight:600}#cc-pop select{width:100%;display:block;max-width:none}
+#cc-pop.on{display:grid;gap:8px}
+#cc-pop b{font-size:12px;font-weight:600}
+#cc-pop select{width:100%;display:block;max-width:none}
 .cc-imp{display:grid;place-items:center;gap:6px;width:100%;height:96px;border:1px dashed #55555b;background:#232326;color:var(--tx);border-radius:8px;cursor:pointer;font:inherit;font-size:13px}
-.cc-imp:hover{background:#2c2c30;border-color:var(--ac)}.cc-imp svg{color:var(--ac)}
+.cc-imp:hover{background:#2c2c30;border-color:var(--ac)}
+.cc-imp svg{color:var(--ac)}
 .cc-lib{display:grid;grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:6px}
 .cc-it{position:relative;aspect-ratio:16/10;border:0;border-radius:6px;background:#2a2a2d center/cover no-repeat;cursor:pointer;padding:0;overflow:hidden}
 .cc-it:hover{outline:2px solid var(--ac)}
 .cc-it em{position:absolute;right:4px;bottom:4px;font-style:normal;font-size:10px;background:rgba(0,0,0,.65);color:#fff;border-radius:3px;padding:1px 4px}
 .cc-it span{position:absolute;left:4px;top:4px;right:4px;font-size:10px;color:#fff;text-shadow:0 0 3px #000;text-align:left;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 .w{position:relative}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
-.w>.hd:nth-child(1) h1{position:absolute;left:50%;top:0;transform:translateX(-50%);line-height:44px;margin:0;pointer-events:none;max-width:30%}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){.w>.hd:nth-child(1) h1{position:absolute;left:50%;top:0;transform:translateX(-50%);line-height:44px;margin:0;pointer-events:none;max-width:30%}
 .w>.hd:nth-child(1){grid-row:1}.w>.hd:nth-child(2){grid-row:1}
 .w>.tb{grid-row:2}.w>#pn{grid-row:3/5}.w>.pv{grid-row:2/4}.w>.h{grid-row:4}.w>#cc-right{grid-row:2/5}
 .w>#cc-tbar{grid-row:5}.w>#cc-ruler{grid-row:6}.w>#sc{grid-row:7}
-.w>#otl{grid-row:8}.w>#ttl{grid-row:9}.w>#tl{grid-row:10}.w>#atl{grid-row:11}
-}
-</style><style id="cc-skin5">
+.w>#otl{grid-row:8}.w>#ttl{grid-row:9}.w>#tl{grid-row:10}.w>#atl{grid-row:11}}
+/* ===== m05 daftar pintasan keyboard ===== */
 #cc-sk{position:fixed;display:none;top:46px;right:10px;width:290px;background:#262629;border:1px solid var(--ln);border-radius:8px;padding:12px;z-index:60;box-shadow:0 10px 30px rgba(0,0,0,.55);font-size:12px}
-#cc-sk.on{display:grid;gap:6px}#cc-sk b{font-weight:600}
-#cc-sk div{display:flex;justify-content:space-between;gap:10px;color:var(--mu)}#cc-sk kbd{font:inherit;font-size:11px;background:#38383c;color:var(--tx);border-radius:4px;padding:1px 6px}
-#cc-ruler{cursor:pointer;touch-action:none;pointer-events:auto}#cc-ruler i,#cc-ruler b{pointer-events:none}
+#cc-sk.on{display:grid;gap:6px}
+#cc-sk b{font-weight:600}
+#cc-sk div{display:flex;justify-content:space-between;gap:10px;color:var(--mu)}
+#cc-sk kbd{font:inherit;font-size:11px;background:#38383c;color:var(--tx);border-radius:4px;padding:1px 6px}
+#cc-ruler{cursor:pointer;touch-action:none;pointer-events:auto}
+#cc-ruler i,#cc-ruler b{pointer-events:none}
 .hd #cc-kb{display:none}
 @media(min-width:900px) and (min-height:480px) and (pointer:fine){.hd #cc-kb{display:inline-grid}}
-</style><style id="cc-skin6">
+/* ===== m06 seret klip dan seret file untuk impor ===== */
 .sg.cc-drag{z-index:20;opacity:.88;box-shadow:0 6px 16px rgba(0,0,0,.6);outline:2px solid var(--ac);cursor:grabbing;transition:none}
 #cc-drop{position:fixed;inset:12px;display:none;place-items:center;border:2px dashed var(--ac);border-radius:12px;background:rgba(11,11,12,.88);color:var(--tx);font-size:16px;font-weight:600;z-index:100;pointer-events:none}
 #cc-drop.on{display:grid}
-</style><style id="cc-skin7">
+/* ===== m07 animasi masuk/keluar klip ===== */
 #cc-an{display:grid;gap:8px;margin-top:6px}
 #cc-an label{display:grid;grid-template-columns:86px 1fr;gap:8px;align-items:center;color:var(--mu);font-size:12px}
 #cc-an select{width:100%}
-</style><style id="cc-skin8">
+/* ===== m08 gaya teks ===== */
 #cc-ts{display:grid;gap:8px;margin-top:10px}
 #cc-ts label{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:center;color:var(--mu);font-size:12px}
 #cc-ts input[type=color]{width:100%;height:30px;padding:2px;border-radius:6px;background:var(--cd);border:0}
-#cc-ts .cc-row{display:flex;gap:8px;align-items:center}#cc-ts .cc-row input[type=color]{width:48px;flex:none}#cc-ts .cc-row input[type=range]{flex:1}
+#cc-ts .cc-row{display:flex;gap:8px;align-items:center}
+#cc-ts .cc-row input[type=color]{width:48px;flex:none}
+#cc-ts .cc-row input[type=range]{flex:1}
 #cc-ts .pre{display:flex;flex-wrap:wrap;gap:6px}
 #cc-ts[data-off="1"] label,#cc-ts[data-off="1"] .pre{opacity:.45;pointer-events:none}
-</style><style id="cc-skin9">
-.cc-kf{display:grid;gap:6px;margin-top:8px}.cc-kfb{display:flex;flex-wrap:wrap;gap:6px}
+/* ===== m09 keyframe teks dan overlay ===== */
+.cc-kf{display:grid;gap:6px;margin-top:8px}
+.cc-kfb{display:flex;flex-wrap:wrap;gap:6px}
 .cc-kf .mu{font-size:12px}
-</style><style id="cc-skin10">
+/* ===== m10 mask ===== */
 .cc-mk{display:grid;gap:8px;margin-top:6px}
 .cc-mk label{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:center;color:var(--mu);font-size:12px}
 .cc-mk[data-off="1"]{opacity:.45;pointer-events:none}
-</style><style id="cc-skin11">
+/* ===== m11 fade audio dan crop slider ===== */
 .cc-box{display:grid;gap:8px;margin-top:10px}
 .cc-box label{display:grid;grid-template-columns:96px 1fr;gap:8px;align-items:center;color:var(--mu);font-size:12px}
 .cc-box[data-off="1"]{opacity:.45;pointer-events:none}
-</style><style id="cc-skin12">
+/* ===== m12 frame rate dan bitrate ekspor ===== */
 #cc-pop input[type=number]{width:100%;box-sizing:border-box;padding:8px 10px}
 #cc-pop .hint{font-size:11px;color:var(--mu)}
-</style><style id="cc-skin13">
+/* ===== m13 warna lanjutan ===== */
 #cc-cg .mu{font-size:12px}
-</style><style id="cc-skin14">
+/* ===== m14 kontrol trek (kunci, sembunyi, bisu) ===== */
 #cc-trk button{position:fixed;width:22px;height:22px;display:grid;place-items:center;padding:0;border:0;border-radius:5px;background:rgba(20,20,22,.78);color:#d6d6d9;cursor:pointer;z-index:45}
-#cc-trk button:hover{background:#38383c}#cc-trk button.on{background:var(--ac);color:#031a1c}
+#cc-trk button:hover{background:#38383c}
+#cc-trk button.on{background:var(--ac);color:#031a1c}
 #cc-trk svg{width:14px;height:14px}
 #tl[data-lock="1"],#atl[data-lock="1"],#ttl[data-lock="1"],#otl[data-lock="1"]{opacity:.55;background-image:repeating-linear-gradient(135deg,rgba(255,255,255,.05) 0 6px,transparent 6px 12px)}
-</style><style id="cc-skin15">
-#cc-tpl{margin-top:10px}.cc-tg{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px}
+/* ===== m15 template teks ===== */
+#cc-tpl{margin-top:10px}
+.cc-tg{display:grid;grid-template-columns:repeat(2,1fr);gap:6px;margin-top:6px}
 .cc-tg button{display:grid;place-items:center;min-height:46px;padding:4px;border:0;border-radius:6px;background:#232326;cursor:pointer;overflow:hidden}
-.cc-tg button:hover{background:#2e2e32;outline:1px solid var(--ac)}.cc-tg span{display:inline-block;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-</style><style id="cc-skin16">
+.cc-tg button:hover{background:#2e2e32;outline:1px solid var(--ac)}
+.cc-tg span{display:inline-block;max-width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+/* ===== m16 beat sync ===== */
 #cc-bt{display:grid;gap:8px;margin-top:10px}
 #cc-bt .row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
 #cc-bt select{width:auto;min-width:120px}
 #cc-beats{position:absolute;inset:0;pointer-events:none}
 #cc-beats i{position:absolute;bottom:0;width:2px;height:9px;margin-left:-1px;background:var(--ac);opacity:.9}
-</style><style id="cc-skin17">
+/* ===== m17 hapus latar AI ===== */
 #cc-bg .row{display:flex;gap:6px;flex-wrap:wrap}
 #cc-bg input[type=color]{width:100%;height:30px;padding:2px;border-radius:6px;background:var(--cd);border:0}
 #cc-bg[data-off="1"] label{opacity:.45;pointer-events:none}
 .cc-box#cc-bg[data-off="1"]{opacity:1;pointer-events:auto}
-</style><style id="cc-skin18">
-/* ===== Tata letak "CapCut web" (tema terang dan gelap) ===== */
+/* ===== m18 tata letak CapCut web ===== */
 #cc-rail{display:none}
 .cc-title{display:none}
 html.cc-web .cc-sp2,html.cc-web .sp2{display:none}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
-html.cc-web .w{grid-template-columns:72px minmax(300px,24%) minmax(0,1fr) minmax(300px,25%);grid-template-rows:56px minmax(0,1fr) auto auto auto auto auto auto auto;column-gap:0;padding:0}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){html.cc-web .w{grid-template-columns:72px minmax(300px,24%) minmax(0,1fr) minmax(300px,25%);grid-template-rows:56px minmax(0,1fr) auto auto auto auto auto auto auto;column-gap:0;padding:0}
 html.cc-web .w>#cc-rail{display:flex;flex-direction:column;align-items:center;gap:4px;grid-column:1;grid-row:1/-1;padding:10px 0;overflow:hidden}
 html.cc-web .w>.hd:nth-child(1){grid-column:2/4;grid-row:1;border-radius:0}
 html.cc-web .w>.hd:nth-child(2){grid-column:4;grid-row:1;border-radius:0}
@@ -305,9 +341,7 @@ html.cc-web #cc-tbar #pl{width:34px;height:34px;border-radius:50%;margin:0 8px 0
 html.cc-web #cc-tbar #pl svg{width:16px;height:16px}
 html.cc-web #cc-tbar #tm{font-size:13px;font-variant-numeric:tabular-nums;white-space:nowrap}
 html.cc-web #cc-tbar .sp2{display:block;flex:1}
-html.cc-web .hd #cc-kb{display:none}
-}
-/* ===== Warna: tema terang ===== */
+html.cc-web .hd #cc-kb{display:none}}
 html.cc-light:root{--bg:#fff;--pn:#fff;--cd:#f1f3f6;--bd:#e6e8ec;--ln:#e6e8ec;--tx:#1b1d21;--mu:#6b7280;--ac:#0fb4d8;--sg:#4b5563}
 html.cc-light body{background:#fff;color:var(--tx)}
 html.cc-light .w{background:var(--bg)}
@@ -318,7 +352,8 @@ html.cc-light .b.p,html.cc-light .p{background:linear-gradient(180deg,#2cb6ff,#1
 html.cc-light .b.p:hover{background:linear-gradient(180deg,#45c0ff,#2aa5f3)}
 html.cc-light .chip.on{background:var(--ac);color:#fff}
 html.cc-light #cc-rail{background:#fff;border-right:1px solid var(--ln)}
-html.cc-light #cc-rail>button{color:#4b5563}html.cc-light #cc-rail>button:hover{background:#f4f5f7}
+html.cc-light #cc-rail>button{color:#4b5563}
+html.cc-light #cc-rail>button:hover{background:#f4f5f7}
 html.cc-light #cc-rail>button.on{background:#eef0f3;color:#111827}
 html.cc-light .w>#pn{background:#fff;border-right:1px solid var(--ln)}
 html.cc-light .cc-pt{color:var(--tx)}
@@ -326,35 +361,46 @@ html.cc-light .w>.pv{background:#eceff4}
 html.cc-light #cv{box-shadow:0 1px 4px rgba(0,0,0,.18)}
 html.cc-light .pv #cc-ratio,html.cc-light .pv #cc-fs{background:#fff;color:#374151;box-shadow:0 1px 5px rgba(0,0,0,.14)}
 html.cc-light #cc-right{background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.09)}
-html.cc-light #cc-right .rt button{color:#4b5563}html.cc-light #cc-right .rt button.on{color:#111827;box-shadow:inset 0 -2px 0 #111827}
+html.cc-light #cc-right .rt button{color:#4b5563}
+html.cc-light #cc-right .rt button.on{color:#111827;box-shadow:inset 0 -2px 0 #111827}
 html.cc-light #cc-tbar{background:#fff;border-top:1px solid var(--ln)}
-html.cc-light #cc-tbar #pl{background:#111827;color:#fff}html.cc-light #cc-tbar #pl:hover{background:#1f2937}
+html.cc-light #cc-tbar #pl{background:#111827;color:#fff}
+html.cc-light #cc-tbar #pl:hover{background:#1f2937}
 html.cc-light .h #tm .c,html.cc-light #tm .c{color:var(--tx);font-weight:600}
 html.cc-light #cc-ruler{background:#fff;border-top:0}
-html.cc-light #cc-ruler i{border-left-color:#d1d5db}html.cc-light #cc-ruler b{color:#6b7280}
+html.cc-light #cc-ruler i{border-left-color:#d1d5db}
+html.cc-light #cc-ruler b{color:#6b7280}
 html.cc-light #sc{background:#fff}
 html.cc-light #tl,html.cc-light #atl,html.cc-light #ttl,html.cc-light #otl{background:#e8ebef;border-top:0;border-bottom:2px solid #fff}
-html.cc-light .sg{background:#2b2f36;border-color:#4b5563}html.cc-light .sg.on{border-color:#17c3e6}
+html.cc-light .sg{background:#2b2f36;border-color:#4b5563}
+html.cc-light .sg.on{border-color:#17c3e6}
 html.cc-light .ab.on,html.cc-light .xb.on,html.cc-light .vb.on{border-color:#17c3e6}
-html.cc-light #cc-ph{background:#111827}html.cc-light #cc-ph::before{background:#111827}
-html.cc-light #cc-trk button{background:#fff;color:#4b5563;box-shadow:0 1px 3px rgba(0,0,0,.18)}html.cc-light #cc-trk button.on{background:var(--ac);color:#fff}
-html.cc-light .cc-imp{background:#f1f3f6;border:0;color:var(--tx)}html.cc-light .cc-imp:hover{background:#e6e9ee}html.cc-light .cc-imp svg{color:#374151}
+html.cc-light #cc-ph{background:#111827}
+html.cc-light #cc-ph::before{background:#111827}
+html.cc-light #cc-trk button{background:#fff;color:#4b5563;box-shadow:0 1px 3px rgba(0,0,0,.18)}
+html.cc-light #cc-trk button.on{background:var(--ac);color:#fff}
+html.cc-light .cc-imp{background:#f1f3f6;border:0;color:var(--tx)}
+html.cc-light .cc-imp:hover{background:#e6e9ee}
+html.cc-light .cc-imp svg{color:#374151}
 html.cc-light .cc-it{background-color:#e5e7eb}
 html.cc-light #cc-pop,html.cc-light #cc-sk{background:#fff;border-color:var(--ln);box-shadow:0 10px 30px rgba(0,0,0,.16);color:var(--tx)}
 html.cc-light #cc-sk kbd{background:#eef0f3;color:var(--tx)}
-html.cc-light .seg{background:#f1f3f6}html.cc-light .seg button.on{background:#fff}
+html.cc-light .seg{background:#f1f3f6}
+html.cc-light .seg button.on{background:#fff}
 html.cc-light details,html.cc-light .gd{background:#f1f3f6}
-html.cc-light .w>.tb{background:#fff;border-top:1px solid var(--ln)}html.cc-light .tb button{color:#4b5563}html.cc-light .tb button.on{color:#0a8fae}
+html.cc-light .w>.tb{background:#fff;border-top:1px solid var(--ln)}
+html.cc-light .tb button{color:#4b5563}
+html.cc-light .tb button.on{color:#0a8fae}
 html.cc-light #cc-bt .b,html.cc-light .cc-box .b{background:var(--cd)}
 html.cc-light .cc-box .b.p{background:linear-gradient(180deg,#2cb6ff,#169bf0);color:#fff}
 html.cc-light #cc-beats i{background:#17c3e6}
 html.cc-light ::-webkit-scrollbar-thumb{background:#cfd4dc}
-/* panel kanan/atas pada mode gelap */
 html.cc-web:not(.cc-light) #cc-rail{background:var(--pn);border-right:1px solid var(--ln)}
 html.cc-web:not(.cc-light) .pv #cc-ratio,html.cc-web:not(.cc-light) .pv #cc-fs{background:#2a2a2d;color:#e5e5e8;box-shadow:0 1px 5px rgba(0,0,0,.4)}
 html.cc-web:not(.cc-light) #cc-tbar #pl{background:#f4f4f5;color:#111827}
-html.cc-web:not(.cc-light) #cc-rail>button{color:#c3c3c8}html.cc-web:not(.cc-light) #cc-rail>button.on{background:#2a2a2d;color:#fff}
-</style><style id="cc-skin19">
+html.cc-web:not(.cc-light) #cc-rail>button{color:#c3c3c8}
+html.cc-web:not(.cc-light) #cc-rail>button.on{background:#2a2a2d;color:#fff}
+/* ===== m19 tema terang ===== */
 html.cc-light{color-scheme:light}
 html.cc-light select,html.cc-light input,html.cc-light textarea{color-scheme:light}
 html.cc-light input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;height:20px;cursor:pointer;accent-color:#17a8d0}
@@ -363,28 +409,35 @@ html.cc-light input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;wi
 html.cc-light input[type=range]::-moz-range-track{height:4px;border-radius:2px;background:#d5d9e0}
 html.cc-light input[type=range]::-moz-range-progress{height:4px;border-radius:2px;background:#17a8d0}
 html.cc-light input[type=range]::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:#17a8d0;border:2px solid #fff}
-html.cc-light #sc{height:18px}html.cc-light #sc::-webkit-slider-thumb{background:#111827}html.cc-light #sc::-moz-range-thumb{background:#111827}html.cc-light #sc::-moz-range-progress{background:#111827}
+html.cc-light #sc{height:18px}
+html.cc-light #sc::-webkit-slider-thumb{background:#111827}
+html.cc-light #sc::-moz-range-thumb{background:#111827}
+html.cc-light #sc::-moz-range-progress{background:#111827}
 #cc-hs{display:none}
 @media(max-width:899px),(max-height:479px),(pointer:coarse){html.cc-web .cc-pt{display:none}}
-/* ===== beranda terang ===== */
 html.cc-light #home{background:#fff;color:#1b1d21}
 html.cc-light #home::before{background:radial-gradient(120% 70% at 50% -10%,#e2f6fb 0%,rgba(255,255,255,0) 70%)}
-html.cc-light .hero h2{color:#111827}html.cc-light .hero p{color:#6b7280}
+html.cc-light .hero h2{color:#111827}
+html.cc-light .hero p{color:#6b7280}
 html.cc-light .fg,html.cc-light .rc,html.cc-light .pc,html.cc-light .dc{background:#f6f7f9;color:#1b1d21}
 html.cc-light .fg button{color:#374151}
 html.cc-light .fg button i{background:#fff;color:#0a8fae;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-html.cc-light .np{background:linear-gradient(120deg,#2fd5ec,#86e8f5);color:#06323a}html.cc-light .np i{background:#06323a;color:#7ee6f2}
-html.cc-light .rc{color:#1b1d21}html.cc-light .rc i{background:#fff;color:#0a8fae}
+html.cc-light .np{background:linear-gradient(120deg,#2fd5ec,#86e8f5);color:#06323a}
+html.cc-light .np i{background:#06323a;color:#7ee6f2}
+html.cc-light .rc{color:#1b1d21}
+html.cc-light .rc i{background:#fff;color:#0a8fae}
 html.cc-light .hs,html.cc-light #home h3{color:#111827}
-html.cc-light .hg{background:#f6f7f9;color:#374151;border-color:#e6e8ec}html.cc-light .hg summary{color:#111827}
+html.cc-light .hg{background:#f6f7f9;color:#374151;border-color:#e6e8ec}
+html.cc-light .hg summary{color:#111827}
 html.cc-light .hk,html.cc-light .mu2,html.cc-light .wm-foot{color:#6b7280}
-html.cc-light .pc b{color:#111827}html.cc-light .pc small{color:#6b7280}
+html.cc-light .pc b{color:#111827}
+html.cc-light .pc small{color:#6b7280}
 html.cc-light .gb{background:#f1f3f6;color:#1b1d21;border:0}
 html.cc-light .hn{background:#fff;border-top:1px solid var(--ln)}
-html.cc-light .hn button{color:#6b7280}html.cc-light .hn button.on,html.cc-light .hn button.on i{color:#111827}
+html.cc-light .hn button{color:#6b7280}
+html.cc-light .hn button.on,html.cc-light .hn button.on i{color:#111827}
 html.cc-light #home .th>*{background-color:#e5e7eb}
-@media(min-width:900px){
- #home .hn{position:absolute;left:0;top:0;bottom:0;width:248px;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;padding:18px 14px;border-top:0;border-right:1px solid var(--ln);z-index:2}
+@media(min-width:900px){#home .hn{position:absolute;left:0;top:0;bottom:0;width:248px;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:2px;padding:18px 14px;border-top:0;border-right:1px solid var(--ln);z-index:2}
  #home #cc-hs{display:flex;flex-direction:column;gap:14px;margin-bottom:12px}
  #home #cc-hs .cc-hl{display:block;width:46px;height:46px}
  #home .cc-new{display:flex;align-items:center;gap:10px;height:46px;padding:0 16px;border:0;border-radius:12px;font:inherit;font-size:15px;cursor:pointer;background:linear-gradient(120deg,#2fd5ec,#86e8f5);color:#06323a}
@@ -399,13 +452,11 @@ html.cc-light #home .th>*{background-color:#e5e7eb}
  #home .hero h2{font-size:42px;line-height:1.12;letter-spacing:-.5px}
  #home .fg{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;max-width:980px;margin:0 auto 18px;padding:16px;box-sizing:border-box;border-radius:18px}
  #home .hrow{max-width:980px;margin:0 auto 18px}
- #home .hs,#home .th,#home .hg,#home .wm-foot{max-width:980px;margin-left:auto;margin-right:auto}
-}
-</style><style id="cc-skin20a">
+ #home .hs,#home .th,#home .hg,#home .wm-foot{max-width:980px;margin-left:auto;margin-right:auto}}
+/* ===== m20a garis bantu pemutar ===== */
 #cc-guides{position:absolute;inset:0;pointer-events:none;z-index:4}
 #cc-guides i{position:absolute;display:none;background:#ff3b8d;box-shadow:0 0 0 .5px rgba(255,255,255,.55)}
-</style><style id="cc-skin20b">
-/* ===== bilah alat kontekstual, lembar, dan elemen bantu ===== */
+/* ===== m20b bilah alat kontekstual HP, lembar alat ===== */
 #cc-qa,#cc-addrow{display:none}
 html.cc-web .cc-pc{display:none}
 html.cc-web .b.cc-dsk{display:none}
@@ -436,46 +487,53 @@ html.cc-web .b.cc-dsk{display:none}
 #cc-qa button:active{background:var(--cd)}
 #cc-qa .cc-back{border-right:1px solid var(--ln);border-radius:0;margin-right:4px}
 #cc-qa .cc-danger{color:#e5484d}
-/* tanda pilih yang jelas */
 html.cc-web #tl:not([data-sel="1"]) .sg.on,html.cc-web #otl:not([data-sel="1"]) .vb.on,html.cc-web #ttl:not([data-sel="1"]) .xb.on,html.cc-web #atl:not([data-sel="1"]) .ab.on{border-width:1px!important;border-color:rgba(127,127,127,.55)!important}
 html.cc-web #tl[data-sel="1"] .sg.on,html.cc-web #otl[data-sel="1"] .vb.on,html.cc-web #ttl[data-sel="1"] .xb.on,html.cc-web #atl[data-sel="1"] .ab.on{border-color:#17c3e6!important;box-shadow:0 0 0 2px rgba(23,195,230,.35)}
 .cc-fr{width:34px;height:34px}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
- html.cc-web .b.cc-dsk{display:inline-grid}
- #cc-sheet{left:50%;right:auto;width:440px;transform:translateX(-50%);bottom:190px;border-radius:16px;max-height:55vh}
-}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){html.cc-web .b.cc-dsk{display:inline-grid}
+ #cc-sheet{left:50%;right:auto;width:440px;transform:translateX(-50%);bottom:190px;border-radius:16px;max-height:55vh}}
 @media not all and (min-width:900px) and (min-height:480px) and (pointer:fine){
- html.cc-web .w{grid-template-rows:auto minmax(0,1fr) repeat(8,auto) auto auto}
- html.cc-web .w>.pv{grid-row:2;max-height:none;min-height:0}
- html.cc-web .w #cv{max-height:100%;max-width:100%}
- html.cc-web .w>.h{grid-row:3;flex-wrap:wrap}
- html.cc-web .h #cc-fs{order:1}html.cc-web .h #tm{order:2}html.cc-web .h #cc-fb{order:3}html.cc-web .h #pl{order:4}html.cc-web .h #cc-ff{order:5}html.cc-web .h #cc-ratio{order:6}
- html.cc-web .h #msg{order:9;flex:0 0 100%!important;text-align:center!important}html.cc-web .h #tm{white-space:nowrap}html.cc-web .h #msg:empty{display:none}
- html.cc-web .w>#cc-addrow{grid-row:11;display:flex}
- html.cc-web .w>#cc-qa{grid-row:12;display:flex}
- html.cc-web .w>.tb{display:none}
- html.cc-web .w>#pn{display:none}
- body.cc-pn-open .w>#pn{display:block;position:fixed;left:0;right:0;bottom:0;max-height:58vh;overflow:auto;z-index:65;border-radius:18px 18px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.24);padding:12px 16px calc(20px + env(safe-area-inset-bottom,0px));margin:0}
- html.cc-web body.cc-sh-open .w{padding-bottom:var(--sh-h,0px)}
- body.cc-sh-open .w>#cc-tbar,body.cc-sh-open .w>#cc-ruler,body.cc-sh-open .w>#sc,body.cc-sh-open .w>#otl,body.cc-sh-open .w>#ttl,body.cc-sh-open .w>#tl,body.cc-sh-open .w>#atl,body.cc-sh-open .w>#cc-addrow,body.cc-sh-open .w>#cc-qa{display:none}
- body.cc-sh-open #cc-endplus,body.cc-sh-open #cc-trk{display:none}
- body.cc-pn-open .cc-pc{display:grid;float:right}
- html.cc-web body.cc-pn-open .cc-pt,body.cc-pn-open .w>#pn .cc-pt{display:block;margin:6px 0 12px}
+  html.cc-web .w{grid-template-rows:auto minmax(0,1fr) repeat(8,auto) auto auto}
+  html.cc-web .w>.pv{grid-row:2;max-height:none;min-height:0}
+  html.cc-web .w #cv{max-height:100%;max-width:100%}
+  html.cc-web .w>.h{grid-row:3;flex-wrap:wrap}
+  html.cc-web .h #cc-fs{order:1}
+  html.cc-web .h #tm{order:2}
+  html.cc-web .h #cc-fb{order:3}
+  html.cc-web .h #pl{order:4}
+  html.cc-web .h #cc-ff{order:5}
+  html.cc-web .h #cc-ratio{order:6}
+  html.cc-web .h #msg{order:9;flex:0 0 100%!important;text-align:center!important}
+  html.cc-web .h #tm{white-space:nowrap}
+  html.cc-web .h #msg:empty{display:none}
+  html.cc-web .w>#cc-addrow{grid-row:11;display:flex}
+  html.cc-web .w>#cc-qa{grid-row:12;display:flex}
+  html.cc-web .w>.tb{display:none}
+  html.cc-web .w>#pn{display:none}
+  body.cc-pn-open .w>#pn{display:block;position:fixed;left:0;right:0;bottom:0;max-height:58vh;overflow:auto;z-index:65;border-radius:18px 18px 0 0;box-shadow:0 -8px 28px rgba(0,0,0,.24);padding:12px 16px calc(20px + env(safe-area-inset-bottom,0px));margin:0}
+  html.cc-web body.cc-sh-open .w{padding-bottom:var(--sh-h,0px)}
+  body.cc-sh-open .w>#cc-tbar,body.cc-sh-open .w>#cc-ruler,body.cc-sh-open .w>#sc,body.cc-sh-open .w>#otl,body.cc-sh-open .w>#ttl,body.cc-sh-open .w>#tl,body.cc-sh-open .w>#atl,body.cc-sh-open .w>#cc-addrow,body.cc-sh-open .w>#cc-qa{display:none}
+  body.cc-sh-open #cc-endplus,body.cc-sh-open #cc-trk{display:none}
+  body.cc-pn-open .cc-pc{display:grid;float:right}
+  html.cc-web body.cc-pn-open .cc-pt,body.cc-pn-open .w>#pn .cc-pt{display:block;margin:6px 0 12px}
 }
-</style><style id="cc-skin20c">
+#cc-sheet .cc-rtrow{display:flex;gap:12px;overflow-x:auto;padding:8px 4px 12px;scrollbar-width:none}
+#cc-sheet .cc-rt{flex:none;display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;color:var(--tx);font:inherit;font-size:13px;cursor:pointer;padding:0}
+#cc-sheet .cc-rt span{width:62px;height:62px;display:grid;place-items:center;border-radius:12px;background:var(--raise);box-sizing:border-box;border:2px solid transparent}
+#cc-sheet .cc-rt i{display:block;border:2px solid currentColor;border-radius:3px;box-sizing:border-box}
+#cc-sheet .cc-rt.on span{border-color:#fff}
+#cc-sheet .cc-rt.on b{font-weight:600}
+/* ===== m20c beranda HP ===== */
 #home .cc-allbtn{display:none}
-@media(max-width:899px){
- #home #hv1{display:flex;flex-direction:column}
+@media(max-width:899px){#home #hv1{display:flex;flex-direction:column}
  #home #hv1>*{order:3}
  #home #hv1>.hero{order:0}#home #hv1>.hrow{order:1}#home #hv1>.fg{order:2}
  #home .fg{grid-template-columns:repeat(4,1fr);gap:6px;padding:12px 6px;margin-top:4px}
  #home .fg:not(.cc-all) button:nth-child(n+8):not(.cc-allbtn){display:none}
  #home .fg button{font-size:11.5px;gap:4px}
  #home .fg .cc-allbtn{display:grid}
- #home .hrow .np{min-height:120px}
-}
-</style><style id="cc-skin21">
-/* ===== timeline CapCut HP: playhead tetap di tengah, isi bergeser ===== */
+ #home .hrow .np{min-height:120px}}
+/* ===== m21 timeline HP, playhead di tengah ===== */
 #cc-res,#cc-search,#cc-lead{display:none}
 .cc-lead{position:fixed;gap:6px;align-items:stretch;z-index:31;height:54px}
 .cc-t{border:0;background:none;color:var(--tx);font:inherit;cursor:pointer;display:grid;place-items:center;align-content:center;gap:2px;padding:0}
@@ -489,48 +547,55 @@ html.cc-web #tl[data-sel="1"] .sg.on,html.cc-web #otl[data-sel="1"] .vb.on,html.
 .cc-pill span{font-size:18px;line-height:1;color:var(--tx)}
 .cc-sq{position:fixed;display:none;width:28px;height:28px;border:0;border-radius:8px;background:var(--cd);color:var(--mu);place-items:center;z-index:31;cursor:pointer;padding:0}
 #cc-ruler u{position:absolute;bottom:8px;width:3px;height:3px;margin-left:-1.5px;border-radius:50%;background:#8a8a90;text-decoration:none}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
- html.cc-web .w>#otl{grid-row:6}html.cc-web .w>#tl{grid-row:7}html.cc-web .w>#atl{grid-row:8}html.cc-web .w>#ttl{grid-row:9}
- html.cc-web #atl:empty,html.cc-web #ttl:empty{display:block;height:34px}
-}
-html.cc-fix:not(.cc-light){--bg:#0f0f11;--pn:#161618;--cd:#232326;--ln:#26262a;--tx:#f3f3f4;--mu:#9a9a9f}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){html.cc-web .w>#otl{grid-row:6}html.cc-web .w>#tl{grid-row:7}html.cc-web .w>#atl{grid-row:8}html.cc-web .w>#ttl{grid-row:9}
+ html.cc-web #atl:empty,html.cc-web #ttl:empty{display:block;height:34px}}
+html.cc-fix:not(.cc-light){--bg:#141414;--pn:#1c1c1c;--cd:#262626;--ln:#2e2e2e;--tx:#f3f3f4;--mu:#9a9a9f}
 html.cc-fix #tl .sg,html.cc-fix #atl .ab,html.cc-fix #ttl .xb,html.cc-fix #otl .vb,html.cc-fix #cc-ruler .cc-ri,html.cc-fix #cc-beats{translate:var(--cc-sh,0px) 0}
 html.cc-fix .w{background:var(--bg);grid-template-rows:auto minmax(0,1fr) auto auto auto auto auto auto auto}
 html.cc-fix .w>.pv{grid-row:2}
 html.cc-fix .w>.h{grid-row:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:8px 18px;gap:8px;background:var(--bg)}
-html.cc-fix .w>#cc-ruler{grid-row:4}html.cc-fix .w>#otl{grid-row:5}html.cc-fix .w>#tl{grid-row:6}html.cc-fix .w>#atl{grid-row:7}html.cc-fix .w>#ttl{grid-row:8}html.cc-fix .w>#cc-qa{grid-row:9;background:var(--bg);border-top:1px solid var(--ln)}
+html.cc-fix .w>#cc-ruler{grid-row:4}
+html.cc-fix .w>#otl{grid-row:5}
+html.cc-fix .w>#tl{grid-row:6}
+html.cc-fix .w>#atl{grid-row:7}
+html.cc-fix .w>#ttl{grid-row:8}
+html.cc-fix .w>#cc-qa{grid-row:9;background:var(--cd);border-top:0}
 html.cc-fix .w>#cc-tbar,html.cc-fix .w>#sc,html.cc-fix .w>#cc-addrow,html.cc-fix #cc-trk{display:none!important}
 html.cc-fix .cc-hw{display:flex;align-items:center;gap:8px}
-html.cc-fix .cc-hw.l{justify-self:start}html.cc-fix .cc-hw.c{justify-self:center;gap:14px}html.cc-fix .cc-hw.r{justify-self:end}
+html.cc-fix .cc-hw.l{justify-self:start}
+html.cc-fix .cc-hw.c{justify-self:center;gap:14px}
+html.cc-fix .cc-hw.r{justify-self:end}
 html.cc-fix .h #cc-ratio{display:none}
 html.cc-fix .w>.h{position:relative}
 html.cc-fix .h #msg{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);margin-bottom:6px;max-width:92%;padding:7px 12px;border-radius:10px;background:rgba(0,0,0,.78);color:#fff;font-size:12px;line-height:1.3;text-align:center;white-space:normal;z-index:12;pointer-events:none}
 html.cc-fix .h #msg:empty,html.cc-fix .h #msg.cc-gone{display:none}
 html.cc-fix .h #pl{background:none;color:var(--tx);width:46px;height:46px}
-html.cc-fix .h #pl svg{width:32px;height:32px}html.cc-fix .h #pl svg *{fill:none!important;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round}
+html.cc-fix .h #pl svg{width:32px;height:32px}
+html.cc-fix .h #pl svg *{fill:none!important;stroke:currentColor;stroke-width:1.7;stroke-linejoin:round}
 html.cc-fix .h .cc-ib{color:var(--tx)}
-html.cc-fix #cc-ruler{grid-column:1/-1;position:relative;height:30px;background:transparent;border:0;touch-action:none;overflow:hidden}
+html.cc-fix #cc-ruler{grid-column:1/-1;position:relative;height:30px;background:var(--pn);border:0;touch-action:none;overflow:hidden}
 html.cc-fix #cc-ruler i{border-left:0}
 html.cc-fix #cc-ruler b{top:50%;left:3px;transform:translateY(-50%);font-size:12px;color:var(--mu)}
 html.cc-fix #cc-ruler #tm{position:absolute;left:16px;top:50%;transform:translateY(-50%);z-index:3;font-size:13px;white-space:nowrap;color:var(--mu)}
 html.cc-fix #cc-ruler #tm .c{color:var(--tx);font-weight:600}
-html.cc-fix #tl,html.cc-fix #atl,html.cc-fix #ttl,html.cc-fix #otl{background:transparent!important;border:0!important;margin-top:6px;touch-action:none;user-select:none;-webkit-user-select:none}
-html.cc-fix #tl{height:54px}html.cc-fix #atl,html.cc-fix #ttl,html.cc-fix #otl{height:34px}
+html.cc-fix #tl,html.cc-fix #atl,html.cc-fix #ttl,html.cc-fix #otl{background:var(--pn)!important;box-shadow:0 -6px 0 var(--pn);border:0!important;margin-top:6px;touch-action:none;user-select:none;-webkit-user-select:none}
+html.cc-fix #tl{height:54px}
+html.cc-fix #atl,html.cc-fix #ttl,html.cc-fix #otl{height:34px}
 html.cc-fix #atl:empty,html.cc-fix #ttl:empty{display:block}
 html.cc-fix #tl .sg{border-radius:6px}
-html.cc-fix #cc-ph{width:2px;background:#fff;box-shadow:none}html.cc-fix #cc-ph::before{display:none}
+html.cc-fix #cc-ph{width:2px;background:#fff;box-shadow:none}
+html.cc-fix #cc-ph::before{display:none}
 html.cc-fix.cc-light #cc-ph{background:#111827}
 html.cc-fix .w>.hd{padding:10px 12px;background:var(--bg);border:0}
 html.cc-fix .hd .hd-logo,html.cc-fix .hd h1,html.cc-fix .cc-title{display:none}
 html.cc-fix #hm,html.cc-fix #cc-search{display:grid;width:46px;height:46px;background:none;place-items:center}
-html.cc-fix .hd #cc-theme{width:46px;height:46px;background:var(--cd);border-radius:12px}
+html.cc-fix .hd #cc-theme{width:32px;height:32px;background:var(--pill);border-radius:9px}
 html.cc-fix .hd .cc-ib[title="Pengaturan ekspor"],html.cc-fix .hd #cc-kb{display:none}
-html.cc-fix #cc-res{display:inline-flex;align-items:center;gap:6px;height:46px;padding:0 14px;border:0;border-radius:12px;background:var(--cd);color:var(--tx);font:inherit;font-weight:700;font-size:16px;cursor:pointer}
-html.cc-fix .hd #ex{height:46px;padding:0 20px;border-radius:12px;background:#00d0ec;color:#05151a;font-size:17px;font-weight:700;border:0}
+html.cc-fix #cc-res{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:0;border-radius:9px;background:var(--pill);color:var(--tx);font:inherit;font-weight:600;font-size:14px;cursor:pointer}
+html.cc-fix .hd #ex{height:32px;padding:0 16px;border-radius:9px;background:var(--ac);color:#001d27;font-size:14px;font-weight:600;border:0}
 html.cc-fix .w>.pv{background:var(--bg)}
 html.cc-fix #cc-qa button em{font-weight:600}
-</style><style id="cc-skin22">
-/* ===== editor Crop layar penuh ala CapCut ===== */
+/* ===== m22 editor Crop layar penuh ===== */
 #cc-crop{position:fixed;inset:0;z-index:90;display:none;align-items:center;justify-content:center;background:#0b0b0c;color:#f3f3f4}
 #cc-crop.on{display:flex}
 .cc-cr-box{width:100%;height:100%;display:flex;flex-direction:column;background:#0b0b0c;overflow:hidden}
@@ -540,26 +605,34 @@ html.cc-fix #cc-qa button em{font-weight:600}
 .cc-cr-stage{flex:1;min-height:0;display:grid;place-items:center;overflow:hidden;background:#000}
 .cc-cr-wrap{position:relative;touch-action:none;user-select:none;-webkit-user-select:none}
 .cc-cr-wrap canvas{display:block}
-.cc-cr-frame{position:absolute;box-sizing:border-box;border:2px solid #fff;box-shadow:0 0 0 100vmax rgba(0,0,0,.55);cursor:move;touch-action:none;
-background:linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) calc(33.333% - .5px) 0/1px 100% no-repeat,linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) calc(66.666% - .5px) 0/1px 100% no-repeat,linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) 0 calc(33.333% - .5px)/100% 1px no-repeat,linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) 0 calc(66.666% - .5px)/100% 1px no-repeat}
+.cc-cr-frame{position:absolute;box-sizing:border-box;border:2px solid #fff;box-shadow:0 0 0 100vmax rgba(0,0,0,.55);cursor:move;touch-action:none;background:linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) calc(33.333% - .5px) 0/1px 100% no-repeat,linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) calc(66.666% - .5px) 0/1px 100% no-repeat,linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) 0 calc(33.333% - .5px)/100% 1px no-repeat,linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) 0 calc(66.666% - .5px)/100% 1px no-repeat}
 .cc-cr-frame .cch{position:absolute;width:44px;height:44px;margin:-22px 0 0 -22px;touch-action:none}
 .cc-cr-frame .cch::after{content:"";position:absolute;background:#fff;border-radius:2px}
-.cc-cr-frame .cch-nw{left:0;top:0}.cc-cr-frame .cch-ne{left:100%;top:0}.cc-cr-frame .cch-sw{left:0;top:100%}.cc-cr-frame .cch-se{left:100%;top:100%}
-.cc-cr-frame .cch-n{left:50%;top:0}.cc-cr-frame .cch-s{left:50%;top:100%}.cc-cr-frame .cch-w{left:0;top:50%}.cc-cr-frame .cch-e{left:100%;top:50%}
+.cc-cr-frame .cch-nw{left:0;top:0}
+.cc-cr-frame .cch-ne{left:100%;top:0}
+.cc-cr-frame .cch-sw{left:0;top:100%}
+.cc-cr-frame .cch-se{left:100%;top:100%}
+.cc-cr-frame .cch-n{left:50%;top:0}
+.cc-cr-frame .cch-s{left:50%;top:100%}
+.cc-cr-frame .cch-w{left:0;top:50%}
+.cc-cr-frame .cch-e{left:100%;top:50%}
 .cc-cr-frame .cch-nw::after,.cc-cr-frame .cch-ne::after,.cc-cr-frame .cch-sw::after,.cc-cr-frame .cch-se::after{width:22px;height:22px;background:none;border:4px solid #fff;border-radius:0}
 .cc-cr-frame .cch-nw::after{left:20px;top:20px;border-right:0;border-bottom:0}
 .cc-cr-frame .cch-ne::after{left:2px;top:20px;border-left:0;border-bottom:0}
 .cc-cr-frame .cch-sw::after{left:20px;top:2px;border-right:0;border-top:0}
 .cc-cr-frame .cch-se::after{left:2px;top:2px;border-left:0;border-top:0}
 .cc-cr-frame .cch-n::after,.cc-cr-frame .cch-s::after{width:30px;height:4px;left:7px}
-.cc-cr-frame .cch-n::after{top:20px}.cc-cr-frame .cch-s::after{top:20px}
+.cc-cr-frame .cch-n::after{top:20px}
+.cc-cr-frame .cch-s::after{top:20px}
 .cc-cr-frame .cch-w::after,.cc-cr-frame .cch-e::after{width:4px;height:30px;top:7px}
-.cc-cr-frame .cch-w::after{left:20px}.cc-cr-frame .cch-e::after{left:20px}
+.cc-cr-frame .cch-w::after{left:20px}
+.cc-cr-frame .cch-e::after{left:20px}
 .cc-cr-tabs{flex:none;border-bottom:1px solid #26262a;padding:14px 20px 0}
 .cc-cr-tabs span{display:inline-block;padding:0 4px 11px;font-size:20px;font-weight:700;color:#fff;border-bottom:3px solid #17c3e6;margin-bottom:-1px}
 .cc-cr-rot{flex:none;padding:14px 20px 4px}
 .cc-cr-rl{display:flex;align-items:baseline;gap:0;position:relative;height:28px}
-.cc-cr-rl span{font-size:18px;color:#f3f3f4}.cc-cr-rl output{position:absolute;left:50%;transform:translateX(-50%);font-size:18px;color:#f3f3f4}
+.cc-cr-rl span{font-size:18px;color:#f3f3f4}
+.cc-cr-rl output{position:absolute;left:50%;transform:translateX(-50%);font-size:18px;color:#f3f3f4}
 #cc-cr-ruler{display:block;width:100%;height:62px;touch-action:none;cursor:ew-resize}
 .cc-cr-ar{flex:none;padding:6px 20px 0}
 .cc-cr-ar h4{margin:8px 0 12px;font-size:18px;font-weight:500;color:#f3f3f4}
@@ -567,14 +640,15 @@ background:linear-gradient(rgba(255,255,255,.85),rgba(255,255,255,.85)) calc(33.
 .cc-cr-chips::-webkit-scrollbar{display:none}
 .cc-cr-chips button{flex:none;display:grid;justify-items:center;gap:8px;border:0;background:none;color:#a9a9af;font:inherit;font-size:16px;cursor:pointer;padding:0}
 .cc-cr-chips button i{display:grid;place-items:center;width:56px;height:56px;border-radius:14px;background:#232326;color:#f3f3f4;border:2px solid transparent;box-sizing:border-box}
-.cc-cr-chips button.on i{border-color:#fff}.cc-cr-chips button.on{color:#fff;font-weight:500}
+.cc-cr-chips button.on i{border-color:#fff}
+.cc-cr-chips button.on{color:#fff;font-weight:500}
 .cc-cr-foot{flex:none;padding:16px 20px calc(18px + env(safe-area-inset-bottom,0px))}
 .cc-cr-reset{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid #3a3a3e;border-radius:14px;background:none;color:#f3f3f4;font:inherit;font-size:16px;cursor:pointer}
-@media(min-width:900px) and (min-height:480px) and (pointer:fine){
- #cc-crop{background:rgba(0,0,0,.6)}
- .cc-cr-box{width:min(560px,94vw);height:min(88vh,860px);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){#cc-crop{background:rgba(0,0,0,.6)}
+ .cc-cr-box{width:min(560px,94vw);height:min(88vh,860px);border-radius:16px;box-shadow:0 20px 60px rgba(0,0,0,.5)}}
+@media not all and (min-width:900px) and (min-height:480px) and (pointer:fine){
+  #cc-sheet{max-height:50vh}
 }
-@media not all and (min-width:900px) and (min-height:480px) and (pointer:fine){#cc-sheet{max-height:50vh}}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -1206,7 +1280,10 @@ const O=()=>{if(!ov){msg('Pasang overlay dulu');return null}return ov};
 $('#pbk').onclick=()=>{const o=O();if(!o)return;snap();o.bk=o.bk?0:1;if(!o.bk)delete o.bk;pui();draw();autosave();olx();plsUi()};
 $('#pfi').onclick=()=>{const o=O();if(!o)return;if(!o.el.videoWidth)return msg('Tunggu overlay selesai dimuat');snap();const asp=o.el.videoWidth/o.el.videoHeight;o.s=+Math.max(100,100*H*asp/W).toFixed(1);o.x=50;o.y=50;o.rot=0;draw();autosave();so()};
 })();
-</script><script id="cc-skin-js">
+</script><!-- PETA MODUL: tema ada di satu <style id="cc-theme"> (urutan = urutan cascade, tiap lapisan diberi label mNN).
+     Skrip m01..m23 dijalankan berurutan; modul belakang boleh membungkus fungsi global modul depan (fxXf, draw0, fxPost), jadi urutan jangan ditukar. -->
+<script id="cc-m01-shell-dasar-ikon">
+// [m01] shell dasar: ikon beranda dan bilah atas
 (()=>{
 const S=p=>'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const I={
@@ -1240,7 +1317,8 @@ const sync=()=>{const t=pl.textContent.trim();if(t==='▶'||t==='⏸'){pl.innerH
 sync();new MutationObserver(sync).observe(pl,{childList:true,characterData:true,subtree:true});
 })();
 </script>
-<script id="cc-skin2-js">
+<script id="cc-m02-panel-detail-kanan">
+// [m02] panel Detail kanan, rel ikon
 (()=>{
 const S=p=>'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -1266,7 +1344,8 @@ const P={split:'<path d="M12 2v20"/><rect x="4" y="7" width="5" height="10" rx="
 ['home','phone','fold'].forEach((k,i)=>{const ic=$$('.hn button')[i]&&$$('.hn button')[i].querySelector('i');if(ic)ic.innerHTML=S(P[k])});
 })();
 </script>
-<script id="cc-skin3-js">
+<script id="cc-m03-penggaris-waktu">
+// [m03] penggaris waktu
 (()=>{
 const $$=s=>[...document.querySelectorAll(s)];
 // penggaris waktu
@@ -1289,7 +1368,8 @@ else if(!busy.has(k)){busy.add(k);tq=tq.then(()=>strip(g,k)).then(paintTl)}})}
 const tl=document.getElementById('tl');new MutationObserver(paintTl).observe(tl,{childList:true});paintTl();
 })();
 </script>
-<script id="cc-skin4-js">
+<script id="cc-m04-urutan-trek-tab">
+// [m04] urutan trek, tab Media, popover ekspor
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const S=(p,z)=>'<svg viewBox="0 0 24 24" width="'+(z||22)+'" height="'+(z||22)+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -1333,7 +1413,8 @@ window.__ccLib=lib;lib();
 if(mq.matches)tbb.click();
 })();
 </script>
-<script id="cc-skin5-js">
+<script id="cc-m05-pembaruan-berbasis-kejadian">
+// [m05] pembaruan berbasis kejadian, daftar pintasan
 (()=>{
 const $=s=>document.querySelector(s);
 const S=p=>'<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -1376,7 +1457,8 @@ document.addEventListener('click',e=>{if(!sk2.contains(e.target)&&e.target!==kb)
 document.addEventListener('keydown',e=>{const t=e.target&&e.target.tagName;if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;if(e.key==='?')sk2.classList.toggle('on');if(e.key==='Escape')sk2.classList.remove('on')});
 })();
 </script>
-<script id="cc-skin6-js">
+<script id="cc-m06-preset-4k-seret">
+// [m06] preset 4K, seret klip, seret file
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const busyExp=()=>{try{return !!exp}catch{return false}};
@@ -1412,7 +1494,8 @@ const h=$('#home');if(h&&h.classList.contains('on')){try{freshNext=true}catch{}h
 const f=$('#fi');if(f&&f.onchange)f.onchange({target:{files:fs,value:''}})});
 })();
 </script>
-<script id="cc-skin7-js">
+<script id="cc-m07-animasi-masuk-keluar">
+// [m07] animasi masuk/keluar klip
 (()=>{
 const $=s=>document.querySelector(s);
 const K=[['','Tidak ada'],['fade','Fade'],['zoom','Zoom masuk'],['zoomout','Zoom keluar'],['left','Geser kiri'],['right','Geser kanan'],['up','Geser atas'],['down','Geser bawah']];
@@ -1437,7 +1520,8 @@ new MutationObserver(syncAn).observe($('#tl'),{childList:true});
 $('#tl').addEventListener('pointerup',()=>setTimeout(syncAn,0));[ai,ao,ad].forEach(e=>e.addEventListener('pointerdown',syncAn,true));syncAn();
 })();
 </script>
-<script id="cc-skin8-js">
+<script id="cc-m08-gaya-teks">
+// [m08] gaya teks
 (()=>{
 const $=s=>document.querySelector(s);
 const box=document.createElement('div');box.id='cc-ts';
@@ -1465,7 +1549,8 @@ new MutationObserver(sync).observe($('#tx'),{childList:true,attributes:true,subt
 $('#ttl').addEventListener('pointerup',()=>setTimeout(sync,0));sync();$('#at').addEventListener('click',()=>{try{selx=tx.length-1;rl();sync()}catch{}});
 })();
 </script>
-<script id="cc-skin9-js">
+<script id="cc-m09-keyframe-teks-dan">
+// [m09] keyframe teks dan overlay
 (()=>{
 const $=s=>document.querySelector(s);
 const SNAP=new WeakMap(),eq=(a,b)=>['x','y','s','r','o'].every(k=>Math.abs((a[k]||0)-(b[k]||0))<1e-6);
@@ -1501,7 +1586,8 @@ const t4=$('#t4');const h=document.createElement('div');h.id='cc-okf';h.innerHTM
 document.addEventListener('pointerup',()=>setTimeout(()=>hooks.forEach(f=>f()),0),true);
 })();
 </script>
-<script id="cc-skin10-js">
+<script id="cc-m10-mask">
+// [m10] mask
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 // bentuk mask tambahan di kedua pilihan
@@ -1529,7 +1615,8 @@ if(f)MX.filter='blur('+(f*Math.min(w,h)/200).toFixed(1)+'px)';maskPath(MX,k,w*sc
 c.drawImage(MC,-w/2,-h/2,w,h)}};
 })();
 </script>
-<script id="cc-skin11-js">
+<script id="cc-m11-fade-audio-crop">
+// [m11] fade audio, crop slider
 (()=>{
 const $=s=>document.querySelector(s);
 window.ccAf=(g,l)=>{if(!g||!l||(!g.fi&&!g.fo))return 1;const d=dur(g);let f=1;if(g.fi)f=Math.min(f,l.off/g.fi);if(g.fo)f=Math.min(f,(d-l.off)/g.fo);return Math.max(0,Math.min(1,f))};
@@ -1552,7 +1639,8 @@ document.addEventListener('pointerup',()=>setTimeout(()=>hooks.forEach(f=>f()),0
 new MutationObserver(()=>hooks.forEach(f=>f())).observe($('#tl'),{childList:true});
 })();
 </script>
-<script id="cc-skin12-js">
+<script id="cc-m12-frame-rate-dan">
+// [m12] frame rate dan bitrate ekspor
 (()=>{
 const $=s=>document.querySelector(s),pop=$('#cc-pop');if(!pop)return;
 const lab=t=>{const b=document.createElement('span');b.className='mu';b.textContent=t;return b};
@@ -1570,7 +1658,8 @@ q.addEventListener('change',()=>{if(q.selectedOptions[0]&&!q.selectedOptions[0].
 pop.append(lab('Frame rate'),fps,lab('Bitrate kustom (Mbps)'),br,hint);
 })();
 </script>
-<script id="cc-skin13-js">
+<script id="cc-m13-warna-lanjutan">
+// [m13] warna lanjutan
 (()=>{
 const $=s=>document.querySelector(s),NS='http://www.w3.org/2000/svg';
 const svg=document.createElementNS(NS,'svg');svg.setAttribute('width','0');svg.setAttribute('height','0');svg.setAttribute('aria-hidden','true');svg.style.cssText='position:absolute;width:0;height:0;overflow:hidden';
@@ -1598,7 +1687,8 @@ try{if(!HAS_CF)$('#cc-cgn').textContent='Peramban ini belum mendukung filter kan
 document.addEventListener('pointerup',()=>setTimeout(ref,0),true);new MutationObserver(ref).observe($('#tl'),{childList:true});ref();
 })();
 </script>
-<script id="cc-skin14-js">
+<script id="cc-m14-kontrol-trek-ripple">
+// [m14] kontrol trek, ripple delete
 (()=>{
 const $=s=>document.querySelector(s);
 const S=p=>'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -1638,7 +1728,8 @@ const dl=document.querySelector('#cc-tbar .cc-ib[title^="Hapus"]');if(dl)dl.afte
 window.addEventListener('keydown',e=>{const t=e.target&&e.target.tagName;if(t==='INPUT'||t==='TEXTAREA'||t==='SELECT')return;if(e.key==='Delete'&&e.shiftKey){e.preventDefault();e.stopPropagation();ripple()}},true);
 })();
 </script>
-<script id="cc-skin15-js">
+<script id="cc-m15-template-teks">
+// [m15] template teks
 (()=>{
 const $=s=>document.querySelector(s);
 const TPL=[
@@ -1658,7 +1749,8 @@ for(const k of ['sw','sc','bg','ba','sh','ls','op'])delete o[k];Object.assign(o,
 const ts=$('#cc-ts');(ts?ts.parentNode:$('#t2')).insertBefore(box,ts||null);
 })();
 </script>
-<script id="cc-skin16-js">
+<script id="cc-m16-beat-sync">
+// [m16] beat sync
 (()=>{
 const $=s=>document.querySelector(s);
 let beats=[],bpm=0,src='';
@@ -1701,7 +1793,8 @@ sel=Math.min(sel,segs.length-1);tl();msg('Klip dipecah di '+cuts+' titik ketukan
 stat();
 })();
 </script>
-<script id="cc-skin17-js">
+<script id="cc-m17-hapus-latar-ai">
+// [m17] hapus latar AI
 (()=>{
 const $=s=>document.querySelector(s);
 const STEP=1/15,MAXF=3000,MS=256,MK=new Map();
@@ -1758,7 +1851,8 @@ window.addEventListener('click',e=>{if(busy&&e.target.closest&&e.target.closest(
 document.addEventListener('pointerup',()=>setTimeout(()=>{msgT='';ui()},0),true);new MutationObserver(()=>ui()).observe($('#tl'),{childList:true});ui();
 })();
 </script>
-<script id="cc-skin18-js">
+<script id="cc-m18-tata-letak-capcut">
+// [m18] tata letak CapCut web, tema
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const S=(p,z)=>'<svg viewBox="0 0 24 24" width="'+(z||22)+'" height="'+(z||22)+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -1807,7 +1901,8 @@ new MutationObserver(ptSync).observe($('.tb'),{attributes:true,subtree:true,attr
 const hn=$('#home .hn');if(hn){const top=document.createElement('div');top.id='cc-hs';top.innerHTML='<span class="hd-logo cc-hl"></span><button type="button" class="cc-new">'+S('<path d="M12 5v14M5 12h14"/>',20)+'<b>Buat baru</b></button>';hn.prepend(top);top.querySelector('.cc-new').onclick=()=>{const n=$('#hnew');if(n)n.click()}}
 })();
 </script>
-<script id="cc-skin20a-js">
+<script id="cc-m20a-garis-bantu-pemutar">
+// [m20a] garis bantu pemutar
 (()=>{
 const pv=document.querySelector('.pv'),cv=document.getElementById('cv');if(!pv||!cv)return;
 const g=document.createElement('div');g.id='cc-guides';g.setAttribute('aria-hidden','true');
@@ -1826,7 +1921,8 @@ if(kind===3){o.px=x-50;o.py=y-50}else{o.x=x;o.y=y}show(f)}catch{}};
 window.ccGdOff=()=>{for(const k in L)L[k].style.display='none';was=false};
 })();
 </script>
-<script id="cc-skin20b-js">
+<script id="cc-m20b-bilah-alat-kontekstual">
+// [m20b] bilah alat kontekstual HP
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const S=(p,z)=>'<svg viewBox="0 0 24 24" width="'+(z||24)+'" height="'+(z||24)+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -1922,7 +2018,9 @@ function openVol(){if(!guard())return;const g=segs[sel];if(g.fz)return msg('Klip
 openSheet('Volume',b=>{const sl=slider('Volume',0,100,Math.round((g.vol??1)*100),q=>{const s=segs[sel];if(!s)return;s.vol=q/100;if(!playing)v.volume=s.vol;tl()},()=>snap());b.append(sl);b.append(row(chip('Bisukan',()=>{const s=segs[sel];if(!s)return;snap();s.vol=0;if(!playing)v.volume=0;tl();openVol()})))})}
 function openMove(){openSheet('Pindahkan klip',b=>{b.append(row(chip('◀ Ke kiri',click('#mL')),chip('Ke kanan ▶',click('#mR'))));const m=document.createElement('div');m.className='mu';m.textContent='Atau tahan klip di timeline lalu seret.';b.append(m)})}
 function openMaskFor(selId){const s=$(selId);if(!s)return;openSheet('Mask',(b,ad)=>{const lab=s.closest('label');ad(lab);const p=lab&&lab.nextElementSibling;if(p&&p.classList.contains('cc-mk'))ad(p)})}
-function openRatio(){openSheet('Rasio layar',b=>{b.append(row(...[0,1,2,3,4].map(i=>chip(R[i][2],()=>{snap();setR(i);draw();openRatio()},ri===i))))})}
+function openRatio(){openSheet('Rasio layar',b=>{const r=document.createElement('div');r.className='cc-rtrow';
+[0,1,2,3,4].forEach(i=>{const w=R[i][0],h=R[i][1],k=Math.max(w,h),t=document.createElement('button');t.type='button';t.className='cc-rt'+(ri===i?' on':'');
+t.innerHTML='<span><i style="width:'+Math.round(26*w/k)+'px;height:'+Math.round(26*h/k)+'px"></i></span><b>'+R[i][2]+'</b>';t.onclick=()=>{snap();setR(i);draw();openRatio()};r.append(t)});b.append(r)})}
 function editText(){const o=tx[selx];if(!o)return msg('Pilih teks dulu');
 openSheet('Edit teks',b=>{const inp=document.createElement('input');inp.type='text';inp.className='cc-ti';inp.value=o.t||'';inp.placeholder='Tulis teks...';inp.addEventListener('pointerdown',()=>snap(),{once:true});inp.oninput=()=>{const q=tx[selx];if(q){q.t=inp.value;draw();autosave()}};b.append(inp);
 b.append(row(...[['Kecil',.7],['Sedang',1],['Besar',1.4],['Raksasa',2.5]].map(([n,z])=>chip(n,()=>{snap();o.z=z;draw();autosave();editText()},o.z===z))));
@@ -1964,7 +2062,8 @@ const cropB=tb2('crop','Crop',()=>window.ccCrop?ccCrop():openCrop()),pipB=tb2('o
 window.ccAct={openPanel,addText,addPip,openCrop,openSheet,closeSheet};
 })();
 </script>
-<script id="cc-skin20c-js">
+<script id="cc-m20c-beranda-hp">
+// [m20c] beranda HP
 (()=>{
 const $=s=>document.querySelector(s);
 const fg=$('#hv1 .fg');if(fg){const ab=document.createElement('button');ab.type='button';ab.className='cc-allbtn';
@@ -1975,7 +2074,8 @@ let tip=false;try{tip=!!localStorage.getItem('cc_tip')}catch{}
 const tl=$('#tl');if(tl&&!tip)new MutationObserver(()=>{if(tip||!tl.querySelector('.sg'))return;tip=true;try{localStorage.setItem('cc_tip','1')}catch{}try{msg('Tips: ketuk klip di timeline untuk membuka alat edit (Split, Crop, Kecepatan, dan lainnya).')}catch{}}).observe(tl,{childList:true});
 })();
 </script>
-<script id="cc-skin21-js">
+<script id="cc-m21-timeline-hp-playhead">
+// [m21] timeline HP, playhead tengah
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const S=(p,z)=>'<svg viewBox="0 0 24 24" width="'+(z||24)+'" height="'+(z||24)+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -2047,7 +2147,8 @@ sync();
 (()=>{const m=$('#msg');if(!m)return;let tm0=0;new MutationObserver(()=>{if(!window.ccFix())return;const t=m.textContent;m.classList.remove('cc-gone');clearTimeout(tm0);if(!t||/Merender|Menyiapkan|ekspor|Ekspor|%/.test(t))return;tm0=setTimeout(()=>m.classList.add('cc-gone'),4200)}).observe(m,{childList:true,characterData:true,subtree:true})})();
 })();
 </script>
-<script id="cc-skin22-js">
+<script id="cc-m22-editor-crop-layar">
+// [m22] editor Crop layar penuh
 (()=>{
 const $=s=>document.querySelector(s);
 const S=(p,z)=>'<svg viewBox="0 0 24 24" width="'+(z||24)+'" height="'+(z||24)+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
@@ -2117,6 +2218,48 @@ snap();if(s.every(v=>v<.2))delete g.cr;else g.cr=s;if(Math.abs(ed.ca)<.1)delete 
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ed)close()});
 addEventListener('resize',()=>{if(ed){layout();drawRuler()}});
 window.ccCrop=open;window.ccCropState=()=>ed;
+})();
+</script>
+<script id="cc-m23-transisi-antar-klip">
+// [m23] transisi antar klip
+// Transisi antar klip utama. Klip keluar dibekukan dari frame terakhirnya, lalu dipudarkan/digeser/dihapus di atas awal klip berikutnya.
+// Durasi total proyek dan audio tidak berubah. Dipakai sama oleh pratinjau dan ekspor karena lewat draw0/fxPost.
+(()=>{
+const $=s=>document.querySelector(s);
+const K=[['','Tidak ada'],['dis','Dissolve'],['blk','Fade hitam'],['wht','Flash putih'],['sl','Geser kiri'],['sr','Geser kanan'],['su','Geser atas'],['sd','Geser bawah'],['wp','Wipe'],['zm','Zoom'],['blr','Blur'],['iris','Iris']];
+const st=document.createElement('style');st.textContent='.sg .cc-trm{position:absolute;right:2px;top:2px;min-width:14px;height:14px;border-radius:7px;background:#2de3e8;color:#000;font:700 10px/14px system-ui,sans-serif;font-style:normal;text-align:center;pointer-events:none;z-index:3}';document.head.append(st);
+const an=$('#cc-an');if(!an)return;
+an.insertAdjacentHTML('beforeend','<div class="sh" style="margin-top:8px">Transisi ke klip berikutnya</div><label>Jenis<select id="cc-tr">'+K.map(k=>'<option value="'+k[0]+'">'+k[1]+'</option>').join('')+'</select></label><label>Durasi<input type="range" id="cc-td" min="2" max="15" value="5"></label><div class="mu" id="cc-tt"></div>');
+const sel_=$('#cc-tr'),sld=$('#cc-td'),note=$('#cc-tt');
+const cut=i=>{const g=segs[i],n=segs[i+1];return !!g&&!!n&&!(g.u&&n.u===g.u&&!g.fz&&!n.fz&&Math.abs(n.in-g.out)<.2)};
+const TD=(g,n)=>Math.max(.1,Math.min(g.td||.5,dur(n)*.9));
+const sn=document.createElement('canvas'),bt=document.createElement('canvas');let sg=null;
+function cap(){if(!segs.length||busy)return;const l=locate(T);if(!l)return;const g=segs[l.i];if(!g||!g.tr||!cut(l.i)||dur(g)-l.off>.25)return;
+if(!g.fz&&v.dataset.u!==g.u)return; // elemen video sudah pindah ke klip berikutnya (saat load): jangan timpa frame terakhir yang benar
+if(sn.width!=W||sn.height!=H){sn.width=W;sn.height=H}const x=sn.getContext('2d');x.globalCompositeOperation='copy';x.drawImage(cv,0,0);x.globalCompositeOperation='source-over';sg=g}
+function comp(){if(!sg||!segs.length)return;const l=locate(T);if(!l||l.i<1)return;const q=segs[l.i-1];if(q!==sg||!q.tr||!cut(l.i-1)||sn.width!=W||sn.height!=H)return;
+const td=TD(q,segs[l.i]);if(l.off>=td)return;const p=l.off/td,e=p*p*(3-2*p),k=q.tr;
+cx.save();cx.globalAlpha=1;cx.globalCompositeOperation='source-over';try{cx.filter='none'}catch{}
+if(k=='dis'){cx.globalAlpha=1-e;cx.drawImage(sn,0,0)}
+else if(k=='blk'||k=='wht'){if(p<.5){cx.drawImage(sn,0,0);cx.globalAlpha=p*2}else cx.globalAlpha=(1-p)*2;cx.fillStyle=k=='blk'?'#000':'#fff';cx.fillRect(0,0,W,H)}
+else if(k=='sl')cx.drawImage(sn,-e*W,0);else if(k=='sr')cx.drawImage(sn,e*W,0);else if(k=='su')cx.drawImage(sn,0,-e*H);else if(k=='sd')cx.drawImage(sn,0,e*H);
+else if(k=='wp'){cx.beginPath();cx.rect(e*W,0,W-e*W,H);cx.clip();cx.drawImage(sn,0,0)}
+else if(k=='zm'){const s=1+e*.7;cx.globalAlpha=1-e;cx.translate(W/2,H/2);cx.scale(s,s);cx.drawImage(sn,-W/2,-H/2)}
+else if(k=='blr'){const f=1+e*14,bw=Math.max(8,Math.round(W/f)),bh=Math.max(8,Math.round(H/f));bt.width=bw;bt.height=bh;const b=bt.getContext('2d');b.imageSmoothingQuality='high';b.drawImage(sn,0,0,bw,bh);cx.imageSmoothingEnabled=true;cx.imageSmoothingQuality='high';cx.globalAlpha=1-e;cx.drawImage(bt,0,0,W,H)}
+else if(k=='iris'){cx.beginPath();cx.rect(0,0,W,H);cx.arc(W/2,H/2,e*Math.hypot(W,H)/2,0,Math.PI*2);cx.clip('evenodd');cx.drawImage(sn,0,0)}
+cx.restore()}
+const d0=window.draw0;window.draw0=function(){const r=d0.apply(this,arguments);try{cap()}catch{}return r};
+const f0=window.fxPost;window.fxPost=function(){const r=f0.apply(this,arguments);try{comp()}catch{}return r};
+function mark(){const el=$('#tl');if(!el)return;el.querySelectorAll('.sg').forEach((d,i)=>{const g=segs[i],old=d.querySelector('.cc-trm');if(g&&g.tr&&i<segs.length-1){if(!old){const m=document.createElement('i');m.className='cc-trm';m.textContent='⇄';d.append(m)}}else if(old)old.remove()})}
+function sync(){let g;try{g=segs[sel]}catch{return}const ok=!!g&&sel<segs.length-1;sel_.disabled=sld.disabled=!ok;sel_.value=ok&&g.tr||'';sld.value=Math.round((ok&&g.td||.5)*10);
+note.textContent=!g?'Pilih klip di timeline untuk mengatur transisi.':!ok?'Klip terakhir tidak punya transisi keluar.':g.tr&&!cut(sel)?'Tidak berlaku: klip berikutnya sambungan langsung dari sumber yang sama.':g.tr?'Transisi '+(g.td||.5).toFixed(1)+' detik di awal klip berikutnya.':'Transisi dari klip ini ke klip berikutnya.'}
+async function prev(){try{const i=sel,g=segs[i];if(!g||!cut(i))return;if(playing)stop();const td=TD(g,segs[i+1]);await seek(Math.max(start(i),start(i+1)-.5));play();setTimeout(()=>{try{if(playing)stop()}catch{}},(td+1)*1000)}catch{}}
+sel_.onchange=()=>{const g=segs[sel];if(!g||sel>=segs.length-1)return;snap();if(sel_.value)g.tr=sel_.value;else delete g.tr;mark();sync();draw();autosave();prev()};
+sld.oninput=()=>{const g=segs[sel];if(!g)return;g.td=+sld.value/10;sync()};
+sld.onchange=()=>{const g=segs[sel];if(g){snap();autosave();prev()}};
+sel_.addEventListener('pointerdown',sync,true);sld.addEventListener('pointerdown',()=>{sync();if(segs[sel])snap()},true);
+new MutationObserver(()=>{mark();sync()}).observe($('#tl'),{childList:true,subtree:true});
+$('#tl').addEventListener('pointerup',()=>setTimeout(sync,0));mark();sync();
 })();
 </script>
 </body></html>
