@@ -485,7 +485,8 @@ html.cc-web .b.cc-dsk{display:none}
 #cc-qa button span{display:grid;place-items:center;height:26px}
 #cc-qa button em{font-style:normal;font-size:11px;font-weight:500;white-space:nowrap}
 #cc-qa button:active{background:var(--cd)}
-#cc-qa .cc-back{border-right:1px solid var(--ln);border-radius:0;margin-right:4px}
+#cc-qa .cc-back{align-content:center;position:sticky;left:0;z-index:2;align-self:center;min-width:34px;width:34px;height:58px;padding:0;border-radius:8px;background:var(--raise);margin:0 8px 0 2px}
+#cc-qa .cc-back em{display:none}
 #cc-qa .cc-danger{color:#e5484d}
 html.cc-web #tl:not([data-sel="1"]) .sg.on,html.cc-web #otl:not([data-sel="1"]) .vb.on,html.cc-web #ttl:not([data-sel="1"]) .xb.on,html.cc-web #atl:not([data-sel="1"]) .ab.on{border-width:1px!important;border-color:rgba(127,127,127,.55)!important}
 html.cc-web #tl[data-sel="1"] .sg.on,html.cc-web #otl[data-sel="1"] .vb.on,html.cc-web #ttl[data-sel="1"] .xb.on,html.cc-web #atl[data-sel="1"] .ab.on{border-color:#17c3e6!important;box-shadow:0 0 0 2px rgba(23,195,230,.35)}
@@ -2030,14 +2031,25 @@ const delText=()=>{if(selx<0||!tx[selx])return;snap();tx.splice(selx,1);selx=-1;
 // ---------- bilah alat
 const qa=document.createElement('nav');qa.id='cc-qa';qa.setAttribute('aria-label','Menu alat');w.append(qa);
 const mk=(ic,lab,fn)=>({ic,lab,fn});
+// ---------- sub-toolbar Efek dan Teks (ala CapCut): tiap tombol membuka sheet kecil berisi kontrol yang sudah ada
+Object.assign(IC,{flt:'<circle cx="9" cy="10" r="5"/><circle cx="15" cy="10" r="5"/><circle cx="12" cy="15" r="5"/>',trn:'<rect x="3" y="6" width="8" height="12" rx="1.5"/><rect x="13" y="6" width="8" height="12" rx="1.5"/><path d="M11 12h2"/>',wm:'<rect x="4" y="5" width="16" height="14" rx="2"/><path d="M13 16l3-3 4 4"/>',addt:'<path d="M3 18L8 6l5 12M5 14h6"/><path d="M18 7v6M15 10h6"/>',stk:'<circle cx="12" cy="12" r="8"/><path d="M8.5 14c1 1.4 2.2 2 3.5 2s2.5-.6 3.5-2M9 10h.01M15 10h.01"/>'});
+const selChips=sel=>{const s=$(sel),r=row();[...s.options].forEach(o=>{const c=chip(o.textContent.replace(/^(Filter|Transisi): /,''),()=>{s.value=o.value;s.dispatchEvent(new Event('change',{bubbles:true}));[...r.children].forEach(x=>x.classList.toggle('on',x===c))},s.value===o.value);r.append(c)});return r};
+function openFx(){openSheet('Efek visual',(b,ad)=>{ad($('#fxs'));const v=$('#fxv');ad(v&&v.closest('label'))})}
+function openFilter(){openSheet('Filter',(b,ad)=>{b.append(selChips('#fl'));ad($('#scp'));ad($('#scn'));ad($('#scr'))})}
+function openTrans(){openSheet('Transisi',b=>{b.append(selChips('#fd'));b.append(row(chip('Atur per sambungan klip',()=>{if(!guard())return msg('Pilih klip di timeline dulu');ccPick('clip');openSheet('Animasi dan fade',(bb,a2)=>{a2($('#cc-an'));a2($('#cc-af'))})})))})}
+function openAdj(){openSheet('Penyesuaian warna',(b,ad)=>{['#br','#ct','#sa'].forEach(i=>{const e=$(i);ad(e&&e.closest('label'))});ad($('#crs'))})}
+function openCap(){openSheet('Auto caption',(b,ad)=>{ad($('#lg'));b.append(row(chip('Mulai auto-caption',()=>{closeSheet();$('#ac').click()}),chip('Ekspor .srt',click('#srt'))));const n=document.createElement('div');n.className='mu';n.textContent='Auto-caption memakai pengenalan suara browser: video diputar dan suaranya ditangkap lewat mikrofon, jadi nyalakan volume dan jangan pakai headset. Hasilnya bisa diedit.';b.append(n)})}
+function openStk(){openSheet('Stiker',(b,ad)=>{ad($('#pem'))})}
 const MODES={
-root:()=>[mk('split','Edit',()=>{if(!guard())return msg('Tambah klip dulu');ccPick('clip')}),mk('audio','Audio',()=>openPanel('t3','Audio')),mk('text','Teks',()=>openPanel('t2','Teks')),mk('fx','Efek',()=>openPanel('t4','Efek dan filter')),mk('ov','Overlay',addPip),mk('cap','Caption',()=>openPanel('t2','Caption')),mk('ratio','Rasio',openRatio),mk('media','Pustaka',()=>openPanel('t0','Media')),mk('add','Tambah',()=>$('#fi').click()),mk('proj','Proyek',()=>openPanel('t6','Proyek'))],
+root:()=>[mk('split','Edit',()=>{if(!guard())return msg('Tambah klip dulu');ccPick('clip')}),mk('audio','Audio',()=>openPanel('t3','Audio')),mk('text','Teks',()=>ccPick('txm')),mk('fx','Efek',()=>ccPick('fxm')),mk('ov','Overlay',addPip),mk('cap','Caption',openCap),mk('ratio','Rasio',openRatio),mk('media','Pustaka',()=>openPanel('t0','Media')),mk('add','Tambah',()=>$('#fi').click()),mk('proj','Proyek',()=>openPanel('t6','Proyek'))],
 clip:()=>[mk('back','Kembali',()=>ccPick(null)),mk('split','Split',click('#sp')),mk('speed','Kecepatan',openSpeed),mk('vol','Volume',openVol),mk('crop','Crop',()=>window.ccCrop?ccCrop():openCrop()),mk('rot','Putar',click('#rt')),mk('flip','Cermin',click('#fx')),mk('anim','Animasi',()=>openSheet('Animasi dan fade',(b,ad)=>{ad($('#cc-an'));ad($('#cc-af'))})),mk('bg','Hapus latar',()=>openSheet('Hapus latar (AI)',(b,ad)=>ad($('#cc-bg')))),mk('color','Warna',()=>openSheet('Warna lanjutan',(b,ad)=>ad($('#cc-cg')))),mk('mask','Mask',()=>openMaskFor('#kmk')),mk('move','Pindah',openMove),mk('dup','Duplikat',click('#du')),mk('frz','Freeze',click('#fz')),mk('del','Hapus',()=>{click('#dl')();ccPick(null)}),mk('more','Lainnya',()=>openPanel('t5','Pengaturan klip'))],
 ov:()=>[mk('back','Kembali',()=>ccPick(null)),mk('pos','Posisi',openPos),mk('mask','Mask',()=>openMaskFor('#pmk')),mk('order','Susun',()=>openSheet('Urutan lapisan',b=>b.append(row(chip('Naikkan',click('#pup')),chip('Turunkan',click('#pdn')),chip('Di belakang klip utama',click('#pbk')))))),mk('del','Hapus',()=>{click('#pk')();ccPick(null)}),mk('more','Lainnya',()=>openPanel('t4','Overlay dan efek'))],
 tx:()=>[mk('back','Kembali',()=>ccPick(null)),mk('edit','Edit',editText),mk('color','Gaya',()=>openSheet('Gaya teks',(b,ad)=>ad($('#cc-ts')))),mk('tpl','Template',()=>openSheet('Template teks',(b,ad)=>ad($('#cc-tpl')))),mk('del','Hapus',delText),mk('more','Lainnya',()=>openPanel('t2','Teks'))],
+fxm:()=>[mk('back','Kembali',()=>ccPick(null)),mk('fx','Efek visual',openFx),mk('flt','Filter',openFilter),mk('trn','Transisi',openTrans),mk('color','Warna',openAdj),mk('wm','Watermark',click('#wm')),mk('ratio','Rasio',openRatio),mk('more','Lainnya',()=>openPanel('t4','Efek dan filter'))],
+txm:()=>[mk('back','Kembali',()=>ccPick(null)),mk('addt','Tambah teks',addText),mk('cap','Auto caption',openCap),mk('stk','Stiker',openStk),mk('tpl','Template',()=>openSheet('Template teks',(b,ad)=>ad($('#cc-tpl')))),mk('more','Lainnya',()=>openPanel('t2','Teks'))],
 aud:()=>[mk('back','Kembali',()=>ccPick(null)),mk('vol','Volume',click('#avl')),mk('split','Split',click('#asp')),mk('del','Hapus',()=>{click('#adl')();ccPick(null)}),mk('more','Lainnya',()=>openPanel('t3','Audio'))]};
 function render(){const items=MODES[kind||'root']();qa.innerHTML='';qa.dataset.mode=kind||'root';
-items.forEach(it=>{const b=document.createElement('button');b.type='button';b.innerHTML='<span>'+S(IC[it.ic])+'</span><em>'+it.lab+'</em>';b.onclick=()=>{try{it.fn()}catch(err){}};if(it.ic==='back')b.classList.add('cc-back');if(it.ic==='del')b.classList.add('cc-danger');qa.append(b)});qa.scrollLeft=0;
+items.forEach(it=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',it.lab);b.innerHTML='<span>'+S(IC[it.ic])+'</span><em>'+it.lab+'</em>';b.onclick=()=>{try{it.fn()}catch(err){}};if(it.ic==='back')b.classList.add('cc-back');if(it.ic==='del')b.classList.add('cc-danger');qa.append(b)});qa.scrollLeft=0;
 for(const k in TRK){const el=$(TRK[k]);if(el)el.dataset.sel=kind===k?'1':''}}
 render();
 $('.pv').addEventListener('pointerdown',e=>{if(e.target===$('.pv'))setTimeout(()=>ccPick(null),0)});
