@@ -2068,7 +2068,7 @@ render();
 $('.pv').addEventListener('pointerdown',e=>{if(e.target===$('.pv'))setTimeout(()=>ccPick(null),0)});
 // ---------- baris tambah (HP) dan tombol + di ujung klip
 const ar=document.createElement('div');ar.id='cc-addrow';ar.innerHTML='<button type="button" data-k="ov">'+S(IC.add,18)+'<span>Overlay</span></button><button type="button" data-k="tx">'+S(IC.add,18)+'<span>Teks</span></button><button type="button" data-k="aud">'+S(IC.add,18)+'<span>Audio</span></button>';w.append(ar);
-ar.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;if(k==='ov')addPip();else if(k==='tx')addText();else openPanel('t3','Audio')};
+ar.onclick=e=>{const b=e.target.closest('button');if(!b)return;const k=b.dataset.k;if(k==='ov')addPip();else if(k==='tx')addText();else ccPick('aum')};
 function syncAdd(){const emp=s=>{const e=$(s);return !e||!e.children.length};ar.querySelector('[data-k=ov]').style.display=emp('#otl')?'':'none';ar.querySelector('[data-k=tx]').style.display=emp('#ttl')?'':'none';ar.querySelector('[data-k=aud]').style.display=emp('#atl')?'':'none';ar.style.display=(emp('#otl')||emp('#ttl')||emp('#atl'))?'':'none'}
 ['#otl','#ttl','#atl','#tl'].forEach(s=>{const e=$(s);if(e)new MutationObserver(syncAdd).observe(e,{childList:true})});syncAdd();
 const ep=document.createElement('button');ep.type='button';ep.id='cc-endplus';ep.setAttribute('aria-label','Tambah klip');ep.innerHTML=S('<path d="M12 5v14M5 12h14"/>',20);ep.onclick=()=>$('#fi').click();document.body.append(ep);
@@ -2084,7 +2084,7 @@ $('#pl').before(fb);$('#pl').after(ff);
 const bar=$('#cc-tbar'),rip=bar.querySelector('.cc-ib[title^="Hapus dan rapatkan"]');
 const tb2=(ic,lab,fn)=>{const b=document.createElement('button');b.type='button';b.className='b cc-ib cc-dsk';b.title=lab;b.setAttribute('aria-label',lab);b.innerHTML=S(IC[ic],20);b.onclick=fn;return b};
 const cropB=tb2('crop','Crop',()=>window.ccCrop?ccCrop():openCrop()),pipB=tb2('ov','Tambah PiP',addPip);(rip||bar.firstChild).after(cropB,pipB);
-window.ccAct={openPanel,addText,addPip,openCrop,openSheet,closeSheet};
+window.ccAct={openPanel,addText,addPip,openCrop,openSheet,closeSheet,ccPick};
 })();
 </script>
 <script id="cc-m20c-beranda-hp">
@@ -2123,7 +2123,7 @@ bAi.onclick=()=>{try{if(!segs.length)return msg('Tambah klip dulu');ccPick('clip
 bCov.onclick=()=>act().openPanel&&act().openPanel('t0','Media');
 const pa=mk('button','cc-pill cc-pill-a','<span>+</span> Tambah audio'),pt=mk('button','cc-pill cc-pill-t','<span>+</span> Tambah teks');pa.type=pt.type='button';
 const sqa=mk('button','cc-sq','<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>'),sqt=mk('button','cc-sq','<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6V4h14v2M12 4v16M9 20h6"/></svg>');sqa.type=sqt.type='button';
-const addA=()=>act().openPanel&&act().openPanel('t3','Audio'),addT=()=>act().addText&&act().addText();
+const addA=()=>act().ccPick?act().ccPick('aum'):act().openPanel&&act().openPanel('t3','Audio'),addT=()=>act().addText&&act().addText();
 pa.onclick=sqa.onclick=addA;pt.onclick=sqt.onclick=addT;
 [pa,pt,sqa,sqt].forEach(e=>e.addEventListener('pointerdown',ev=>ev.stopPropagation(),true));
 const rr=s=>{const e=$(s);return e&&e.offsetParent?e.getBoundingClientRect():null};
