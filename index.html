@@ -714,6 +714,19 @@ html.cc-web .hd #ex:hover{filter:brightness(.92)}
 html.cc-web #tl,html.cc-web #atl,html.cc-web #ttl,html.cc-web #otl{background:rgba(127,127,127,.1);border-radius:8px}
 html.cc-web .sg{border-radius:7px}
 html.cc-web #tl[data-sel="1"] .sg.on{border-radius:7px}}
+
+/* r13: rail ikon kanan, slider zoom */
+.cc-rl2,.cc-zs{display:none}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){
+html.cc-web:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"]) .pv .cc-rl2{display:flex}
+html.cc-web .pv .cc-rl2{position:absolute;right:12px;top:50%;transform:translateY(-50%);z-index:6;flex-direction:column;gap:2px;padding:6px;border-radius:12px;background:#2a2a2d;color:#e5e5e8;box-shadow:0 2px 12px rgba(0,0,0,.45)}
+html.cc-web.cc-light .pv .cc-rl2{background:#fff;color:#1f2329;box-shadow:0 2px 14px rgba(0,0,0,.16)}
+.cc-rl2 button{display:grid;justify-items:center;gap:3px;width:56px;padding:8px 0 6px;border:0;border-radius:8px;background:none;color:inherit;font:inherit;font-size:10.5px;cursor:pointer}
+.cc-rl2 button:hover{background:rgba(127,127,127,.22)}
+.cc-rl2 svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+html.cc-web .cc-zs{display:inline-block;width:110px;height:4px;margin:0 6px;accent-color:var(--cc-cy,#00cae0);vertical-align:middle}
+html.cc-web #cc-tbar #tm .c{font-weight:600}
+html.cc-web #cc-tbar #tm{color:var(--mu)}html.cc-web #cc-tbar #tm .c{color:var(--tx)}}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -2430,5 +2443,24 @@ const add=(k,t,f,c)=>{const b=document.createElement('button');b.type='button';b
 const ck=id=>()=>{const e=document.querySelector(id);e&&e.click()};
 add('spl','Split',ck('#sp'));add('crop','Crop',()=>{window.ccCrop?ccCrop():window.ccAct&&ccAct.openCrop()});bar.append(document.createElement('i'));add('flip','Cermin',ck('#fx'));add('rot','Putar',ck('#rt'));add('dup','Duplikat',ck('#du'));bar.append(document.createElement('i'));add('del','Hapus',ck('#dl'),'dn');
 pv.append(bar)})();
+</script>
+<script id="cc-m27-rail-zoom-waktu">
+/* Desktop: rail ikon di kanan preview, slider zoom timeline, format waktu 00:00.0 | 00:00.0 */
+(()=>{const pv=document.querySelector('.pv');if(!pv||pv.querySelector('.cc-rl2'))return;const $=s=>document.querySelector(s);
+const P={d:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 15l5-5 4 4 3-3 4 4"/>',k:'<rect x="3" y="7" width="18" height="10" rx="2"/><path d="M8 7v10M16 7v10"/>',l:'<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 20L20 4"/>',w:'<circle cx="12" cy="12" r="8"/><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor"/>',a:'<circle cx="10" cy="10" r="6"/><circle cx="15" cy="14" r="6"/>'};
+const r=document.createElement('div');r.className='cc-rl2';r.setAttribute('role','toolbar');r.setAttribute('aria-label','Alat klip');
+const add=(k,t,f)=>{const b=document.createElement('button');b.type='button';b.title=t;b.innerHTML='<svg viewBox="0 0 24 24">'+P[k]+'</svg><span>'+t+'</span>';b.onclick=e=>{e.stopPropagation();f()};r.append(b)};
+const tab=i=>()=>{const b=document.querySelectorAll('#cc-right .rt button')[i];b&&b.click()};
+const sh=(t,id)=>()=>window.ccAct&&ccAct.openSheet(t,(b,ad)=>{id.forEach(x=>{const e=$(x);e&&ad(e)})});
+add('d','Dasar',tab(0));add('k','Klip',tab(1));add('l','Latar',sh('Hapus latar (AI)',['#cc-bg']));add('w','Warna',sh('Warna lanjutan',['#cc-cg']));add('a','Animasi',sh('Animasi dan fade',['#cc-an','#cc-af']));
+pv.append(r);
+/* slider zoom */
+const zo=$('#zo'),zi=$('#zi');if(zo&&zi){const z=document.createElement('input');z.type='range';z.min=0;z.max=60;z.value=0;z.className='cc-zs';z.title='Zoom timeline';z.setAttribute('aria-label','Zoom timeline');let lk=0;
+z.oninput=()=>{lk=1;try{setZoom(Math.pow(2,z.value/10),T)}catch(e){}lk=0};zo.after(z);
+const sync=()=>{if(lk)return;try{z.value=Math.round(Math.log2(Math.max(1,zl))*10)}catch(e){}};const zt=$('#zt');if(zt)new MutationObserver(sync).observe(zt,{childList:true,characterData:true,subtree:true});sync()}
+/* format waktu */
+const tm=$('#tm');if(tm&&window.ccTm){const o=window.ccTm;const pad=q=>q.replace(/^(\d+):/,(m,a)=>a.padStart(2,'0')+':').replace(/^(\d+)(\.\d)?$/,(m,a,b)=>'00:'+a.padStart(2,'0')+(b||''));
+window.ccTm=(c,t)=>{o(c,t);if(document.documentElement.classList.contains('cc-fix'))return;const k=tm.childNodes;if(k[0])k[0].textContent=pad(k[0].textContent);if(k[1])k[1].nodeValue=' | '+pad(String(k[1].nodeValue).replace(/^\s*[\/|]\s*/,''))}}
+})();
 </script>
 </body></html>
