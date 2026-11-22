@@ -692,6 +692,9 @@ html:not(.cc-fix) .w>#pn .g>select,html:not(.cc-fix) #cc-right .g>select{grid-co
 html:not(.cc-fix) .w>#pn .g>.b.p,html:not(.cc-fix) #cc-right .g>.b.p{box-shadow:none}
 html:not(.cc-fix) .w>#pn .g>.b .cc-ei:first-child{min-height:22px;display:flex;align-items:center}
 html:not(.cc-fix) .w>#pn .tp{padding-bottom:24px}
+html.cc-web .w>#pn{margin:0 0 4px 4px;border-radius:8px}
+html.cc-web .w>#cc-right{margin-right:4px;border-radius:8px}
+html.cc-web.cc-light .w>#pn,html.cc-web.cc-light .w>#cc-right{box-shadow:0 0 0 1px rgba(0,0,0,.06)}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -1900,7 +1903,7 @@ document.addEventListener('pointerup',()=>setTimeout(()=>{msgT='';ui()},0),true)
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const S=(p,z)=>'<svg viewBox="0 0 24 24" width="'+(z||22)+'" height="'+(z||22)+'" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>';
 const root=document.documentElement;root.classList.add('cc-web');
-let th=matchMedia('(min-width:900px) and (min-height:480px) and (pointer:fine)').matches?'light':'dark';try{th=localStorage.getItem('cc_theme')||th}catch{}
+let th='dark';try{th=localStorage.getItem('cc_theme')||th}catch{}
 root.classList.toggle('cc-light',th!=='dark');
 const mq=matchMedia('(min-width:900px) and (min-height:480px) and (pointer:fine)');
 const w=$('.w'),hd=$$('.w>.hd'),hd1=hd[0],hd2=hd[1],pv=$('.pv'),h=$('.h'),bar=$('#cc-tbar');
