@@ -695,6 +695,25 @@ html:not(.cc-fix) .w>#pn .tp{padding-bottom:24px}
 html.cc-web .w>#pn{margin:0 0 4px 4px;border-radius:8px}
 html.cc-web .w>#cc-right{margin-right:4px;border-radius:8px}
 html.cc-web.cc-light .w>#pn,html.cc-web.cc-light .w>#cc-right{box-shadow:0 0 0 1px rgba(0,0,0,.06)}
+
+/* r12: gaya CapCut desktop - toolbar mengambang di preview, tombol Ekspor, lajur timeline */
+.cc-ft{display:none}
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){
+html.cc-web .pv{position:relative}
+html.cc-web:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"]) .pv .cc-ft{display:flex}
+html.cc-web .pv .cc-ft{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:6;align-items:center;gap:2px;padding:6px 8px;border-radius:12px;background:#2a2a2d;color:#e5e5e8;box-shadow:0 2px 12px rgba(0,0,0,.45)}
+html.cc-web.cc-light .pv .cc-ft{background:#fff;color:#1f2329;box-shadow:0 2px 14px rgba(0,0,0,.16)}
+.cc-ft button{display:grid;place-items:center;width:34px;height:34px;border:0;border-radius:8px;background:none;color:inherit;cursor:pointer;padding:0}
+.cc-ft button:hover{background:rgba(127,127,127,.22)}
+.cc-ft button.dn:hover{color:#ff5d5d}
+.cc-ft i{width:1px;height:20px;margin:0 4px;background:rgba(127,127,127,.4)}
+.cc-ft svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+html.cc-web .hd #ex{background:#fff;color:#111;border-color:#fff;font-weight:600;border-radius:8px;padding:9px 20px}
+html.cc-web.cc-light .hd #ex{background:#0b0b0c;color:#fff;border-color:#0b0b0c}
+html.cc-web .hd #ex:hover{filter:brightness(.92)}
+html.cc-web #tl,html.cc-web #atl,html.cc-web #ttl,html.cc-web #otl{background:rgba(127,127,127,.1);border-radius:8px}
+html.cc-web .sg{border-radius:7px}
+html.cc-web #tl[data-sel="1"] .sg.on{border-radius:7px}}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -2402,5 +2421,14 @@ watch(document.getElementById('pn'),'.g>button.b,.chips>button.chip');watch(docu
 const grid=(id,flt)=>{const s=document.getElementById(id);if(!s)return;let g=null;const paint=()=>{if(g)[...g.children].forEach(c=>c.classList.toggle('on',c.dataset.v===s.value))};const build=()=>{if(g)g.remove();g=document.createElement('div');g.className='cc-gr';[...s.options].forEach(o=>{const c=document.createElement('button');c.type='button';c.className='cc-tl';c.dataset.v=o.value;const w=document.createElement('span');w.className='cc-sw'+(flt?'':' t');if(flt&&o.value!=='none')w.style.filter=o.value;const l=document.createElement('span');l.textContent=o.textContent.replace(/^(Filter|Transisi): /,'');c.append(w,l);c.onclick=()=>{s.value=o.value;s.dispatchEvent(new Event('change',{bubbles:true}));paint()};g.append(c)});s.after(g);paint()};build();s.addEventListener('change',paint);new MutationObserver(build).observe(s,{childList:true})};
 grid('fl',true);grid('fd',false);
 const ms=document.getElementById('ms');if(ms&&ms.parentElement&&!document.getElementById('cc-tts')){const b=document.createElement('button');b.type='button';b.className='b';b.id='cc-tts';b.textContent='🗣 Text to audio';b.onclick=()=>window.ccAct&&ccAct.openTts&&ccAct.openTts();ms.parentElement.append(b);tile(b)}})();
+</script>
+<script id="cc-m26-capcut-desktop">
+/* Desktop: toolbar mengambang di atas preview saat klip dipilih */
+(()=>{const pv=document.querySelector('.pv');if(!pv||pv.querySelector('.cc-ft'))return;const P={crop:'<path d="M7 3v14h14M3 7h14v14"/>',flip:'<path d="M12 3v18M8 7L3 17h5zM16 7l5 10h-5z"/>',rot:'<path d="M20 11a8 8 0 1 0-2.3 5.7M20 4v7h-7"/>',dup:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>',del:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',spl:'<path d="M12 3v18M5 8h4v8H5zM15 8h4v8h-4z"/>'};
+const bar=document.createElement('div');bar.className='cc-ft';bar.setAttribute('role','toolbar');bar.setAttribute('aria-label','Aksi klip');
+const add=(k,t,f,c)=>{const b=document.createElement('button');b.type='button';b.title=t;b.setAttribute('aria-label',t);if(c)b.className=c;b.innerHTML='<svg viewBox="0 0 24 24">'+P[k]+'</svg>';b.onclick=e=>{e.stopPropagation();f()};bar.append(b)};
+const ck=id=>()=>{const e=document.querySelector(id);e&&e.click()};
+add('spl','Split',ck('#sp'));add('crop','Crop',()=>{window.ccCrop?ccCrop():window.ccAct&&ccAct.openCrop()});bar.append(document.createElement('i'));add('flip','Cermin',ck('#fx'));add('rot','Putar',ck('#rt'));add('dup','Duplikat',ck('#du'));bar.append(document.createElement('i'));add('del','Hapus',ck('#dl'),'dn');
+pv.append(bar)})();
 </script>
 </body></html>
