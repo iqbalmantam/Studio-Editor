@@ -1481,8 +1481,8 @@ const w=$('.w'),mq=matchMedia('(min-width:900px) and (min-height:480px) and (poi
 // playhead menembus semua trek
 const cp=document.createElement('div');cp.id='cc-ph';document.body.append(cp);
 const ph=$('#ph'),ru=$('#cc-ruler');
-function tickPh(){const r=ru.getBoundingClientRect();let b=0;['#otl','#ttl','#tl','#atl'].forEach(s=>{const e=$(s);if(e&&e.offsetParent){const q=e.getBoundingClientRect();if(q.height>0&&q.bottom>b)b=q.bottom}});
-const x=(window.ccFix&&ccFix()?(()=>{const q=$('#tl').getBoundingClientRect();return q.left+q.width/2})():ph.getBoundingClientRect().left+1);if(!r.height||!b||$('#home').classList.contains('on')){if(cp._s!=='x'){cp._s='x';cp.style.display='none'}return}
+let phG=null,phT=0;function tickPh(){const nw=performance.now(),pl=typeof playing!=='undefined'&&playing;if(!phG||!pl||nw-phT>300){phT=nw;const r=ru.getBoundingClientRect();let b=0;['#otl','#ttl','#tl','#atl'].forEach(s=>{const e=$(s);if(e&&e.offsetParent){const q=e.getBoundingClientRect();if(q.height>0&&q.bottom>b)b=q.bottom}});phG={r,b,q:$('#tl').getBoundingClientRect()}}const r=phG.r,b=phG.b;
+const pc=/%$/.test(ph.style.left)?parseFloat(ph.style.left):NaN;const x=(window.ccFix&&ccFix()?phG.q.left+phG.q.width/2:(pc===pc&&pl?phG.q.left+pc/100*phG.q.width+1:ph.getBoundingClientRect().left+1));if(!r.height||!b||$('#home').classList.contains('on')){if(cp._s!=='x'){cp._s='x';cp.style.display='none'}return}
 const st='display:block;left:'+x+'px;top:'+r.top+'px;height:'+Math.max(0,b-r.top)+'px';if(cp._s!==st){cp._s=st;cp.style.cssText=st}}
 window.__ccPh=tickPh;
 // waktu: berjalan cyan / total putih
@@ -1818,8 +1818,8 @@ window.ccTrkLoad=t=>{for(const m of [ccL,ccH,ccM])for(const k in m)m[k]=false;if
 const lastPos={};function place(){const rs=defs.map(([k,t])=>{const el=$(TR[k]);if(!el||!el.offsetParent)return null;const r=el.getBoundingClientRect();return r.height<10?null:r});
 defs.forEach(([k,t],n)=>{const b=btn[k+t],r=rs[n],id=k+t;if(!r){if(lastPos[id]!=='x'){b.style.display='none';lastPos[id]='x'}return}
 const i=t=='lock'?0:1,key=Math.round(r.left)+','+Math.round(r.top+r.height/2);if(lastPos[id]===key)return;lastPos[id]=key;b.style.display='grid';b.style.left=(r.left+4+i*26)+'px';b.style.top=(r.top+r.height/2-11)+'px'})}
-const prev=window.__ccPh;window.__ccPh=()=>{if(prev)prev();place()};
-new MutationObserver(place).observe($('.w'),{childList:true,subtree:true});
+const prev=window.__ccPh;let plT=0,plQ=0;const placeQ=()=>{if(plQ)return;plQ=requestAnimationFrame(()=>{plQ=0;plT=performance.now();place()})};window.__ccPh=()=>{if(prev)prev();if(performance.now()-plT>250)placeQ()};
+new MutationObserver(ms=>{if(ms.every(m=>{const t=m.target.nodeType===1?m.target:m.target.parentElement;return t&&t.closest&&t.closest('#tm,#msg,#ph,#zt,.cc-zs')}))return;placeQ()}).observe($('.w'),{childList:true,subtree:true});
 addEventListener('resize',place);setTimeout(place,300);
 // ripple delete
 function ripple(){if(ccL.main)return msgL();if(!segs.length)return;if(playing)stop();snap();const i=sel,g=segs[i];if(!g)return;const s0=start(i),d=dur(g),e0=s0+d;
