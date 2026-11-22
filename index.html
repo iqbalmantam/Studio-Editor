@@ -663,6 +663,16 @@ html:not(.cc-fix).cc-light input[type=range]{accent-color:#00b4cc}
 html:not(.cc-fix).cc-light input[type=range]::-webkit-slider-thumb{background:#00b4cc}
 html:not(.cc-fix).cc-light input[type=range]::-moz-range-thumb,html:not(.cc-fix).cc-light input[type=range]::-moz-range-progress{background:#00b4cc}
 html:not(.cc-fix) #pl,html:not(.cc-fix) #cc-tbar #pl{box-shadow:none}
+html:not(.cc-fix) .w>#pn .g{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+html:not(.cc-fix) .w>#pn .g>.b{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:62px;padding:8px 4px;border-radius:10px;font-size:11.5px;line-height:1.25;text-align:center;white-space:normal}
+html:not(.cc-fix) .w>#pn .g>.b .cc-ei{font-size:20px;line-height:1;font-weight:400}
+html:not(.cc-fix) .w>#pn .sh{font-size:13px;margin:14px 0 8px}
+html:not(.cc-fix) .w>#pn .tp>.mu{font-size:12px;line-height:1.5}
+html:not(.cc-fix) .w>#pn .tp.on{min-width:0;width:100%;box-sizing:border-box}
+html:not(.cc-fix) .w>#pn .tp.on>*{max-width:100%;box-sizing:border-box;min-width:0}
+html:not(.cc-fix) .w>#pn .g:has(>.b:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+html:not(.cc-fix) .w>#pn .g:has(>.b:nth-child(2):last-child)>.b{flex-direction:row;gap:8px;min-height:44px}
+html:not(.cc-fix) .w>#pn .g:has(>.b:nth-child(2):last-child)>.b .cc-ei{font-size:16px}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -2356,5 +2366,11 @@ if(mode==='akurat'&&segs.length){
 try{return await offline()}catch(e){if(xab){xab=false;return msg('Ekspor dibatalkan')}msg('Ekspor akurat gagal ('+(e&&e.message||e)+'), memakai mode cepat…')}}
 return live.call(this,auto)};
 })();
+</script>
+<script id="cc-m25-ubin-ikon-desktop">
+/* Panel kiri desktop: tombol berawalan ikon jadi ubin ikon di atas label (gaya CapCut) */
+(()=>{const pn=document.getElementById('pn');if(!pn)return;const re=/^([^\p{L}\p{N}\s]\uFE0F?)\s+(\S[\s\S]*)$/u;let q=0;
+const run=()=>{q=0;pn.querySelectorAll('.g>button.b').forEach(b=>{if(b.querySelector('.cc-ei')||b.children.length)return;const m=re.exec(b.textContent.trim());if(!m)return;b.textContent='';const i=document.createElement('span');i.className='cc-ei';i.textContent=m[1];const t=document.createElement('span');t.textContent=m[2];b.append(i,t)})};
+new MutationObserver(()=>{if(!q)q=requestAnimationFrame(run)}).observe(pn,{childList:true,subtree:true,characterData:true});run()})();
 </script>
 </body></html>
