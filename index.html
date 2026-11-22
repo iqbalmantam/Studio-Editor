@@ -2416,8 +2416,14 @@ if(pop){const l=document.createElement('span');l.className='mu';l.textContent='M
 const seekEl=(e,t)=>new Promise(r=>{let ok=false;const fin=()=>{if(ok)return;ok=true;e.removeEventListener('seeked',fin);clearTimeout(to);r()};const to=setTimeout(fin,2000);e.addEventListener('seeked',fin);try{e.currentTime=t}catch{fin()}});
 async function syncOv(){for(const o of ovs){const e=o.el;if(!e||e.tagName!=='VIDEO'||!e.videoWidth)continue;const t=T-o.a;if(t<0||t>Math.min(o.d,e.duration))continue;const q=o.in+t;try{e.pause()}catch{}if(Math.abs(e.currentTime-q)>.0004)await seekEl(e,q)}}
 const settle=e=>new Promise(r=>{if(!e.requestVideoFrameCallback)return r();const to=setTimeout(r,60);try{e.requestVideoFrameCallback(()=>{clearTimeout(to);r()})}catch{clearTimeout(to);r()}});
+/* maju satu frame dengan memutar singkat (jauh lebih cepat daripada seek yang decode ulang dari keyframe) */
+const stepPlay=(e,st)=>new Promise(res=>{if(!e.requestVideoFrameCallback)return res(false);let done=false;const to=setTimeout(()=>fin(false),500);const fin=ok=>{if(done)return;done=true;clearTimeout(to);try{e.pause()}catch{}res(ok)};
+const cb=(n,md)=>{if(done)return;const m=md.mediaTime;if(m>st+.045){fin(false)}else if(m>=st-.017){e.__lm=m;fin(true)}else{try{e.requestVideoFrameCallback(cb)}catch{fin(false)}}};
+try{e.playbackRate=1;e.requestVideoFrameCallback(cb);const pr=e.play();if(pr&&pr.catch)pr.catch(()=>fin(false))}catch{fin(false)}});
 async function renderAt(t){T=t;const l=locate(T),s=segs[l.i];if(!s)return;
-if(s.fz)cur=l.i;else{const st=s.in+l.off*s.sp+.0005;if(cur!==l.i||v.dataset.u!==s.u)await load(l.i,st);cur=l.i;try{v.pause()}catch{}if(Math.abs(v.currentTime-st)>.0004){await seekEl(v,st);await settle(v)}}
+if(s.fz)cur=l.i;else{const st=s.in+l.off*s.sp+.0005;const same=cur===l.i&&v.dataset.u===s.u&&v.__lm!=null;if(cur!==l.i||v.dataset.u!==s.u){await load(l.i,st);v.__lm=null}cur=l.i;try{v.pause()}catch{}
+const dl=same?st-v.__lm:-1;let ok=false;if(!window.__noStep&&same&&Math.abs((s.sp||1)-1)<1e-3&&dl>0&&dl<.06)ok=await stepPlay(v,st);
+if(!ok&&Math.abs(v.currentTime-st)>.0004){v.__lm=null;await seekEl(v,st);await settle(v);v.__lm=st}}
 await syncOv();draw()}
 async function offline(){
 if(!window.Mp4Muxer)await new Promise(r=>{const t0=Date.now(),i=setInterval(()=>{if(window.Mp4Muxer||Date.now()-t0>4000){clearInterval(i);r()}},100)});
