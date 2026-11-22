@@ -688,6 +688,10 @@ html.cc-fix .cc-gr{display:none}
 .cc-sw{display:block;height:46px;border-radius:7px;background:linear-gradient(135deg,#f6c453,#e8665a 38%,#4f8cff 70%,#49c8a0)}
 .cc-sw.t{background:var(--cd);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--mu)}
 .cc-sw.t:after{content:'\21C4'}
+html:not(.cc-fix) .w>#pn .g>select,html:not(.cc-fix) #cc-right .g>select{grid-column:1/-1;width:100%}
+html:not(.cc-fix) .w>#pn .g>.b.p,html:not(.cc-fix) #cc-right .g>.b.p{box-shadow:none}
+html:not(.cc-fix) .w>#pn .g>.b .cc-ei:first-child{min-height:22px;display:flex;align-items:center}
+html:not(.cc-fix) .w>#pn .tp{padding-bottom:24px}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -2384,7 +2388,7 @@ return live.call(this,auto)};
 </script>
 <script id="cc-m25-ubin-ikon-desktop">
 /* Desktop: ubin ikon (panel kiri/kanan), kisi pratinjau Filter dan Transisi, tombol Text to audio */
-(()=>{const re=/^([^\p{L}\p{N}\s]\uFE0F?)\s+(\S[\s\S]*)$/u;const tile=b=>{if(b.querySelector('.cc-ei')||b.children.length)return;const m=re.exec(b.textContent.trim());if(!m)return;b.textContent='';const i=document.createElement('span');i.className='cc-ei';i.textContent=m[1];const t=document.createElement('span');t.textContent=m[2];b.append(i,t)};
+(()=>{const re=/^([^\p{L}\p{N}\s]\uFE0F?|Aa)\s+(\S[\s\S]*)$/u;const tile=b=>{if(b.querySelector('.cc-ei')||b.children.length)return;const m=re.exec(b.textContent.trim());if(!m)return;b.textContent='';const i=document.createElement('span');i.className='cc-ei';i.textContent=m[1];const t=document.createElement('span');t.textContent=m[2];b.append(i,t)};
 const watch=(el,sel)=>{if(!el)return;let q=0;const run=()=>{q=0;el.querySelectorAll(sel).forEach(tile)};new MutationObserver(()=>{if(!q)q=requestAnimationFrame(run)}).observe(el,{childList:true,subtree:true,characterData:true});run()};
 watch(document.getElementById('pn'),'.g>button.b,.chips>button.chip');watch(document.getElementById('cc-right'),'.g>button.b');
 const grid=(id,flt)=>{const s=document.getElementById(id);if(!s)return;let g=null;const paint=()=>{if(g)[...g.children].forEach(c=>c.classList.toggle('on',c.dataset.v===s.value))};const build=()=>{if(g)g.remove();g=document.createElement('div');g.className='cc-gr';[...s.options].forEach(o=>{const c=document.createElement('button');c.type='button';c.className='cc-tl';c.dataset.v=o.value;const w=document.createElement('span');w.className='cc-sw'+(flt?'':' t');if(flt&&o.value!=='none')w.style.filter=o.value;const l=document.createElement('span');l.textContent=o.textContent.replace(/^(Filter|Transisi): /,'');c.append(w,l);c.onclick=()=>{s.value=o.value;s.dispatchEvent(new Event('change',{bubbles:true}));paint()};g.append(c)});s.after(g);paint()};build();s.addEventListener('change',paint);new MutationObserver(build).observe(s,{childList:true})};
