@@ -740,6 +740,12 @@ html.cc-web #cc-rail>button:hover{background:rgba(127,127,127,.14)}
 html.cc-web #cc-rail>button.on{background:linear-gradient(145deg,rgba(0,202,224,.28),rgba(0,202,224,.08));color:var(--tx)}
 html.cc-web:not(.cc-light) #cc-rail>button.on{background:linear-gradient(145deg,rgba(0,202,224,.30),rgba(0,202,224,.06));color:#fff}
 html.cc-web.cc-light #cc-rail>button.on{background:linear-gradient(145deg,#cfe6f7,#eef5fb);color:#111}}
+
+/* r15: panel kanan hanya muncul saat klip dipilih (seperti CapCut) */
+@media(min-width:900px) and (min-height:480px) and (pointer:fine){
+html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .w{grid-template-columns:72px minmax(300px,24%) minmax(0,1fr)}
+html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .w>.hd:nth-child(2){grid-column:3/-1;justify-self:end}
+html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .w>#cc-right{display:none}}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
