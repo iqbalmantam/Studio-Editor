@@ -650,6 +650,19 @@ html.cc-fix #cc-qa button em{font-weight:600}
 @media not all and (min-width:900px) and (min-height:480px) and (pointer:fine){
   #cc-sheet{max-height:50vh}
 }
+/* m25 desktop: palet dan komponen gaya CapCut (hanya tata letak desktop) */
+html:not(.cc-fix){--cc-cy:#00cae0;--cc-cy2:#19d7ea;--cc-on:#00262e}
+html:not(.cc-fix) .b.p,html:not(.cc-fix) .p,html:not(.cc-fix).cc-light .b.p,html:not(.cc-fix).cc-light .p{background:var(--cc-cy);color:var(--cc-on);border-color:transparent;font-weight:600}
+html:not(.cc-fix) .b.p:hover,html:not(.cc-fix).cc-light .b.p:hover{background:var(--cc-cy2)}
+html:not(.cc-fix) .hd #ex{background:var(--cc-cy);color:var(--cc-on);border-radius:8px;padding:7px 20px;font-weight:600;box-shadow:none}
+html:not(.cc-fix) .chip.on,html:not(.cc-fix).cc-light .chip.on{background:var(--cc-cy);color:var(--cc-on)}
+html:not(.cc-fix) #cc-right .rt button.on,html:not(.cc-fix).cc-light #cc-right .rt button.on{color:var(--tx);box-shadow:inset 0 -2px 0 var(--cc-cy);font-weight:600}
+html:not(.cc-fix) #cc-rail>button.on,html:not(.cc-fix).cc-light #cc-rail>button.on{color:#00a9bd;background:rgba(0,202,224,.12)}
+html:not(.cc-fix):not(.cc-light) #cc-rail>button.on{color:var(--cc-cy);background:rgba(0,202,224,.14)}
+html:not(.cc-fix).cc-light input[type=range]{accent-color:#00b4cc}
+html:not(.cc-fix).cc-light input[type=range]::-webkit-slider-thumb{background:#00b4cc}
+html:not(.cc-fix).cc-light input[type=range]::-moz-range-thumb,html:not(.cc-fix).cc-light input[type=range]::-moz-range-progress{background:#00b4cc}
+html:not(.cc-fix) #pl,html:not(.cc-fix) #cc-tbar #pl{box-shadow:none}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
