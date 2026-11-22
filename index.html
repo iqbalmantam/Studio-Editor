@@ -673,6 +673,21 @@ html:not(.cc-fix) .w>#pn .tp.on>*{max-width:100%;box-sizing:border-box;min-width
 html:not(.cc-fix) .w>#pn .g:has(>.b:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
 html:not(.cc-fix) .w>#pn .g:has(>.b:nth-child(2):last-child)>.b{flex-direction:row;gap:8px;min-height:44px}
 html:not(.cc-fix) .w>#pn .g:has(>.b:nth-child(2):last-child)>.b .cc-ei{font-size:16px}
+html:not(.cc-fix) .w>#pn .chips{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+html:not(.cc-fix) .w>#pn .chips>.chip,html:not(.cc-fix) #cc-right .g>.b{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:58px;padding:8px 4px;border-radius:10px;font-size:11.5px;line-height:1.25;text-align:center;white-space:normal}
+html:not(.cc-fix) .cc-ei{font-size:19px;line-height:1;font-weight:400}
+html:not(.cc-fix) #cc-right .g{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+html:not(.cc-fix) #cc-right .g:has(>.b:nth-child(2):last-child){grid-template-columns:repeat(2,minmax(0,1fr))}
+html:not(.cc-fix) #fl,html:not(.cc-fix) #fd{display:none}
+html.cc-fix .cc-gr{display:none}
+.cc-gr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:6px 0 10px}
+.cc-tl{all:unset;box-sizing:border-box;display:flex;flex-direction:column;gap:5px;cursor:pointer;font-size:11.5px;text-align:center;color:var(--tx);border-radius:10px;padding:4px;border:2px solid transparent}
+.cc-tl:hover{background:rgba(127,127,127,.12)}
+.cc-tl.on{border-color:var(--ac)}
+.cc-tl.on span:last-child{color:var(--ac);font-weight:600}
+.cc-sw{display:block;height:46px;border-radius:7px;background:linear-gradient(135deg,#f6c453,#e8665a 38%,#4f8cff 70%,#49c8a0)}
+.cc-sw.t{background:var(--cd);display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--mu)}
+.cc-sw.t:after{content:'\21C4'}
 </style></head><body><div class="w">
 <div class="hd"><button class="b" id="hm" title="Beranda" aria-label="Beranda">🏠</button><span class="hd-logo" title="Mantam Studio"></span><h1>Mantam Studio Editor</h1></div>
 <div class="hd"><button class="b" id="un" title="Undo (Ctrl+Z)" aria-label="Undo">↶</button><button class="b" id="re" title="Redo (Ctrl+Y)" aria-label="Redo">↷</button><select id="ff" title="Format ekspor"><option value="auto">Auto</option><option value="mp4">MP4</option><option value="webm">WebM</option></select><select id="q" title="Kualitas ekspor"><option value="4000000">Standar</option><option value="8000000">Tinggi</option><option value="2000000">Hemat</option><option value="1000000">Kecil</option><option value="auto">Otomatis (ikuti file asli)</option><option value="16000000">Maksimal</option></select><button class="b p" id="ex">Ekspor</button></div>
@@ -2112,7 +2127,7 @@ $('#pl').before(fb);$('#pl').after(ff);
 const bar=$('#cc-tbar'),rip=bar.querySelector('.cc-ib[title^="Hapus dan rapatkan"]');
 const tb2=(ic,lab,fn)=>{const b=document.createElement('button');b.type='button';b.className='b cc-ib cc-dsk';b.title=lab;b.setAttribute('aria-label',lab);b.innerHTML=S(IC[ic],20);b.onclick=fn;return b};
 const cropB=tb2('crop','Crop',()=>window.ccCrop?ccCrop():openCrop()),pipB=tb2('ov','Tambah PiP',addPip);(rip||bar.firstChild).after(cropB,pipB);
-window.ccAct={openPanel,addText,addPip,openCrop,openSheet,closeSheet,ccPick};
+window.ccAct={openPanel,addText,addPip,openCrop,openSheet,closeSheet,ccPick,openTts};
 })();
 </script>
 <script id="cc-m20c-beranda-hp">
@@ -2368,9 +2383,12 @@ return live.call(this,auto)};
 })();
 </script>
 <script id="cc-m25-ubin-ikon-desktop">
-/* Panel kiri desktop: tombol berawalan ikon jadi ubin ikon di atas label (gaya CapCut) */
-(()=>{const pn=document.getElementById('pn');if(!pn)return;const re=/^([^\p{L}\p{N}\s]\uFE0F?)\s+(\S[\s\S]*)$/u;let q=0;
-const run=()=>{q=0;pn.querySelectorAll('.g>button.b').forEach(b=>{if(b.querySelector('.cc-ei')||b.children.length)return;const m=re.exec(b.textContent.trim());if(!m)return;b.textContent='';const i=document.createElement('span');i.className='cc-ei';i.textContent=m[1];const t=document.createElement('span');t.textContent=m[2];b.append(i,t)})};
-new MutationObserver(()=>{if(!q)q=requestAnimationFrame(run)}).observe(pn,{childList:true,subtree:true,characterData:true});run()})();
+/* Desktop: ubin ikon (panel kiri/kanan), kisi pratinjau Filter dan Transisi, tombol Text to audio */
+(()=>{const re=/^([^\p{L}\p{N}\s]\uFE0F?)\s+(\S[\s\S]*)$/u;const tile=b=>{if(b.querySelector('.cc-ei')||b.children.length)return;const m=re.exec(b.textContent.trim());if(!m)return;b.textContent='';const i=document.createElement('span');i.className='cc-ei';i.textContent=m[1];const t=document.createElement('span');t.textContent=m[2];b.append(i,t)};
+const watch=(el,sel)=>{if(!el)return;let q=0;const run=()=>{q=0;el.querySelectorAll(sel).forEach(tile)};new MutationObserver(()=>{if(!q)q=requestAnimationFrame(run)}).observe(el,{childList:true,subtree:true,characterData:true});run()};
+watch(document.getElementById('pn'),'.g>button.b,.chips>button.chip');watch(document.getElementById('cc-right'),'.g>button.b');
+const grid=(id,flt)=>{const s=document.getElementById(id);if(!s)return;let g=null;const paint=()=>{if(g)[...g.children].forEach(c=>c.classList.toggle('on',c.dataset.v===s.value))};const build=()=>{if(g)g.remove();g=document.createElement('div');g.className='cc-gr';[...s.options].forEach(o=>{const c=document.createElement('button');c.type='button';c.className='cc-tl';c.dataset.v=o.value;const w=document.createElement('span');w.className='cc-sw'+(flt?'':' t');if(flt&&o.value!=='none')w.style.filter=o.value;const l=document.createElement('span');l.textContent=o.textContent.replace(/^(Filter|Transisi): /,'');c.append(w,l);c.onclick=()=>{s.value=o.value;s.dispatchEvent(new Event('change',{bubbles:true}));paint()};g.append(c)});s.after(g);paint()};build();s.addEventListener('change',paint);new MutationObserver(build).observe(s,{childList:true})};
+grid('fl',true);grid('fd',false);
+const ms=document.getElementById('ms');if(ms&&ms.parentElement&&!document.getElementById('cc-tts')){const b=document.createElement('button');b.type='button';b.className='b';b.id='cc-tts';b.textContent='🗣 Text to audio';b.onclick=()=>window.ccAct&&ccAct.openTts&&ccAct.openTts();ms.parentElement.append(b);tile(b)}})();
 </script>
 </body></html>
