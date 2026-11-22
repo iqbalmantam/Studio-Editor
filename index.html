@@ -1180,7 +1180,7 @@ async function mixAudio(D,SR){miss=0;const len=Math.max(1,Math.ceil(D*SR)),oc=ne
 let fastWhy='';async function fastExport(auto){fastWhy='';if(!window.Mp4Muxer&&window.VideoEncoder)await new Promise(r=>{const t0=Date.now(),i=setInterval(()=>{if(window.Mp4Muxer||Date.now()-t0>4000){clearInterval(i);r()}},100)});if(!window.VideoEncoder||!window.AudioEncoder||!window.Mp4Muxer||!window.OfflineAudioContext){fastWhy='cepat tidak tersedia: '+['VideoEncoder','AudioEncoder','Mp4Muxer','OfflineAudioContext'].filter(k=>!window[k]).join(', ')+' tidak ada';if(auto)return slowExport();return msg('Browser belum mendukung MP4 ('+fastWhy+'). Pilih format WebM.')}if(!segs.length)return msg('Tambah klip dulu');if(playing)stop();let err=null;const fin=()=>{ff=false;setExp(false);hq=hh=false;hT=0;try{wl&&wl.release()}catch{}wl=null;ovs.forEach(o=>o.el.playbackRate=1);pv.playbackRate=1;if(segs[cur]&&!segs[cur].fz)v.playbackRate=segs[cur].sp};
 try{await seek(0);msg('Menyiapkan audio…');const SR=48000,au=await mixAudio(total(),SR);let acd=null;for(const[c,m]of[['mp4a.40.2','aac'],['opus','opus']]){try{if((await AudioEncoder.isConfigSupported({codec:c,sampleRate:SR,numberOfChannels:2,bitrate:128000})).supported){acd=[c,m];break}}catch{}}if(!acd)throw new Error('encoder audio tidak didukung');const mx=new Mp4Muxer.Muxer({target:new Mp4Muxer.ArrayBufferTarget(),video:{codec:'avc',width:W,height:H},audio:{codec:acd[1],numberOfChannels:2,sampleRate:SR},fastStart:'in-memory',firstTimestampBehavior:'offset'});const ae=new AudioEncoder({output:(c,m)=>mx.addAudioChunk(c,m),error:x=>{err=x}});ve=new VideoEncoder({output:(c,m)=>mx.addVideoChunk(c,m),error:x=>{err=x}});let vc=null;for(const c of ['avc1.640032','avc1.64002A','avc1.4D0032','avc1.42001F']){try{const s=await VideoEncoder.isConfigSupported({codec:c,width:W,height:H,bitrate:qb(),framerate:FPS});if(s.supported){vc=c;break}}catch{}}if(!vc)throw new Error('encoder video H.264 tidak didukung');ve.configure({codec:vc,width:W,height:H,bitrate:qb(),framerate:FPS});ae.configure({codec:acd[0],sampleRate:SR,numberOfChannels:2,bitrate:128000});
 for(let o=0;o<au.length;o+=SR){const n=Math.min(SR,au.length-o),d=new Float32Array(n*2);d.set(au.getChannelData(0).subarray(o,o+n),0);d.set(au.getChannelData(1).subarray(o,o+n),n);const a=new AudioData({format:'f32-planar',sampleRate:SR,numberOfFrames:n,numberOfChannels:2,timestamp:Math.round(o/SR*1e6),data:d});ae.encode(a);a.close();while(ae.encodeQueueSize>8){if(err)break;await new Promise(r=>{const h=()=>{clearTimeout(to);r()},to=setTimeout(h,30);ae.addEventListener('dequeue',h,{once:true})})}}
-au=null;xab=false;hq=hh=false;hT=0;rw.t=0;ffR=1.5;kf=0;try{wl=await navigator.wakeLock?.request('screen')}catch{}ff=true;setExp(true);ovs.forEach(o=>o.el.playbackRate=Math.min(16,ffR));pv.playbackRate=ffR;if(segs[cur]&&!segs[cur].fz)v.playbackRate=segs[cur].sp*ffR;await new Promise((r,j)=>{done=r;play().catch(j)});if(xab)throw new Error('dibatalkan');ef(true);fin();await ve.flush();await ae.flush();if(err)throw err;mx.finalize();await save(new Blob([mx.target.buffer],{type:'video/mp4'}),'video-editan.mp4');if(miss)msg('Selesai, tapi audio '+miss+' file tidak terbaca')}catch(e){done=null;stop();fin();try{ve&&ve.state!='closed'&&ve.close()}catch{}if(xab){xab=false;return msg('Ekspor dibatalkan')}const why=e&&e.message||e;if(auto){fastWhy='cepat gagal: '+why;msg('Ekspor cepat gagal ('+why+'), mencoba cara biasa…');return slowExport()}msg('Ekspor MP4 gagal ('+why+'). Pilih format WebM lalu Ekspor.')}finally{ve=null}}
+xab=false;hq=hh=false;hT=0;rw.t=0;ffR=1.5;kf=0;try{wl=await navigator.wakeLock?.request('screen')}catch{}ff=true;setExp(true);ovs.forEach(o=>o.el.playbackRate=Math.min(16,ffR));pv.playbackRate=ffR;if(segs[cur]&&!segs[cur].fz)v.playbackRate=segs[cur].sp*ffR;await new Promise((r,j)=>{done=r;play().catch(j)});if(xab)throw new Error('dibatalkan');ef(true);fin();await ve.flush();await ae.flush();if(err)throw err;mx.finalize();await save(new Blob([mx.target.buffer],{type:'video/mp4'}),'video-editan.mp4');if(miss)msg('Selesai, tapi audio '+miss+' file tidak terbaca')}catch(e){done=null;stop();fin();try{ve&&ve.state!='closed'&&ve.close()}catch{}if(xab){xab=false;return msg('Ekspor dibatalkan')}const why=e&&e.message||e;if(auto){fastWhy='cepat gagal: '+why;msg('Ekspor cepat gagal ('+why+'), mencoba cara biasa…');return slowExport()}msg('Ekspor MP4 gagal ('+why+'). Pilih format WebM lalu Ekspor.')}finally{ve=null}}
 $('#ef').onclick=()=>runExp(()=>fastExport(false));
 const th=d=>new Promise(r=>{let ok=false;const fin=v=>{if(!ok){ok=true;r(v)}};d.onseeked=()=>{const c=document.createElement('canvas');c.width=96;c.height=54;c.getContext('2d').drawImage(d,0,0,96,54);fin(c.toDataURL('image/jpeg',.5))};d.currentTime=Math.min(.1,d.duration/2);setTimeout(()=>fin(''),1500)});
 $('#rt').onclick=()=>{const g=segs[sel];if(!g)return;snap();g.rot=((g.rot||0)+1)%4;draw()};
@@ -2425,13 +2425,72 @@ if(s.fz)cur=l.i;else{const st=s.in+l.off*s.sp+.0005;const same=cur===l.i&&v.data
 const dl=same?st-v.__lm:-1;let ok=false;if(!window.__noStep&&same&&Math.abs((s.sp||1)-1)<1e-3&&dl>0&&dl<.06)ok=await stepPlay(v,st);
 if(!ok&&Math.abs(v.currentTime-st)>.0004){v.__lm=null;await seekEl(v,st);await settle(v);v.__lm=st}}
 await syncOv();draw()}
+/* mixer audio streaming: demux MP4/AAC sendiri + AudioDecoder, hanya jendela 1 detik di memori */
+const U32=(d,o)=>d.getUint32(o),TY=(d,o)=>String.fromCharCode(d.getUint8(o),d.getUint8(o+1),d.getUint8(o+2),d.getUint8(o+3));
+const boxes=(d,s,e)=>{const r=[];while(s+8<=e){let z=U32(d,s),h=8;if(z===1){z=U32(d,s+8)*4294967296+U32(d,s+12);h=16}else if(z===0)z=e-s;if(z<h||s+z>e)break;r.push({t:TY(d,s+4),s:s+h,e:s+z});s+=z}return r};
+const kid=(d,b,t)=>boxes(d,b.s,b.e).find(x=>x.t===t);
+async function demux(blob){try{const size=blob.size;let pos=0,moov=null;
+while(pos+8<=size){const h=new DataView(await blob.slice(pos,pos+16).arrayBuffer());let z=U32(h,0),hl=8;const ty=TY(h,4);if(z===1){z=U32(h,8)*4294967296+U32(h,12);hl=16}else if(z===0)z=size-pos;if(z<8)return null;if(ty==='moof')return null;if(ty==='moov')moov=[pos+hl,pos+z];pos+=z}
+if(!moov)return null;const d=new DataView(await blob.slice(moov[0],moov[1]).arrayBuffer());
+for(const tk of boxes(d,0,d.byteLength).filter(x=>x.t==='trak')){const md=kid(d,tk,'mdia');if(!md)continue;const hd=kid(d,md,'hdlr');if(!hd||TY(d,hd.s+8)!=='soun')continue;
+const mh=kid(d,md,'mdhd'),v1=d.getUint8(mh.s)===1,ts=U32(d,mh.s+(v1?20:12));const st=kid(d,kid(d,md,'minf'),'stbl');
+const sd=kid(d,st,'stsd'),en=boxes(d,sd.s+8,sd.e)[0];if(!en||en.t!=='mp4a')return null;const es=en.s;if(d.getUint16(es+8)!==0)return null;const ch=d.getUint16(es+16),sr0=d.getUint16(es+24);
+const ek=boxes(d,es+28,en.e).find(x=>x.t==='esds');if(!ek)return null;let p=ek.s+4,asc=null;const rl=()=>{let n=0,b;do{b=d.getUint8(p++);n=n*128+(b&127)}while(b&128);return n};
+if(d.getUint8(p++)!==3)return null;rl();p+=2;const fl=d.getUint8(p++);if(fl&128)p+=2;if(fl&64)p+=1+d.getUint8(p);if(fl&32)p+=2;
+if(d.getUint8(p++)!==4)return null;rl();if(d.getUint8(p)!==0x40)return null;p+=13;if(d.getUint8(p++)!==5)return null;const al=rl();asc=new Uint8Array(d.buffer.slice(d.byteOffset+p,d.byteOffset+p+al));
+const aot=asc[0]>>3;if(aot===31||!aot)return null;const codec='mp4a.40.'+aot;
+const tt=kid(d,st,'stts'),zs=kid(d,st,'stsz'),sc=kid(d,st,'stsc'),co=kid(d,st,'stco')||kid(d,st,'co64');if(!tt||!zs||!sc||!co)return null;
+const n=U32(d,zs.s+8),fs=U32(d,zs.s+4),sz=new Uint32Array(n);for(let i=0;i<n;i++)sz[i]=fs||U32(d,zs.s+12+i*4);
+const times=new Float64Array(n);{let c=U32(d,tt.s+4),q=tt.s+8,i=0,t=0;for(let k=0;k<c&&i<n;k++){const cn=U32(d,q),dl=U32(d,q+4);q+=8;for(let j=0;j<cn&&i<n;j++){times[i++]=t/ts;t+=dl}}}
+const scn=U32(d,sc.s+4),sce=[];for(let i=0;i<scn;i++)sce.push([U32(d,sc.s+8+i*12),U32(d,sc.s+12+i*12)]);
+const cn=U32(d,co.s+4),c64=co.t==='co64',chunks=[];let si=0;
+for(let c=0;c<cn;c++){let spc=sce[0][1];for(const e of sce)if(e[0]<=c+1)spc=e[1];const off=c64?U32(d,co.s+8+c*8)*4294967296+U32(d,co.s+12+c*8):U32(d,co.s+8+c*4);let tot=0;const m=Math.min(spc,n-si);for(let j=0;j<m;j++)tot+=sz[si+j];chunks.push({off,size:tot,i0:si,n:m});si+=m}
+let skew=0;const ed=kid(d,tk,'edts'),el=ed&&kid(d,ed,'elst');if(el){const v=d.getUint8(el.s),ec=U32(d,el.s+4);if(ec>2)return null;const q=el.s+8,mt=v?(U32(d,q+8)|0)+U32(d,q+8)*0:d.getInt32(q+4);if(ec>=1&&mt<0)return null;if(mt>0)skew=mt/ts}
+const cfg={codec,sampleRate:sr0,numberOfChannels:ch,description:asc};let okc=false;try{okc=(await AudioDecoder.isConfigSupported(cfg)).supported}catch{}if(!okc)return null;
+return{blob,cfg,sr:sr0,ch,sz,times,chunks,skew}}return null}catch{return null}}
+function openDec(m,off,SR){const cfg=m.cfg,sr=m.sr;let q=[],err=null,wake=null,got=0,fed=0,ended=false,ci=0,L=new Float32Array(sr*4),R=new Float32Array(sr*4),len=0,base=0,t0=null,closed=false;
+const dec=new AudioDecoder({output:a=>{try{const n=a.numberOfFrames,tt=a.timestamp/1e6-m.skew;const l=new Float32Array(n),r=new Float32Array(n);a.copyTo(l,{planeIndex:0,format:'f32-planar'});if(a.numberOfChannels>1)a.copyTo(r,{planeIndex:1,format:'f32-planar'});else r.set(l);q.push([tt,l,r])}catch(e){err=e}finally{a.close()}got++;if(wake){wake();wake=null}},error:e=>{err=e;if(wake){wake();wake=null}}});dec.configure(cfg);
+const pre=2*1024/sr;let first=0;{const T=off-pre;while(first<m.times.length-1&&m.times[first+1]<=T)first++}
+while(ci<m.chunks.length&&m.chunks[ci].i0+m.chunks[ci].n<=first)ci++;
+const wait=()=>new Promise(r=>{let d=false;const f=v=>{if(d)return;d=true;clearTimeout(tm);if(wake===w)wake=null;r(v)},w=()=>f(true),tm=setTimeout(()=>f(false),400);wake=w});
+async function feed(){if(ci>=m.chunks.length){if(!ended){await dec.flush();ended=true}return}const c=m.chunks[ci++],buf=new Uint8Array(await m.blob.slice(c.off,c.off+c.size).arrayBuffer());let o=0;const g0=got,f0=fed;for(let j=0;j<c.n;j++){const i=c.i0+j,z=m.sz[i];if(i>=first)dec.decode(new EncodedAudioChunk({type:'key',timestamp:Math.round((m.times[i])*1e6),data:buf.subarray(o,o+z)}));if(i>=first)fed++;o+=z}
+}
+const ingest=()=>{while(q.length){const[tt,l,r]=q.shift();let s=0,n=l.length;if(t0===null){const skip=Math.round((off-tt)*sr);if(skip>=n)continue;s=Math.max(0,skip);t0=tt+s/sr}
+const k=n-s;if(len+k>L.length){const keep=len-base,nl=new Float32Array(Math.max(L.length,(keep+k)*2)),nr=new Float32Array(nl.length);nl.set(L.subarray(base,len));nr.set(R.subarray(base,len));L=nl;R=nr;len=keep;base=0;}
+L.set(l.subarray(s),len);R.set(r.subarray(s),len);len+=k}};
+let baseG=0,srcPos=0;/* srcPos: indeks sumber (relatif sampel pertama yang dipakai) */
+const step=sr/SR;let outK=0,fr0=null;
+return{async pull(n){const oL=new Float32Array(n),oR=new Float32Array(n);if(err)throw err;
+const needTo=Math.ceil((outK+n)*step)+2;
+while(!ended&&baseG+(len-base)<needTo){ingest();if(baseG+(len-base)>=needTo)break;if(ci>=m.chunks.length||dec.decodeQueueSize<48)await feed();else await wait();ingest();if(err)throw err}
+ingest();if(t0===null&&!ended){}
+const off0=(t0===null?0:(t0-off)*sr);/* >=0: jeda awal bila sampel pertama sedikit setelah off */
+for(let i=0;i<n;i++){const p=(outK+i)*step-off0;if(p<0){continue}const a=Math.floor(p),f=p-a,ia=a-baseG+base;if(ia+1>=len){if(ia>=len)continue;oL[i]=L[ia];oR[i]=R[ia];continue}oL[i]=L[ia]*(1-f)+L[ia+1]*f;oR[i]=R[ia]*(1-f)+R[ia+1]*f}
+outK+=n;const drop=Math.floor(outK*step-off0)-2-baseG;if(drop>sr){base+=drop;baseG+=drop}return[oL,oR]},close(){if(!closed){closed=true;try{dec.close()}catch{}}}}}
+function bufItem(b,off,rate,lp,SR){let k=0;const cl=b.getChannelData(0),cr=b.numberOfChannels>1?b.getChannelData(1):cl,N=b.length;return{async pull(n){const oL=new Float32Array(n),oR=new Float32Array(n);for(let i=0;i<n;i++){let p=off*b.sampleRate+(k+i)*rate;if(lp)p=p%N;const a=Math.floor(p);if(a>=N)continue;const f=p-a,b2=a+1<N?a+1:(lp?0:a);oL[i]=cl[a]*(1-f)+cl[b2]*f;oR[i]=cr[a]*(1-f)+cr[b2]*f}k+=n;return[oL,oR]},close(){}}}
+async function streamMix(D,SR,emit,aborted){miss=0;const its=[],mc=new Map(),dm=new Map(),bc=new Map();let dc=null;
+const blobOf=async u=>{if(!mc.has(u))mc.set(u,fetch(u).then(r=>r.blob()));return mc.get(u)};
+const dmx=async u=>{if(!dm.has(u))dm.set(u,blobOf(u).then(b=>demux(b)));return dm.get(u)};
+const bdec=async u=>{if(!bc.has(u)){bc.set(u,(async()=>{try{dc=dc||new AudioContext({sampleRate:SR});return await dc.decodeAudioData(await(await blobOf(u)).arrayBuffer())}catch{return null}})())}return bc.get(u)};
+const add=async(u,g,when,off,stopAt,rate,lp,fd,fi,fo)=>{const dp=stopAt-when;if(dp<=0)return;const w=Math.max(0,when),o=Math.max(0,off||0),rt=rate||1;let meta=null;if(!lp&&Math.abs(rt-1)<1e-6&&window.AudioDecoder&&window.EncodedAudioChunk)meta=await dmx(u);
+let mk;if(meta)mk=()=>openDec(meta,o,SR);else{const b=await bdec(u);if(!b){miss++;return}mk=()=>bufItem(b,o,rt,!!lp,SR)}
+its.push({s0:Math.round(w*SR),s1:Math.min(Math.round(stopAt*SR),Math.ceil(D*SR)),w,stop:stopAt,dp,g,fd,fi,fo,mk,st:null,k:0,done:false})};
+for(let i=0;i<segs.length;i++){const s=segs[i];if(!s.fz&&(s.vol??1)>0)await add(s.u,(window.ccM&&ccM.main)?0:(s.vol??1),start(i),s.in,start(i)+dur(s),s.sp,false,(s.n0||s.n1)?0:(s.fd??fade),s.fi,s.fo)}
+for(const a of aus){if(!a.u||a.at>=D)continue;await add(a.u,(window.ccM&&ccM.audio)?0:(a.vol??1),a.at,a.in,Math.min(D,a.at+dur(a)),a.sp)}
+if(ma.src)await add(ma.src,+$('#mvl').value/100,0,0,D,1,true);if(va.src)await add(va.src,+$('#vvl').value/100,0,0,D,1,false);
+its.sort((a,b)=>a.s0-b.s0);const len=Math.max(1,Math.ceil(D*SR));
+const gf=(it,t)=>{const g=it.g;if(it.fi||it.fo){const i1=Math.min(it.fi||0,it.dp/2),o1=Math.min(it.fo||0,it.dp/2);if(i1&&t<it.w+i1)return g*(t-it.w)/i1;if(o1&&t>it.stop-o1)return g*Math.max(0,(it.stop-t)/o1);return g}
+if(it.fd){const f=Math.min(.3,it.dp/2);if(t<it.w+f)return g*(t-it.w)/f;if(t>it.stop-f)return g*Math.max(0,(it.stop-t)/f);return g}return g};
+try{for(let o=0;o<len;o+=SR){if(aborted&&aborted())break;const n=Math.min(SR,len-o),L=new Float32Array(n),R=new Float32Array(n);
+for(const it of its){if(it.done||it.s0>=o+n||it.s1<=o)continue;const a=Math.max(it.s0,o),b=Math.min(it.s1,o+n);if(b<=a)continue;if(!it.st)it.st=it.mk();const[l,r]=await it.st.pull(b-a);const flat=!(it.fi||it.fo||it.fd);for(let i=0;i<b-a;i++){const gg=flat?it.g:gf(it,(a+i)/SR);L[a-o+i]+=l[i]*gg;R[a-o+i]+=r[i]*gg}if(b>=it.s1){it.st.close();it.done=true}}
+await emit(L,R,o)}}finally{for(const it of its)if(it.st)it.st.close();try{dc&&await dc.close()}catch{}}return true}
 async function offline(){
 if(!window.Mp4Muxer)await new Promise(r=>{const t0=Date.now(),i=setInterval(()=>{if(window.Mp4Muxer||Date.now()-t0>4000){clearInterval(i);r()}},100)});
 if(!window.VideoEncoder||!window.AudioEncoder||!window.Mp4Muxer||!window.OfflineAudioContext)throw new Error('WebCodecs/muxer tidak tersedia');
 if(playing)stop();
 let err=null,ve2=null,wk=null;const t0=T;
 try{
-await seek(0);msg('Menyiapkan audio…');const SR=48000;let au=await mixAudio(total(),SR);
+await seek(0);msg('Menyiapkan audio…');const SR=48000;let au=null;
 let acd=null;for(const[c,m]of[['mp4a.40.2','aac'],['opus','opus']]){try{if((await AudioEncoder.isConfigSupported({codec:c,sampleRate:SR,numberOfChannels:2,bitrate:128000})).supported){acd=[c,m];break}}catch{}}
 if(!acd)throw new Error('encoder audio tidak didukung');
 const mx=new Mp4Muxer.Muxer({target:new Mp4Muxer.ArrayBufferTarget(),video:{codec:'avc',width:W,height:H},audio:{codec:acd[1],numberOfChannels:2,sampleRate:SR},fastStart:'in-memory',firstTimestampBehavior:'offset'});
@@ -2440,7 +2499,9 @@ ve2=new VideoEncoder({output:(c,m)=>mx.addVideoChunk(c,m),error:x=>{err=x}});
 let vc=null;for(const c of['avc1.640032','avc1.64002A','avc1.4D0032','avc1.42001F']){try{const q=await VideoEncoder.isConfigSupported({codec:c,width:W,height:H,bitrate:qb(),framerate:FPS});if(q.supported){vc=c;break}}catch{}}
 if(!vc)throw new Error('encoder video H.264 tidak didukung');
 ve2.configure({codec:vc,width:W,height:H,bitrate:qb(),framerate:FPS});ae.configure({codec:acd[0],sampleRate:SR,numberOfChannels:2,bitrate:128000});
-for(let o=0;o<au.length;o+=SR){const n=Math.min(SR,au.length-o),d=new Float32Array(n*2);d.set(au.getChannelData(0).subarray(o,o+n),0);d.set(au.getChannelData(1).subarray(o,o+n),n);const a=new AudioData({format:'f32-planar',sampleRate:SR,numberOfFrames:n,numberOfChannels:2,timestamp:Math.round(o/SR*1e6),data:d});ae.encode(a);a.close();while(ae.encodeQueueSize>8){if(err)break;await new Promise(r=>{const h=()=>{clearTimeout(to);r()},to=setTimeout(h,30);ae.addEventListener('dequeue',h,{once:true})})}}
+const sendA=async(l,r,o)=>{if(!((o/SR)%4)){const D=total();if(D>20)msg('Menyiapkan audio… '+Math.min(99,Math.round(o/SR/D*100))+'%')}const n=l.length,dd=new Float32Array(n*2);dd.set(l,0);dd.set(r,n);const a=new AudioData({format:'f32-planar',sampleRate:SR,numberOfFrames:n,numberOfChannels:2,timestamp:Math.round(o/SR*1e6),data:dd});ae.encode(a);a.close();while(ae.encodeQueueSize>8){if(err)break;await new Promise(x=>{const h=()=>{clearTimeout(to);x()},to=setTimeout(h,30);ae.addEventListener('dequeue',h,{once:true})})}};
+let streamed=false;if(!window.__noStream){try{streamed=await streamMix(total(),SR,sendA,()=>xab||err)}catch(e){if(xab||err)throw e;throw new Error('audio stream: '+(e&&e.message||e))}}
+if(!streamed){au=await mixAudio(total(),SR);for(let o=0;o<au.length;o+=SR){const n=Math.min(SR,au.length-o);await sendA(au.getChannelData(0).subarray(o,o+n),au.getChannelData(1).subarray(o,o+n),o)}}
 au=null;xab=false;try{wk=await navigator.wakeLock?.request('screen')}catch{}setExp(true);
 const tot=total(),n=Math.max(1,Math.round(tot*FPS)),D=Math.round(1e6/FPS);
 for(let k=0;k<n;k++){
