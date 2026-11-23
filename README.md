@@ -210,3 +210,6 @@ Ekspor audio WAV (PCM 8/16/24/32-bit dan float) kini juga di-stream per jendela,
 Tambahan terbaru: ekstrak audio dari video (menu Audio), fade masuk/keluar trek audio, ekspor audio M4A (proyek atau trek terpilih, fallback WAV bila browser tak punya encoder AAC), dan **Putar mundur** klip (video + audio, maksimal 30 detik per klip).
 
 Juga: efek suara (cempreng, berat, robot, gema, radio, aula) dan pengurang noise untuk trek audio, stiker dengan kategori emoji dan label bergaya, serta **Stabilkan** klip (analisis gerak per 10 fps lalu keyframe koreksi geser + zoom, maksimal 60 detik per klip).
+
+## PWA (bisa dipasang dan offline)
+Tambahan: `manifest.webmanifest`, `sw.js`, dan folder `icons/`. Setelah dibuka lewat HTTPS (mis. GitHub Pages), tombol "📲 Pasang aplikasi" muncul di beranda (iPhone: Bagikan → Tambah ke Layar Utama). Aplikasi lalu bisa dibuka offline. Naikkan `VER` di `sw.js` setiap rilis agar cache lama diganti. Service worker tidak aktif jika file dibuka langsung dari `file://`.

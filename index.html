@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="id"><head><meta charset="utf-8">
-<meta name="color-scheme" content="dark"><meta name="theme-color" content="#0b0b0c"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark"><meta name="theme-color" content="#0b0b0c"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" type="image/png" href="icons/icon-192.png"><link rel="apple-touch-icon" href="icons/apple-touch-icon.png"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Studio Editor"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Mantam Studio Editor</title>
 <style>
 :root{box-sizing:border-box;color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#0e0e11;--cd:#1a1a1f;--tx:#f4f4f5;--mu:#a1a1aa;--ac:#4f8cff;--bd:#2c2c33;--sg:#2f5fc4}
@@ -826,7 +826,7 @@ html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .
 <label>Bentuk<select id="kmk"><option value="0">Mati</option><option value="1">Bulat</option><option value="2">Kotak membulat</option><option value="3">Hati</option><option value="4">Bintang</option><option value="5">Belah ketupat</option></select></label><label>Ukuran<input type="range" id="kms" min="20" max="100" value="80"></label>
 </div>
 <div class="tp" id="t6">
-<div class="g"><button class="b" id="pj">💾 Simpan proyek</button><button class="b" id="po">📂 Buka proyek</button><button class="b" id="rs2" hidden>↻ Lanjutkan terakhir</button><button class="b" id="fr">📸 Simpan frame</button><button class="b" id="dnl">📥 Download App</button><button class="b p" id="ef">⚡ Ekspor cepat</button></div>
+<div class="g"><button class="b" id="pj">💾 Simpan proyek</button><button class="b" id="po">📂 Buka proyek</button><button class="b" id="rs2" hidden>↻ Lanjutkan terakhir</button><button class="b" id="fr">📸 Simpan frame</button><button class="b" id="dnl">📥 Download App</button><button class="b" id="pwa" hidden>📲 Pasang aplikasi</button><button class="b p" id="ef">⚡ Ekspor cepat</button></div>
 <select id="pr"><option value="">Preset ekspor</option><option value="0">Reels / TikTok / Shorts 9:16</option><option value="1">YouTube 16:9</option><option value="2">Instagram 1:1</option><option value="3">Reels HD 1080×1920</option><option value="4">YouTube 1080p 16:9</option></select>
 <div class="mu">Pintasan (keyboard): Spasi putar, S split, Del hapus, ←/→ geser 1 dtk (Shift 0,1), Ctrl+Z undo, Ctrl+Y redo.</div>
 <div class="wm-foot">Developed by iqbalmantam</div>
@@ -2867,6 +2867,18 @@ async function run(){
     if(window.tl)tl();draw();msg('Klip distabilkan (zoom '+Math.round((z-1)*100)+'% untuk menutup tepi)')
   }catch(e){msg('Stabilisasi gagal: '+(e&&e.message||e))}finally{busy=false}}
 $('#stb').onclick=run;window.__stabMotion=motion;
+})();
+</script>
+<script id="cc-m34-pwa">
+(()=>{
+const $=s=>document.querySelector(s),b=$('#pwa');let ev=null;
+const std=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
+const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;
+if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();ev=e;if(b&&!std)b.hidden=false});
+addEventListener('appinstalled',()=>{ev=null;if(b)b.hidden=true;msg('Aplikasi terpasang')});
+if(b&&ios&&!std)b.hidden=false;
+if(b)b.onclick=async()=>{if(ev){ev.prompt();try{await ev.userChoice}catch{}ev=null;b.hidden=true}else if(ios)msg('Di iPhone/iPad: tombol Bagikan, lalu "Tambah ke Layar Utama"');else msg('Gunakan menu browser: Instal aplikasi')};
 })();
 </script>
 </body></html>
