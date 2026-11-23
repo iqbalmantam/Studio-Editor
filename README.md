@@ -201,3 +201,6 @@ Mode **Akurat** (default, pilih di panel ekspor) merender setiap frame secara be
 - Ekspor offline "akurat" maju per frame dengan memutar video sesaat (requestVideoFrameCallback) alih-alih seek; sekitar 2,5x lebih cepat dan hasilnya identik, otomatis kembali ke seek bila frame tidak pas.
 - Audio ekspor diproses streaming per detik: demux MP4/AAC dan MP3 sendiri lalu `AudioDecoder`, termasuk trek yang dipotong, fade, volume, dan musik latar loop. Format lain (WAV, OGG, kecepatan diubah, rekaman mikrofon) otomatis memakai jalur lama `decodeAudioData`.
 - Desktop: toolbar mengambang di preview, rail ikon kanan, slider zoom, panel kanan hanya muncul saat klip dipilih, dialog Crop lebar.
+
+## Template
+Menu **Template** (sidebar kiri di desktop, toolbar bawah di HP) berisi 6 template bawaan: Vlog, Cinematic, Produk, Kutipan, Retro VHS, Neon Beat. Template mengatur rasio, filter, transisi, efek, durasi klip, dan teks animasi pada klip milik sendiri. Proyek yang sedang dibuat bisa disimpan sebagai template pribadi (tersimpan di browser). Tanpa klip, template meminta memilih klip lalu diterapkan otomatis.
