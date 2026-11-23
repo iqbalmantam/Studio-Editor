@@ -2429,7 +2429,25 @@ await syncOv();draw()}
 const U32=(d,o)=>d.getUint32(o),TY=(d,o)=>String.fromCharCode(d.getUint8(o),d.getUint8(o+1),d.getUint8(o+2),d.getUint8(o+3));
 const boxes=(d,s,e)=>{const r=[];while(s+8<=e){let z=U32(d,s),h=8;if(z===1){z=U32(d,s+8)*4294967296+U32(d,s+12);h=16}else if(z===0)z=e-s;if(z<h||s+z>e)break;r.push({t:TY(d,s+4),s:s+h,e:s+z});s+=z}return r};
 const kid=(d,b,t)=>boxes(d,b.s,b.e).find(x=>x.t===t);
-async function demux(blob){try{const size=blob.size;let pos=0,moov=null;
+async function demuxMp3(blob){try{const size=blob.size,BW=1<<20;let wo=-1,wb=null;const by=async o=>{if(o<0||o>=size)return -1;if(wo<0||o<wo||o>=wo+wb.length){wo=Math.max(0,o-16);wb=new Uint8Array(await blob.slice(wo,Math.min(size,wo+BW)).arrayBuffer())}return wb[o-wo]};
+let pos=0;const h=[await by(0),await by(1),await by(2)];if(h[0]===0x49&&h[1]===0x44&&h[2]===0x33){const z=((await by(6))&127)<<21|((await by(7))&127)<<14|((await by(8))&127)<<7|((await by(9))&127);pos=10+z}
+const BR1=[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320],BR2=[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160],SRT=[[11025,12000,8000],null,[22050,24000,16000],[44100,48000,32000]];
+const frames=[];let sr=0,ch=0,spf=0,delay=0,first=true,guard=0;
+while(pos+4<=size){const b0=await by(pos),b1=await by(pos+1),b2=await by(pos+2),b3=await by(pos+3);
+const ok=b0===0xFF&&(b1&0xE0)===0xE0&&((b1>>3)&3)!==1&&((b1>>1)&3)===1&&(b2>>4)!==15&&(b2>>4)!==0&&((b2>>2)&3)!==3;
+if(!ok){if(++guard>20000)return null;pos++;continue}guard=0;
+const v=(b1>>3)&3,br=(v===3?BR1:BR2)[b2>>4],rate=SRT[v][(b2>>2)&3],pad=(b2>>1)&1,mono=(b3>>6)===3;
+const fs=Math.floor((v===3?144:72)*br*1000/rate)+pad;if(first){sr=rate;ch=mono?1:2;spf=v===3?1152:576}else if(rate!==sr||(mono?1:2)!==ch)return null;
+if(first){first=false;const so=v===3?(mono?17:32):(mono?9:17),xo=pos+4+so;const tg=String.fromCharCode(await by(xo),await by(xo+1),await by(xo+2),await by(xo+3));
+if(tg==='Xing'||tg==='Info'){const fl=await by(xo+7);let q=xo+8;if(fl&1)q+=4;if(fl&2)q+=4;if(fl&4)q+=100;if(fl&8)q+=4;const lo=q+21;{const dl=((await by(lo))<<4)|((await by(lo+1))>>4);if(dl>0&&dl<=2000)delay=dl}pos+=fs;continue}}
+if(pos+fs>size)break;frames.push([pos,fs]);pos+=fs}
+const n=frames.length;if(n<4||!sr)return null;
+const sz=new Uint32Array(n),times=new Float64Array(n);for(let i=0;i<n;i++){sz[i]=frames[i][1];times[i]=i*spf/sr}
+const chunks=[];let i0=0;while(i0<n){let j=i0,tot=0,ex=frames[i0][0];while(j<n&&frames[j][0]===ex&&tot<65536){tot+=frames[j][1];ex+=frames[j][1];j++}chunks.push({off:frames[i0][0],size:tot,i0,n:j-i0});i0=j}
+const cfg={codec:'mp3',sampleRate:sr,numberOfChannels:ch};let okc=false;try{okc=(await AudioDecoder.isConfigSupported(cfg)).supported}catch{}if(!okc)return null;
+return{blob,cfg,sr,ch,sz,times,chunks,skew:delay?(delay+529)/sr:0,pre:4*spf/sr}}catch{return null}}
+async function demux(blob){try{const hd=new Uint8Array(await blob.slice(0,4).arrayBuffer());if((hd[0]===0x49&&hd[1]===0x44&&hd[2]===0x33)||(hd[0]===0xFF&&(hd[1]&0xE0)===0xE0))return await demuxMp3(blob)}catch{return null}return await demuxMp4(blob)}
+async function demuxMp4(blob){try{const size=blob.size;let pos=0,moov=null;
 while(pos+8<=size){const h=new DataView(await blob.slice(pos,pos+16).arrayBuffer());let z=U32(h,0),hl=8;const ty=TY(h,4);if(z===1){z=U32(h,8)*4294967296+U32(h,12);hl=16}else if(z===0)z=size-pos;if(z<8)return null;if(ty==='moof')return null;if(ty==='moov')moov=[pos+hl,pos+z];pos+=z}
 if(!moov)return null;const d=new DataView(await blob.slice(moov[0],moov[1]).arrayBuffer());
 for(const tk of boxes(d,0,d.byteLength).filter(x=>x.t==='trak')){const md=kid(d,tk,'mdia');if(!md)continue;const hd=kid(d,md,'hdlr');if(!hd||TY(d,hd.s+8)!=='soun')continue;
@@ -2450,7 +2468,7 @@ const cfg={codec,sampleRate:sr0,numberOfChannels:ch,description:asc};let okc=fal
 return{blob,cfg,sr:sr0,ch,sz,times,chunks,skew}}return null}catch{return null}}
 function openDec(m,off,SR){const cfg=m.cfg,sr=m.sr;let q=[],err=null,wake=null,got=0,fed=0,ended=false,ci=0,L=new Float32Array(sr*4),R=new Float32Array(sr*4),len=0,base=0,t0=null,closed=false;
 const dec=new AudioDecoder({output:a=>{try{const n=a.numberOfFrames,tt=a.timestamp/1e6-m.skew;const l=new Float32Array(n),r=new Float32Array(n);a.copyTo(l,{planeIndex:0,format:'f32-planar'});if(a.numberOfChannels>1)a.copyTo(r,{planeIndex:1,format:'f32-planar'});else r.set(l);q.push([tt,l,r])}catch(e){err=e}finally{a.close()}got++;if(wake){wake();wake=null}},error:e=>{err=e;if(wake){wake();wake=null}}});dec.configure(cfg);
-const pre=2*1024/sr;let first=0;{const T=off-pre;while(first<m.times.length-1&&m.times[first+1]<=T)first++}
+const pre=m.pre||2*1024/sr;let first=0;{const T=off-pre;while(first<m.times.length-1&&m.times[first+1]<=T)first++}
 while(ci<m.chunks.length&&m.chunks[ci].i0+m.chunks[ci].n<=first)ci++;
 const wait=()=>new Promise(r=>{let d=false;const f=v=>{if(d)return;d=true;clearTimeout(tm);if(wake===w)wake=null;r(v)},w=()=>f(true),tm=setTimeout(()=>f(false),400);wake=w});
 async function feed(){if(ci>=m.chunks.length){if(!ended){await dec.flush();ended=true}return}const c=m.chunks[ci++],buf=new Uint8Array(await m.blob.slice(c.off,c.off+c.size).arrayBuffer());let o=0;const g0=got,f0=fed;for(let j=0;j<c.n;j++){const i=c.i0+j,z=m.sz[i];if(i>=first)dec.decode(new EncodedAudioChunk({type:'key',timestamp:Math.round((m.times[i])*1e6),data:buf.subarray(o,o+z)}));if(i>=first)fed++;o+=z}
