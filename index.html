@@ -2430,7 +2430,7 @@ const U32=(d,o)=>d.getUint32(o),TY=(d,o)=>String.fromCharCode(d.getUint8(o),d.ge
 const boxes=(d,s,e)=>{const r=[];while(s+8<=e){let z=U32(d,s),h=8;if(z===1){z=U32(d,s+8)*4294967296+U32(d,s+12);h=16}else if(z===0)z=e-s;if(z<h||s+z>e)break;r.push({t:TY(d,s+4),s:s+h,e:s+z});s+=z}return r};
 const kid=(d,b,t)=>boxes(d,b.s,b.e).find(x=>x.t===t);
 async function demuxMp3(blob){try{const size=blob.size,BW=1<<20;let wo=-1,wb=null;const by=async o=>{if(o<0||o>=size)return -1;if(wo<0||o<wo||o>=wo+wb.length){wo=Math.max(0,o-16);wb=new Uint8Array(await blob.slice(wo,Math.min(size,wo+BW)).arrayBuffer())}return wb[o-wo]};
-let pos=0;const h=[await by(0),await by(1),await by(2)];if(h[0]===0x49&&h[1]===0x44&&h[2]===0x33){const z=((await by(6))&127)<<21|((await by(7))&127)<<14|((await by(8))&127)<<7|((await by(9))&127);pos=10+z}
+let pad2=0;let pos=0;const h=[await by(0),await by(1),await by(2)];if(h[0]===0x49&&h[1]===0x44&&h[2]===0x33){const z=((await by(6))&127)<<21|((await by(7))&127)<<14|((await by(8))&127)<<7|((await by(9))&127);pos=10+z}
 const BR1=[0,32,40,48,56,64,80,96,112,128,160,192,224,256,320],BR2=[0,8,16,24,32,40,48,56,64,80,96,112,128,144,160],SRT=[[11025,12000,8000],null,[22050,24000,16000],[44100,48000,32000]];
 const frames=[];let sr=0,ch=0,spf=0,delay=0,first=true,guard=0;
 while(pos+4<=size){const b0=await by(pos),b1=await by(pos+1),b2=await by(pos+2),b3=await by(pos+3);
@@ -2439,13 +2439,13 @@ if(!ok){if(++guard>20000)return null;pos++;continue}guard=0;
 const v=(b1>>3)&3,br=(v===3?BR1:BR2)[b2>>4],rate=SRT[v][(b2>>2)&3],pad=(b2>>1)&1,mono=(b3>>6)===3;
 const fs=Math.floor((v===3?144:72)*br*1000/rate)+pad;if(first){sr=rate;ch=mono?1:2;spf=v===3?1152:576}else if(rate!==sr||(mono?1:2)!==ch)return null;
 if(first){first=false;const so=v===3?(mono?17:32):(mono?9:17),xo=pos+4+so;const tg=String.fromCharCode(await by(xo),await by(xo+1),await by(xo+2),await by(xo+3));
-if(tg==='Xing'||tg==='Info'){const fl=await by(xo+7);let q=xo+8;if(fl&1)q+=4;if(fl&2)q+=4;if(fl&4)q+=100;if(fl&8)q+=4;const lo=q+21;{const dl=((await by(lo))<<4)|((await by(lo+1))>>4);if(dl>0&&dl<=2000)delay=dl}pos+=fs;continue}}
+if(tg==='Xing'||tg==='Info'){const fl=await by(xo+7);let q=xo+8;if(fl&1)q+=4;if(fl&2)q+=4;if(fl&4)q+=100;if(fl&8)q+=4;const lo=q+21;{const dl=((await by(lo))<<4)|((await by(lo+1))>>4);if(dl>0&&dl<=2000){delay=dl;pad2=(((await by(lo+1))&15)<<8)|(await by(lo+2))}}pos+=fs;continue}}
 if(pos+fs>size)break;frames.push([pos,fs]);pos+=fs}
 const n=frames.length;if(n<4||!sr)return null;
 const sz=new Uint32Array(n),times=new Float64Array(n);for(let i=0;i<n;i++){sz[i]=frames[i][1];times[i]=i*spf/sr}
 const chunks=[];let i0=0;while(i0<n){let j=i0,tot=0,ex=frames[i0][0];while(j<n&&frames[j][0]===ex&&tot<65536){tot+=frames[j][1];ex+=frames[j][1];j++}chunks.push({off:frames[i0][0],size:tot,i0,n:j-i0});i0=j}
 const cfg={codec:'mp3',sampleRate:sr,numberOfChannels:ch};let okc=false;try{okc=(await AudioDecoder.isConfigSupported(cfg)).supported}catch{}if(!okc)return null;
-return{blob,cfg,sr,ch,sz,times,chunks,skew:delay?(delay+529)/sr:0,pre:4*spf/sr}}catch{return null}}
+return{blob,cfg,sr,ch,sz,times,chunks,skew:delay?(delay+529)/sr:0,pre:4*spf/sr,end:delay?(n*spf-delay-529-Math.max(0,pad2-529))/sr:n*spf/sr}}catch{return null}}
 async function demux(blob){try{const hd=new Uint8Array(await blob.slice(0,4).arrayBuffer());if((hd[0]===0x49&&hd[1]===0x44&&hd[2]===0x33)||(hd[0]===0xFF&&(hd[1]&0xE0)===0xE0))return await demuxMp3(blob)}catch{return null}return await demuxMp4(blob)}
 async function demuxMp4(blob){try{const size=blob.size;let pos=0,moov=null;
 while(pos+8<=size){const h=new DataView(await blob.slice(pos,pos+16).arrayBuffer());let z=U32(h,0),hl=8;const ty=TY(h,4);if(z===1){z=U32(h,8)*4294967296+U32(h,12);hl=16}else if(z===0)z=size-pos;if(z<8)return null;if(ty==='moof')return null;if(ty==='moov')moov=[pos+hl,pos+z];pos+=z}
@@ -2474,24 +2474,25 @@ const wait=()=>new Promise(r=>{let d=false;const f=v=>{if(d)return;d=true;clearT
 async function feed(){if(ci>=m.chunks.length){if(!ended){await dec.flush();ended=true}return}const c=m.chunks[ci++],buf=new Uint8Array(await m.blob.slice(c.off,c.off+c.size).arrayBuffer());let o=0;const g0=got,f0=fed;for(let j=0;j<c.n;j++){const i=c.i0+j,z=m.sz[i];if(i>=first)dec.decode(new EncodedAudioChunk({type:'key',timestamp:Math.round((m.times[i])*1e6),data:buf.subarray(o,o+z)}));if(i>=first)fed++;o+=z}
 }
 const ingest=()=>{while(q.length){const[tt,l,r]=q.shift();let s=0,n=l.length;if(t0===null){const skip=Math.round((off-tt)*sr);if(skip>=n)continue;s=Math.max(0,skip);t0=tt+s/sr}
-const k=n-s;if(len+k>L.length){const keep=len-base,nl=new Float32Array(Math.max(L.length,(keep+k)*2)),nr=new Float32Array(nl.length);nl.set(L.subarray(base,len));nr.set(R.subarray(base,len));L=nl;R=nr;len=keep;base=0;}
-L.set(l.subarray(s),len);R.set(r.subarray(s),len);len+=k}};
+let k=n-s;if(m.end!==undefined){const room=Math.floor((m.end-(tt+s/sr))*sr);if(room<k)k=Math.max(0,room)}if(k<=0)continue;if(len+k>L.length){const keep=len-base,nl=new Float32Array(Math.max(L.length,(keep+k)*2)),nr=new Float32Array(nl.length);nl.set(L.subarray(base,len));nr.set(R.subarray(base,len));L=nl;R=nr;len=keep;base=0;}
+L.set(l.subarray(s,s+k),len);R.set(r.subarray(s,s+k),len);len+=k}};
 let baseG=0,srcPos=0;/* srcPos: indeks sumber (relatif sampel pertama yang dipakai) */
 const step=sr/SR;let outK=0,fr0=null;
-return{async pull(n){const oL=new Float32Array(n),oR=new Float32Array(n);if(err)throw err;
+return{async pull(n){const oL=new Float32Array(n),oR=new Float32Array(n);let vc=n;if(err)throw err;
 const needTo=Math.ceil((outK+n)*step)+2;
 while(!ended&&baseG+(len-base)<needTo){ingest();if(baseG+(len-base)>=needTo)break;if(ci>=m.chunks.length||dec.decodeQueueSize<48)await feed();else await wait();ingest();if(err)throw err}
 ingest();if(t0===null&&!ended){}
 const off0=(t0===null?0:(t0-off)*sr);/* >=0: jeda awal bila sampel pertama sedikit setelah off */
-for(let i=0;i<n;i++){const p=(outK+i)*step-off0;if(p<0){continue}const a=Math.floor(p),f=p-a,ia=a-baseG+base;if(ia+1>=len){if(ia>=len)continue;oL[i]=L[ia];oR[i]=R[ia];continue}oL[i]=L[ia]*(1-f)+L[ia+1]*f;oR[i]=R[ia]*(1-f)+R[ia+1]*f}
-outK+=n;const drop=Math.floor(outK*step-off0)-2-baseG;if(drop>sr){base+=drop;baseG+=drop}return[oL,oR]},close(){if(!closed){closed=true;try{dec.close()}catch{}}}}}
+for(let i=0;i<n;i++){const p=(outK+i)*step-off0;if(p<0){continue}const a=Math.floor(p),f=p-a,ia=a-baseG+base;if(ia+1>=len){if(ia>=len){if(ended&&vc>i)vc=i;continue}oL[i]=L[ia];oR[i]=R[ia];continue}oL[i]=L[ia]*(1-f)+L[ia+1]*f;oR[i]=R[ia]*(1-f)+R[ia+1]*f}
+outK+=n;const drop=Math.floor(outK*step-off0)-2-baseG;if(drop>sr){base+=drop;baseG+=drop}return[oL,oR,vc]},close(){if(!closed){closed=true;try{dec.close()}catch{}}}}}
+function loopDec(m,SR){let cur=openDec(m,0,SR),fresh=true;return{async pull(n){const oL=new Float32Array(n),oR=new Float32Array(n);let k=0,g=0;while(k<n&&g++<8){const[l,r,vc]=await cur.pull(n-k);oL.set(l.subarray(0,vc),k);oR.set(r.subarray(0,vc),k);k+=vc;if(vc<n-k+vc){cur.close();cur=openDec(m,0,SR);fresh=true}}return[oL,oR]},close(){cur.close()}}}
 function bufItem(b,off,rate,lp,SR){let k=0;const cl=b.getChannelData(0),cr=b.numberOfChannels>1?b.getChannelData(1):cl,N=b.length;return{async pull(n){const oL=new Float32Array(n),oR=new Float32Array(n);for(let i=0;i<n;i++){let p=off*b.sampleRate+(k+i)*rate;if(lp)p=p%N;const a=Math.floor(p);if(a>=N)continue;const f=p-a,b2=a+1<N?a+1:(lp?0:a);oL[i]=cl[a]*(1-f)+cl[b2]*f;oR[i]=cr[a]*(1-f)+cr[b2]*f}k+=n;return[oL,oR]},close(){}}}
 async function streamMix(D,SR,emit,aborted){miss=0;const its=[],mc=new Map(),dm=new Map(),bc=new Map();let dc=null;
 const blobOf=async u=>{if(!mc.has(u))mc.set(u,fetch(u).then(r=>r.blob()));return mc.get(u)};
 const dmx=async u=>{if(!dm.has(u))dm.set(u,blobOf(u).then(b=>demux(b)));return dm.get(u)};
 const bdec=async u=>{if(!bc.has(u)){bc.set(u,(async()=>{try{dc=dc||new AudioContext({sampleRate:SR});return await dc.decodeAudioData(await(await blobOf(u)).arrayBuffer())}catch{return null}})())}return bc.get(u)};
-const add=async(u,g,when,off,stopAt,rate,lp,fd,fi,fo)=>{const dp=stopAt-when;if(dp<=0)return;const w=Math.max(0,when),o=Math.max(0,off||0),rt=rate||1;let meta=null;if(!lp&&Math.abs(rt-1)<1e-6&&window.AudioDecoder&&window.EncodedAudioChunk)meta=await dmx(u);
-let mk;if(meta)mk=()=>openDec(meta,o,SR);else{const b=await bdec(u);if(!b){miss++;return}mk=()=>bufItem(b,o,rt,!!lp,SR)}
+const add=async(u,g,when,off,stopAt,rate,lp,fd,fi,fo)=>{const dp=stopAt-when;if(dp<=0)return;const w=Math.max(0,when),o=Math.max(0,off||0),rt=rate||1;let meta=null;if(Math.abs(rt-1)<1e-6&&window.AudioDecoder&&window.EncodedAudioChunk)meta=await dmx(u);if(lp&&meta&&meta.end===undefined)meta=null;
+let mk;if(meta)mk=lp?()=>loopDec(meta,SR):()=>openDec(meta,o,SR);else{const b=await bdec(u);if(!b){miss++;return}mk=()=>bufItem(b,o,rt,!!lp,SR)}
 its.push({s0:Math.round(w*SR),s1:Math.min(Math.round(stopAt*SR),Math.ceil(D*SR)),w,stop:stopAt,dp,g,fd,fi,fo,mk,st:null,k:0,done:false})};
 for(let i=0;i<segs.length;i++){const s=segs[i];if(!s.fz&&(s.vol??1)>0)await add(s.u,(window.ccM&&ccM.main)?0:(s.vol??1),start(i),s.in,start(i)+dur(s),s.sp,false,(s.n0||s.n1)?0:(s.fd??fade),s.fi,s.fo)}
 for(const a of aus){if(!a.u||a.at>=D)continue;await add(a.u,(window.ccM&&ccM.audio)?0:(a.vol??1),a.at,a.in,Math.min(D,a.at+dur(a)),a.sp)}
