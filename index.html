@@ -797,7 +797,7 @@ html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .
 <div class="g"><button class="b" id="pa">+ Video PiP</button><button class="b" id="pk">Hapus lapisan</button></div>
 <label>Lapisan<select id="pls"></select></label>
 <div class="g"><button class="b" id="pg">🖼 + Gambar</button><button class="b" id="pup">▲ Naikkan</button><button class="b" id="pdn">▼ Turunkan</button></div>
-<div class="mu">Stiker emoji (jadi lapisan yang bisa digeser, diputar, dan di-trim):</div><div id="pem" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+<div class="mu">Stiker emoji dan label (jadi lapisan yang bisa digeser, diputar, dan di-trim):</div><div id="pem" style="display:flex;flex-wrap:wrap;gap:6px"></div>
 <label>Putar<input type="range" id="prt" min="-180" max="180" value="0"></label>
 <div class="g"><button class="b" id="pfi">⛶ Isi layar</button><button class="b" id="pbk">↧ Di belakang klip utama: Tidak</button></div>
 <label>Ukuran<input type="range" id="ps" min="15" max="400" value="35"></label><label>Posisi<select id="pp"><option value="0">Kiri atas</option><option value="1">Kanan atas</option><option value="2">Kiri bawah</option><option value="3" selected>Kanan bawah</option><option value="4">Bebas (seret di preview)</option></select></label><label>Mulai (dtk)<input type="number" id="pt" step=".1"></label><label>Durasi (dtk)<input type="number" id="pdr" step=".1"></label>
@@ -1364,7 +1364,7 @@ if(o){o.zi=q.zi;ovs.push(o);ovEls.set(o.id,o)}else rest.push({...q})}
 ovs.sort((a,b)=>(a.zi??1e9)-(b.zi??1e9));ovs.forEach(o=>delete o.zi);ovp=rest.length?rest:null;selOv(ovs.length?0:-1)}
 (()=>{
 const addO=(o,m)=>{if(playing)stop();snap();ovs.push(o);ovEls.set(o.id,o);selOv(ovs.length-1);autosave();so();draw();msg(m)};
-const em=$('#pem');['🔥','❤️','⭐','😂','👍','🎉','💯','✨','👀','🚀','😍','🙏'].forEach(x=>{const b=document.createElement('button');b.className='b';b.textContent=x;b.style.cssText='flex:0 0 auto;min-width:46px;font-size:20px;padding:6px';b.onclick=()=>addO(mkSticker('e',x,x),'Stiker '+x+' dipasang. Seret di preview; atur waktu di trek biru.');em.append(b)});
+window.ccStk=(k,x,n,m)=>addO(mkSticker(k,x,n),m);const em=$('#pem');['🔥','❤️','⭐','😂','👍','🎉','💯','✨','👀','🚀','😍','🙏'].forEach(x=>{const b=document.createElement('button');b.className='b';b.textContent=x;b.style.cssText='flex:0 0 auto;min-width:46px;font-size:20px;padding:6px';b.onclick=()=>addO(mkSticker('e',x,x),'Stiker '+x+' dipasang. Seret di preview; atur waktu di trek biru.');em.append(b)});
 $('#pg').onclick=()=>$('#fg').click();
 $('#fg').onchange=e=>{const f=e.target.files[0];e.target.value='';if(!f)return;const u=URL.createObjectURL(f),im=new Image();im.onload=()=>{const o=mkSticker('i',im,f.name.replace(/\.[^.]+$/,'').slice(0,14));URL.revokeObjectURL(u);addO(o,'Gambar dipasang. Seret di preview; atur waktu di trek biru.')};im.onerror=()=>{URL.revokeObjectURL(u);msg('Gambar tidak bisa dibaca')};im.src=u};
 const O=()=>{if(!ov){msg('Pasang overlay dulu');return null}return ov},up=()=>{draw();autosave()};
@@ -2795,6 +2795,40 @@ function openSheetX(){
     FX.forEach(([k,ic,nm,d])=>{const t=document.createElement('button');t.type='button';t.className='cc-tpt';t.innerHTML='<span class="i">'+ic+'</span><b></b><em></em>';t.querySelector('b').textContent=nm;t.querySelector('em').textContent=d;t.onclick=()=>{try{ccAct.closeSheet()}catch{}apply(k,nm)};g.append(t)});
     b.append(g);const n=document.createElement('div');n.className='mu';n.textContent='Diterapkan ke trek audio terpilih. Jika klip yang dipilih, audionya dipisah dulu jadi trek. Bisa dibatalkan dengan Undo.';b.append(n)})}
 $('#afx').onclick=open;
+})();
+</script>
+<script id="cc-m32-stiker">
+(()=>{
+const pem=document.querySelector('#pem');if(!pem||!window.ccAct||!window.ccAct.addSticker&&0){}
+const CAT={
+'Populer':['🔥','❤️','⭐','😂','👍','🎉','💯','✨','👀','🚀','😍','🙏','💥','👏','😎','🤩'],
+'Wajah':['😀','😁','😅','🤣','😊','😉','😘','🥰','😜','🤪','🤔','😴','😭','😱','😡','🥳','🤯','😇','🙄','😬'],
+'Tangan':['👋','🤝','🙌','👊','✌️','🤞','🤟','👌','🫶','💪','☝️','👉','👈','👆','👇','🫡'],
+'Simbol':['❤️','💔','💖','💙','💚','💛','🧡','💜','🖤','⚡','🌟','💫','❗','❓','✅','❌','⚠️','🔔','💬','💡'],
+'Panah':['➡️','⬅️','⬆️','⬇️','↗️','↘️','🔄','▶️','⏸️','⏭️','🔝','🔜','➕','➖','🔴','🟢','🔵','🟡'],
+'Alam':['🌈','☀️','🌙','⭐','☁️','🌧️','❄️','🌸','🌹','🌴','🍀','🔥','🌊','🦋','🐶','🐱'],
+'Makanan':['🍕','🍔','🍟','🍩','🍰','🍦','☕','🍺','🍎','🍉','🍓','🥑','🍜','🍣','🌮','🥤'],
+'Aktivitas':['⚽','🏀','🎮','🎵','🎤','🎬','📸','🏆','🎁','🎈','🎂','✈️','🚗','🏠','💰','📱']
+};
+const LB=[['NEW','#ff3b5c'],['SALE','#ff9500'],['WOW!','#ffcc00'],['LIVE','#e11d48'],['HOT','#ff4d00'],['TOP','#7c3aed'],['LIKE','#2563eb'],['SUBSCRIBE','#dc2626'],['FOLLOW','#0ea5e9'],['PROMO','#16a34a'],['GRATIS','#059669'],['DISKON','#f43f5e']];
+function badge(t,col){const c=document.createElement('canvas');c.width=360;c.height=140;const x=c.getContext('2d');
+  x.font='900 72px system-ui,sans-serif';const w=Math.min(340,x.measureText(t).width+60);
+  x.translate(180,70);x.rotate(-.06);x.fillStyle='#fff';x.beginPath();x.roundRect(-w/2-6,-52,w+12,104,30);x.fill();
+  x.fillStyle=col;x.beginPath();x.roundRect(-w/2,-46,w,92,26);x.fill();
+  x.fillStyle='#fff';x.textAlign='center';x.textBaseline='middle';x.font='900 '+(t.length>7?54:72)+'px system-ui,sans-serif';x.fillText(t,0,4);return c.toDataURL('image/png')}
+function build(){
+  pem.innerHTML='';pem.style.cssText='display:block';
+  const tabs=document.createElement('div');tabs.style.cssText='display:flex;gap:6px;overflow-x:auto;margin-bottom:8px;padding-bottom:2px';
+  const grid=document.createElement('div');grid.style.cssText='display:flex;flex-wrap:wrap;gap:6px';
+  const tb=(t,cur)=>{const b=document.createElement('button');b.className='b'+(cur?' p':'');b.textContent=t;b.style.cssText='flex:0 0 auto;padding:6px 12px';return b};
+  const add=(x)=>{const b=document.createElement('button');b.className='b';b.textContent=x;b.style.cssText='flex:0 0 auto;min-width:46px;font-size:22px;padding:6px';b.onclick=()=>ccStk('e',x,x,'Stiker '+x+' dipasang. Seret di preview; atur waktu di trek biru.');return b};
+  const show=k=>{[...tabs.children].forEach(c=>c.classList.toggle('p',c.textContent===k));grid.innerHTML='';
+    if(k==='Label'){LB.forEach(([t,col])=>{const b=document.createElement('button');b.className='b';b.style.cssText='flex:0 0 auto;padding:4px;background:none;border:0';const im=document.createElement('img');im.src=badge(t,col);im.style.cssText='width:92px;height:36px;display:block';b.append(im);
+        b.onclick=()=>{const i2=new Image();i2.onload=()=>ccStk('i',i2,t,'Label '+t+' dipasang. Seret di preview.');i2.src=im.src};grid.append(b)})}
+    else CAT[k].forEach(x=>grid.append(add(x)))};
+  [...Object.keys(CAT),'Label'].forEach((k,i)=>{const b=tb(k,i==0);b.onclick=()=>show(k);tabs.append(b)});
+  pem.append(tabs,grid);show('Populer')}
+build();
 })();
 </script>
 </body></html>
