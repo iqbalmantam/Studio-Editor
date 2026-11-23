@@ -775,7 +775,7 @@ html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .
 </div>
 <div class="tp" id="t3">
 <div class="sh">🎞 Audio dari video</div>
-<div class="g"><button class="b p" id="adt">✂ Pisahkan audio klip</button><button class="b" id="aex">⬇ Ekspor audio (WAV)</button></div>
+<div class="g"><button class="b p" id="adt">✂ Pisahkan audio klip</button><button class="b" id="axv">🎞 Ekstrak audio dari video</button><input type="file" id="fxa" accept="video/*,audio/*" multiple hidden><button class="b" id="aex">⬇ Ekspor audio (WAV)</button></div>
 <div class="mu">Pisahkan audio: suara klip terpilih jadi trek 🎵 sendiri di bawah timeline (klipnya jadi bisu). Seret trek untuk menggeser. Ekspor audio menyimpan seluruh suara hasil editan tanpa gambar.</div>
 <div class="sh">🎵 Trek audio terpilih</div>
 <div class="g"><button class="b" id="avl">🔊 Volume</button><button class="b" id="anl">◀ −0,5 dtk</button><button class="b" id="anr">+0,5 dtk ▶</button><button class="b" id="apl">⤓ Ke playhead</button><button class="b" id="asp">✂ Split trek</button><button class="b" id="ati">⇤ Trim awal</button><button class="b" id="ato">Trim akhir ⇥</button><button class="b" id="adl">🗑 Hapus trek</button></div>
@@ -1207,6 +1207,12 @@ function ael(a){let e=aels.get(a.id);if(!e){e=new Audio();e.preload='auto';e.src
 function auSync(){for(const[id,e]of aels)if(!aus.some(a=>a.id==id)&&!e.paused)e.pause();for(const a of aus){if(!a.u)continue;const e=ael(a),d=dur(a),t=T-a.at;if(playing&&!ff&&t>=0&&t<d){const q=a.in+t*a.sp;e.volume=(window.ccM&&ccM.audio)?0:Math.min(1,a.vol??1);if(e.playbackRate!=a.sp)e.playbackRate=a.sp;if(e.paused||Math.abs(e.currentTime-q)>.35){e.currentTime=q;e.play().catch(()=>{})}}else if(!e.paused)e.pause()}}
 function al(){txl();olx();const el=$('#atl');if(!el)return;el.innerHTML='';const t=total()||1;aus.forEach((a,i)=>{const d=document.createElement('div');d.className='ab'+(i==sela?' on':'');const sp=vw();d.style.left=((a.at-vt0)/sp*100)+'%';d.style.width=Math.max(1.5,dur(a)/sp*100)+'%';d.dataset.i=i;d.textContent='🎵 '+(a.vol===0?'🔇 ':'')+a.name;el.append(d)})}
 const A=()=>aus[sela]||null,noA=()=>msg('Pilih trek audio dulu (ketuk di jalur hijau di bawah timeline)');
+$('#axv').onclick=()=>$('#fxa').click();
+$('#fxa').onchange=async e=>{const fs=[...e.target.files];e.target.value='';if(!fs.length)return;if(playing)stop();snap();let at=T,n=0;
+for(const f of fs){const u=URL.createObjectURL(f);const d=await new Promise(r=>{const el=document.createElement('video');el.preload='metadata';el.onloadedmetadata=()=>r(el.duration);el.onerror=()=>r(0);el.src=u;setTimeout(()=>r(0),8000)});
+if(!d||!isFinite(d)){URL.revokeObjectURL(u);msg('Tidak bisa membaca '+f.name);continue}
+aus.push({id:'a'+Date.now()+Math.random().toString(36).slice(2,5),u,name:'🎵 '+f.name.replace(/\.[^.]+$/,'').slice(0,14),in:0,out:d,sp:1,at,vol:1});sela=aus.length-1;at+=d;n++}
+if(n){tl();msg(n>1?n+' audio diekstrak ke trek':'Audio diekstrak ke trek hijau')}else rhist=[]};
 $('#adt').onclick=()=>{const g=segs[sel];if(!g)return msg('Pilih klip dulu');if(g.fz)return msg('Klip freeze/foto tidak punya audio');if(playing)stop();snap();aus.push({id:'a'+Date.now()+Math.random().toString(36).slice(2,5),u:g.u,name:g.name,in:g.in,out:g.out,sp:g.sp,at:start(sel),vol:g.vol>0?g.vol:1});sela=aus.length-1;g.vol=0;tl();msg('Audio dipisah ke trek hijau di bawah timeline')};
 let ad0=null;$('#atl').onpointerdown=e=>{const b=e.target.closest('.ab');if(!b)return;sela=+b.dataset.i;if(playing)stop();snap();ad0={x:e.clientX,at:aus[sela].at,w:$('#atl').getBoundingClientRect().width||1,T:vw()};e.currentTarget.setPointerCapture(e.pointerId);al()};
 $('#atl').onpointermove=e=>{if(!ad0)return;aus[sela].at=Math.max(0,+(ad0.at+(e.clientX-ad0.x)/ad0.w*ad0.T).toFixed(2));al()};
@@ -2172,7 +2178,7 @@ ov:()=>[mk('back','Kembali',()=>ccPick(null)),mk('pos','Posisi',openPos),mk('mas
 tx:()=>[mk('back','Kembali',()=>ccPick(null)),mk('edit','Edit',editText),mk('color','Gaya',()=>openSheet('Gaya teks',(b,ad)=>ad($('#cc-ts')))),mk('tpl','Template',()=>openSheet('Template teks',(b,ad)=>ad($('#cc-tpl')))),mk('del','Hapus',delText),mk('more','Lainnya',()=>openPanel('t2','Teks'))],
 fxm:()=>[mk('back','Kembali',()=>ccPick(null)),mk('fx','Efek visual',openFx),mk('flt','Filter',openFilter),mk('trn','Transisi',openTrans),mk('color','Warna',openAdj),mk('wm','Watermark',click('#wm')),mk('ratio','Rasio',openRatio),mk('more','Lainnya',()=>openPanel('t4','Efek dan filter'))],
 txm:()=>[mk('back','Kembali',()=>ccPick(null)),mk('addt','Tambah teks',addText),mk('cap','Auto caption',openCap),mk('stk','Stiker',openStk),mk('tpl','Template',()=>openSheet('Template teks',(b,ad)=>ad($('#cc-tpl')))),mk('more','Lainnya',()=>openPanel('t2','Teks'))],
-aum:()=>[mk('back','Kembali',()=>ccPick(null)),mk('ext','Pisahkan',()=>{if(!guard())return msg('Tambah klip dulu');click('#adt')()}),mk('snd','Musik',click('#ms')),mk('rec','Rekam',click('#vr')),mk('vol','Volume musik',openMv),mk('trk','Trek',openTrk),mk('tts','Text to audio',openTts),mk('dwn','Ekspor audio',click('#aex'))],
+aum:()=>[mk('back','Kembali',()=>ccPick(null)),mk('ext','Pisahkan',()=>{if(!guard())return msg('Tambah klip dulu');click('#adt')()}),mk('ext','Ekstrak',()=>$('#axv').click()),mk('snd','Musik',click('#ms')),mk('rec','Rekam',click('#vr')),mk('vol','Volume musik',openMv),mk('trk','Trek',openTrk),mk('tts','Text to audio',openTts),mk('dwn','Ekspor audio',click('#aex'))],
 aud:()=>[mk('back','Kembali',()=>ccPick(null)),mk('vol','Volume',click('#avl')),mk('split','Split',click('#asp')),mk('del','Hapus',()=>{click('#adl')();ccPick(null)}),mk('more','Lainnya',()=>openPanel('t3','Audio'))]};
 function render(){const items=MODES[kind||'root']();qa.innerHTML='';qa.dataset.mode=kind||'root';
 items.forEach(it=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-label',it.lab);b.innerHTML='<span>'+S(IC[it.ic])+'</span><em>'+it.lab+'</em>';b.onclick=()=>{try{it.fn()}catch(err){}};if(it.ic==='back')b.classList.add('cc-back');if(it.ic==='del')b.classList.add('cc-danger');qa.append(b)});qa.scrollLeft=0;
