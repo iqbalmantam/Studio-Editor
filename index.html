@@ -970,8 +970,8 @@ function snap(){hist.push(curState());rhist=[];if(hist.length>50)hist.shift();au
 const DB={c:null,t:0};let idbp=null,sfail=0,asv=null;
 const gdb=()=>idbp||(idbp=new Promise((res,rej)=>{try{const r=indexedDB.open('mse',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)}catch(e){rej(e)}}).catch(e=>{idbp=null;throw e}));
 const kv=async(m,k,v)=>{const d=await gdb();return new Promise((res,rej)=>{const t=d.transaction('kv',m=='get'?'readonly':'readwrite'),s=t.objectStore('kv'),q=m=='get'?s.get(k):m=='put'?s.put(v,k):s.delete(k);t.oncomplete=()=>res(q.result);t.onerror=t.onabort=()=>rej(t.error)})};
-async function saveDraft(){if(!segs.length)return;const j=PJ(),t=Date.now();DB.c=j;DB.t=t;try{await kv('put','draft',{j,t});sfail=0}catch{try{localStorage.setItem('mse',j);localStorage.setItem('mset',t);sfail=0}catch{if(!sfail++)msg('Draf tidak bisa disimpan otomatis (penyimpanan penuh atau diblokir). Simpan proyek (.json) secara manual.')}}}
-function autosave(){clearTimeout(asv);asv=setTimeout(()=>{asv=null;saveDraft()},800)}
+let svD=800,svJ='';async function saveDraft(){if(!segs.length)return;const t0=performance.now(),j=PJ(),t=Date.now();svD=Math.min(5000,Math.max(800,(performance.now()-t0)*12));if(j===svJ)return;svJ=j;DB.c=j;DB.t=t;try{await kv('put','draft',{j,t});sfail=0}catch{try{localStorage.setItem('mse',j);localStorage.setItem('mset',t);sfail=0}catch{if(!sfail++)msg('Draf tidak bisa disimpan otomatis (penyimpanan penuh atau diblokir). Simpan proyek (.json) secara manual.')}}}
+function autosave(){clearTimeout(asv);asv=setTimeout(()=>{asv=null;const f=()=>saveDraft();window.requestIdleCallback&&!document.hidden?requestIdleCallback(f,{timeout:2000}):f()},svD)}
 function dropDraft(){DB.c=null;DB.t=0;kv('delete','draft').catch(()=>{});try{localStorage.removeItem('mse');localStorage.removeItem('mset')}catch{}}
 addEventListener('visibilitychange',()=>{if(document.hidden&&asv){clearTimeout(asv);asv=null;saveDraft()}});
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch{}
