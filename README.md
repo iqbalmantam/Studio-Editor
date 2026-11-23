@@ -204,3 +204,5 @@ Mode **Akurat** (default, pilih di panel ekspor) merender setiap frame secara be
 
 ## Template
 Menu **Template** (sidebar kiri di desktop, toolbar bawah di HP) berisi 6 template bawaan: Vlog, Cinematic, Produk, Kutipan, Retro VHS, Neon Beat. Template mengatur rasio, filter, transisi, efek, durasi klip, dan teks animasi pada klip milik sendiri. Proyek yang sedang dibuat bisa disimpan sebagai template pribadi (tersimpan di browser). Tanpa klip, template meminta memilih klip lalu diterapkan otomatis.
+
+Ekspor audio WAV (PCM 8/16/24/32-bit dan float) kini juga di-stream per jendela, tanpa memuat seluruh file ke memori; hasilnya identik dengan jalur lama (korelasi 1.0).
