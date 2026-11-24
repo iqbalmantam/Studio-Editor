@@ -2872,13 +2872,18 @@ $('#stb').onclick=run;window.__stabMotion=motion;
 <script id="cc-m34-pwa">
 (()=>{
 const $=s=>document.querySelector(s),b=$('#pwa');let ev=null;
+const hb=document.createElement('button');hb.id='pwa2';hb.type='button';hb.hidden=true;hb.textContent='📲 Pasang aplikasi (buka offline)';
+hb.style.cssText='display:block;width:100%;margin:10px 0 0;padding:14px;border-radius:16px;border:1px solid rgba(34,211,238,.4);background:rgba(34,211,238,.1);color:#22d3ee;font:600 15px system-ui,sans-serif';
+{const r=document.querySelector('#home .hrow');if(r)r.after(hb)}
+const show=v=>{if(b)b.hidden=!v;hb.hidden=!v};
 const std=matchMedia('(display-mode: standalone)').matches||navigator.standalone;
 const ios=/iphone|ipad|ipod/i.test(navigator.userAgent)&&!window.MSStream;
 if('serviceWorker' in navigator&&/^https?:$/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
-addEventListener('beforeinstallprompt',e=>{e.preventDefault();ev=e;if(b&&!std)b.hidden=false});
-addEventListener('appinstalled',()=>{ev=null;if(b)b.hidden=true;msg('Aplikasi terpasang')});
-if(b&&ios&&!std)b.hidden=false;
-if(b)b.onclick=async()=>{if(ev){ev.prompt();try{await ev.userChoice}catch{}ev=null;b.hidden=true}else if(ios)msg('Di iPhone/iPad: tombol Bagikan, lalu "Tambah ke Layar Utama"');else msg('Gunakan menu browser: Instal aplikasi')};
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();ev=e;if(!std)show(true)});
+addEventListener('appinstalled',()=>{ev=null;show(false);msg('Aplikasi terpasang')});
+if(ios&&!std)show(true);
+const go=async()=>{if(ev){ev.prompt();try{await ev.userChoice}catch{}ev=null;show(false)}else if(ios)msg('Di iPhone/iPad: tombol Bagikan, lalu "Tambah ke Layar Utama"');else msg('Gunakan menu browser: Instal aplikasi')};
+if(b)b.onclick=go;hb.onclick=go;
 })();
 </script>
 </body></html>
