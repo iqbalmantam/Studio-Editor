@@ -225,3 +225,6 @@ Pengeditan cerdas (tanpa server): **Reframe otomatis** (bingkai mengikuti subjek
 Menu **Caption otomatis** kini satu pintu: pilih bahasa dan model, mulai AI (atau metode mikrofon sebagai cadangan), impor SRT, dan terapkan **gaya caption** sekali tekan (Klasik, Kuning tebal, Kotak hitam/kuning, Neon, Hijau tebal, Elegan, Minimal, Komik) ke semua teks.
 
 **Lanjutkan tanpa galeri:** file video/audio proyek kini disimpan di IndexedDB browser, jadi "Lanjutkan"/"Proyek terakhir" langsung membuka proyek tanpa meminta memilih file lagi (termasuk saat PWA ditutup lalu dibuka). Media proyek lama dibersihkan otomatis saat proyek baru tersimpan.
+
+## Magic resize
+Tombol **🪄 Magic resize** (panel Rasio / sheet Rasio di HP): ubah ukuran proyek ke 9:16, 16:9, 1:1, 4:5, 5:4 (+HD/4K) sekaligus. Klip bisa di-Fit, Isi layar, Blur latar, atau Reframe AI per klip. Ukuran stiker disesuaikan otomatis; bingkai dihapus (buat ulang sesuai rasio baru).

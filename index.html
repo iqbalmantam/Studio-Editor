@@ -785,7 +785,7 @@ html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .
 <label>Volume VO<input type="range" id="vvl" min="0" max="100" value="100" title="Volume voice-over"></label>
 </div>
 <div class="tp" id="t4">
-<div class="g"><button class="b" id="rs">Rasio 9:16</button><button class="b" id="ft">Layar: Fit</button><button class="b" id="wm">🖼 Watermark</button></div>
+<div class="g"><button class="b" id="rs">Rasio 9:16</button><button class="b" id="mgz">🪄 Magic resize</button><button class="b" id="ft">Layar: Fit</button><button class="b" id="wm">🖼 Watermark</button></div>
 <select id="fl"><option value="none">Filter: Normal</option><option value="sepia(.4) saturate(1.3)">Hangat</option><option value="hue-rotate(15deg) saturate(1.2) brightness(1.05)">Dingin</option><option value="grayscale(1)">Hitam putih</option><option value="saturate(1.6) contrast(1.1)">Vivid</option><option value="sepia(.7) contrast(.9)">Vintage</option><option value="contrast(1.3) brightness(.9) saturate(1.2)">Dramatis</option><option value="sepia(.2) contrast(1.2) saturate(.9) hue-rotate(-10deg)">Sinematik</option><option value="brightness(1.15) saturate(1.1)">Cerah</option><option value="blur(3px)">Blur</option><option value="invert(1)">Negatif</option><option value="grayscale(1) contrast(1.4) brightness(.9)">Noir</option><option value="contrast(.85) brightness(1.1) saturate(.8) sepia(.1)">Pudar (matte)</option><option value="hue-rotate(290deg) saturate(1.8) contrast(1.15)">Neon / Cyber</option><option value="sepia(.25) hue-rotate(-12deg) saturate(1.5) contrast(1.1)">Teal & Orange</option><option value="sepia(.35) saturate(1.5) hue-rotate(-18deg) brightness(1.05)">Senja</option><option value="brightness(1.15) saturate(.7) contrast(.9)">Pastel</option><option value="contrast(1.4) saturate(1.4) brightness(1.02)">HDR</option><option value="sepia(.25) contrast(1.1) brightness(1.1) saturate(1.3)">Polaroid</option><option value="sepia(.5) contrast(1.15) brightness(.95) saturate(.8)">Film lama</option><option value="brightness(1.1) contrast(1.05) saturate(1.3)">Siang cerah</option><option value="brightness(.75) contrast(1.2) saturate(.8) hue-rotate(10deg)">Malam</option><option value="hue-rotate(-40deg) saturate(1.4) contrast(1.05)">Hijau hutan</option><option value="hue-rotate(250deg) saturate(1.3) brightness(1.05)">Ungu mimpi</option><option value="contrast(1.6) saturate(1.1)">Kontras tinggi</option><option value="brightness(1.1) contrast(.9) blur(1px)">Lembut (glow)</option></select>
 <div class="sh">🎯 Berlaku untuk</div><div class="seg" id="scp"><button data-s="all" class="on">Semua klip</button><button data-s="clip">Klip terpilih</button></div><div class="mu" id="scn"></div><button class="b" id="scr" hidden>↺ Samakan dengan pengaturan umum</button>
 <select id="fd"><option value="0">Transisi: Mati</option><option value="1">Transisi: Fade</option><option value="2">Transisi: Zoom masuk</option><option value="6">Transisi: Zoom keluar</option><option value="3">Transisi: Geser samping</option><option value="4">Transisi: Naik</option><option value="5">Transisi: Putar</option><option value="7">Transisi: Blur</option><option value="8">Transisi: Flash putih</option><option value="9">Transisi: Wipe</option></select>
@@ -955,7 +955,7 @@ $('#crs').onclick=()=>{if(nog())return;snap();const g=tgt();if(g){g.br=100;g.ct=
 const dur=s=>Math.max(.05,(s.out-s.in)/(s.sp||1)),total=()=>segs.reduce((a,s)=>a+dur(s),0),start=i=>segs.slice(0,i).reduce((a,s)=>a+dur(s),0);
 const fmt=t=>{t=Math.max(0,t);return Math.floor(t/60)+':'+(t%60).toFixed(1).padStart(4,'0')};
 const msg=m=>{$('#msg').textContent=m};
-const R=[[720,1280,'9:16'],[1280,720,'16:9'],[1080,1080,'1:1'],[1080,1920,'9:16 HD'],[1920,1080,'16:9 HD']];
+const R=[[720,1280,'9:16'],[1280,720,'16:9'],[1080,1080,'1:1'],[1080,1920,'9:16 HD'],[1920,1080,'16:9 HD'],[1080,1350,'4:5'],[1350,1080,'5:4']];
 function setR(i){ri=i;W=R[i][0];H=R[i][1];cv.width=W;cv.height=H;$('#rs').textContent='Rasio '+R[i][2]}
 function setSize(land){setR(land?1:0)}
 const F=()=>filt=='none'&&br==100&&ct==100&&sa==100?'':(filt=='none'?'':filt+' ')+'brightness('+br+'%) contrast('+ct+'%) saturate('+sa+'%)';
@@ -1578,7 +1578,7 @@ try{R.push([2160,3840,'9:16 4K'],[3840,2160,'16:9 4K']);
 const pr=$('#pr');[['5','Reels 4K 2160×3840'],['6','YouTube 4K 16:9']].forEach(([v,t])=>{const o=document.createElement('option');o.value=v;o.textContent=t;pr.append(o)});
 const q=$('#q'),uo=document.createElement('option');uo.value='40000000';uo.textContent='Ultra (4K)';q.append(uo);
 pr.addEventListener('change',()=>{if(+pr.value>=5)q.value='40000000'});
-$('#rs').onclick=()=>{snap();setR((ri+1)%5);draw()}}catch{}
+$('#rs').onclick=()=>{snap();setR((ri+1)%R.length);draw()}}catch{}
 // 2) seret klip utama untuk menukar urutan (sentuh: tahan dulu sebentar)
 const tlE=$('#tl');let rd=null;
 tlE.addEventListener('pointerdown',e=>{if(busyExp())return;const els=$$('#tl .sg'),el=els.find(x=>{const q=x.getBoundingClientRect();return e.clientX>=q.left&&e.clientX<=q.right&&e.clientY>=q.top&&e.clientY<=q.bottom});if(!el)return;const i=els.indexOf(el);if(i<0||els.length<2)return;
@@ -2130,8 +2130,8 @@ openSheet('Volume',b=>{const sl=slider('Volume',0,100,Math.round((g.vol??1)*100)
 function openMove(){openSheet('Pindahkan klip',b=>{b.append(row(chip('◀ Ke kiri',click('#mL')),chip('Ke kanan ▶',click('#mR'))));const m=document.createElement('div');m.className='mu';m.textContent='Atau tahan klip di timeline lalu seret.';b.append(m)})}
 function openMaskFor(selId){const s=$(selId);if(!s)return;openSheet('Mask',(b,ad)=>{const lab=s.closest('label');ad(lab);const p=lab&&lab.nextElementSibling;if(p&&p.classList.contains('cc-mk'))ad(p)})}
 function openRatio(){openSheet('Rasio layar',b=>{const r=document.createElement('div');r.className='cc-rtrow';
-[0,1,2,3,4].forEach(i=>{const w=R[i][0],h=R[i][1],k=Math.max(w,h),t=document.createElement('button');t.type='button';t.className='cc-rt'+(ri===i?' on':'');
-t.innerHTML='<span><i style="width:'+Math.round(26*w/k)+'px;height:'+Math.round(26*h/k)+'px"></i></span><b>'+R[i][2]+'</b>';t.onclick=()=>{snap();setR(i);draw();openRatio()};r.append(t)});b.append(r)})}
+R.forEach((_,i)=>{const w=R[i][0],h=R[i][1],k=Math.max(w,h),t=document.createElement('button');t.type='button';t.className='cc-rt'+(ri===i?' on':'');
+t.innerHTML='<span><i style="width:'+Math.round(26*w/k)+'px;height:'+Math.round(26*h/k)+'px"></i></span><b>'+R[i][2]+'</b>';t.onclick=()=>{snap();setR(i);draw();openRatio()};r.append(t)});b.append(r);if(window.ccAct&&ccAct.openMagic){const mb=document.createElement('button');mb.type='button';mb.className='chip';mb.textContent='🪄 Magic resize (sesuaikan semua)';mb.onclick=()=>ccAct.openMagic();const mr=document.createElement('div');mr.className='cc-chips';mr.append(mb);b.append(mr)}})}
 function editText(){const o=tx[selx];if(!o)return msg('Pilih teks dulu');
 openSheet('Edit teks',b=>{const inp=document.createElement('input');inp.type='text';inp.className='cc-ti';inp.value=o.t||'';inp.placeholder='Tulis teks...';inp.addEventListener('pointerdown',()=>snap(),{once:true});inp.oninput=()=>{const q=tx[selx];if(q){q.t=inp.value;draw();autosave()}};b.append(inp);
 b.append(row(...[['Kecil',.7],['Sedang',1],['Besar',1.4],['Raksasa',2.5]].map(([n,z])=>chip(n,()=>{snap();o.z=z;draw();autosave();editText()},o.z===z))));
@@ -3190,6 +3190,51 @@ const cur=()=>{try{return selx>=0?tx[selx]:null}catch{return null}};
 const row=$('#cc-te');E.forEach(([n,k])=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=n;b.onclick=()=>{const o=cur();if(!o)return msg('Pilih teks dulu');snap();if(k)o.te=k;else delete o.te;draw();autosave()};row&&row.append(b)});
 const c2=$('#cc-c2');if(c2){c2.oninput=()=>{const o=cur();if(!o)return;o.c2=c2.value;draw();autosave()};c2.addEventListener('pointerdown',()=>{if(cur())snap()},true)}
 window.ccTE=E;
+})();
+</script>
+<script id="cc-m42-magic-resize">
+(()=>{
+let rsel=0,mode=1;const chip=(t,fn,on)=>{const b=document.createElement('button');b.type='button';b.className='chip'+(on?' on':'');b.textContent=t;b.onclick=fn;return b};const row=()=>{const d=document.createElement('div');d.className='cc-chips';return d};
+async function apply(){
+  const[nw,nh]=[R[rsel][0],R[rsel][1]];
+  if(nw===W&&nh===H&&mode!==3)return msg('Rasio sudah sama');
+  if(playing)stop();snap();
+  const Wo=W,Ho=H,mo=Math.min(Wo,Ho),mn=Math.min(nw,nh);
+  ri=rsel;W=nw;H=nh;cv.width=W;cv.height=H;$('#rs').textContent='Rasio '+R[ri][2];
+  let del=0;
+  for(let i=ovs.length-1;i>=0;i--){const o=ovs[i];
+    if(/^Bingkai /.test(o.name||'')){ovs.splice(i,1);del++;continue}
+    o.s=Math.max(2,Math.min(300,o.s*Wo*mn/(mo*W)))}
+  selOv(-1);
+  if(mode===3){fill=1}else fill=mode;
+  $('#ft').textContent='Layar: '+LF[fill];
+  draw();tl();autosave();
+  if(mode===3){
+    let n=0;const keep=sel;
+    for(let i=0;i<segs.length;i++){if(segs[i].fz||busy)continue;sel=i;tl();try{await $('#arf').onclick();n++}catch{}}
+    sel=Math.min(keep,segs.length-1);tl();draw();autosave();
+    msg('Ukuran '+R[ri][2]+' · reframe '+n+' klip'+(del?' · '+del+' bingkai dihapus':''));
+  }else msg('Ukuran '+R[ri][2]+' ('+LF[fill]+')'+(del?' · '+del+' bingkai dihapus (buat ulang)':''));
+}
+function open(){
+  ccAct.openSheet('Magic resize',b=>{
+    rsel=ri;mode=fill;
+    const t=document.createElement('div');t.className='mu';t.textContent='Pilih ukuran baru. Teks, stiker, dan klip disesuaikan otomatis.';b.append(t);
+    const r1=row(),r2=row();
+    const mk=()=>{r1.innerHTML='';r2.innerHTML='';
+      R.forEach((q,i)=>r1.append(chip(q[2]+' · '+q[0]+'×'+q[1],()=>{rsel=i;mk()},i===rsel)));
+      [['Fit (ada bar)',0],['Isi layar (crop)',1],['Blur latar',2],['Reframe AI',3]].forEach(([n,m])=>r2.append(chip(n,()=>{mode=m;mk()},m===mode)));};
+    mk();
+    const l=document.createElement('div');l.className='mu';l.textContent='Penanganan klip:';
+    const go=document.createElement('button');go.type='button';go.className='b p';go.textContent='Terapkan';
+    go.onclick=()=>{ccAct.closeSheet();apply()};
+    b.append(r1,l,r2,go);
+  });
+}
+ccAct.openMagic=open;
+$('#mgz').onclick=open;
+try{const M=window.MODES;}catch{}
+window.ccMagic=apply;
 })();
 </script>
 </body></html>
