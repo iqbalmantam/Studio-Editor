@@ -215,3 +215,5 @@ Juga: efek suara (cempreng, berat, robot, gema, radio, aula) dan pengurang noise
 Tambahan: `manifest.webmanifest`, `sw.js`, dan folder `icons/`. Setelah dibuka lewat HTTPS (mis. GitHub Pages), tombol "📲 Pasang aplikasi" muncul di beranda (iPhone: Bagikan → Tambah ke Layar Utama). Aplikasi lalu bisa dibuka offline. Naikkan `VER` di `sw.js` setiap rilis agar cache lama diganti. Service worker tidak aktif jika file dibuka langsung dari `file://`.
 
 Terbaru: **Bagikan hasil ekspor** (Web Share, langsung ke WhatsApp/TikTok/IG di HP), **Duck musik** (musik atau trek audio otomatis mengecil saat klip berisi suara bicara, dengan jeda naik-turun halus), dan **Impor SRT** (melengkapi ekspor SRT yang sudah ada).
+
+Timeline: **Magnet** (blok teks, overlay, dan trek audio menempel ke playhead, awal/akhir klip, dan item lain; bisa dimatikan) dan **Pilih banyak klip** (Ctrl/Shift+klik atau mode "Pilih banyak" di HP, lalu Hapus atau Duplikat sekaligus).
