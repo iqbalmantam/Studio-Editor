@@ -234,3 +234,6 @@ Tombol **▦ Kolase** (panel Rasio / sheet Rasio di HP): pilih tata letak (2 ata
 
 ## Edit caption massal
 Menu Caption otomatis → **🛠 Edit massal**: cari-ganti kata, ubah huruf (KAPITAL / kecil / Huruf Awal / Kalimat), pecah caption panjang atau gabung yang pendek (kata per baris), geser waktu semua caption, hapus semua.
+
+## Brand kit
+Tombol **🎨 Brand kit** (panel Rasio, sheet Rasio dan sheet Template): simpan 3 warna (Utama, Aksen, Teks), logo, dan font sendiri (.ttf/.otf) sekali di perangkat (IndexedDB). Terapkan ke semua teks, caption (kotak warna utama), logo sebagai watermark atau stiker. Opsi **Otomatis** memakai brand di template (termasuk Produk) dan caption baru. Font tersedia di pengaturan teks sebagai "Font: Brand".
