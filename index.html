@@ -3128,4 +3128,31 @@ if(typeof saveDraft==='function'){const o=saveDraft;saveDraft=async function(){c
 try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch{}
 })();
 </script>
+<script id="cc-m41-texteffects">
+(()=>{
+const $=s=>document.querySelector(s);
+const T0=text;
+function arc(o,p,up){const fs=Math.round(Math.min(W,H)*.075*(o.z||1));cx.save();cx.font=(o.f==1?'700 ':'800 ')+fs+'px '+FONTS[o.f||0];cx.textAlign='center';cx.textBaseline='middle';cx.lineJoin='round';cx.lineWidth=fs/5*(o.sw??1);
+  const s=String(o.t||'').replace(/\s+/g,' '),x0=W*(o.x??50)/100,y0=H*(o.y??50)/100,ws=[...s].map(ch=>cx.measureText(ch).width),tw=ws.reduce((a,b)=>a+b,0),R=Math.max(fs*2.2,Math.min(W*.5,tw/ (o.cv||1.6)));
+  cx.globalAlpha*=((o.op??100)/100)*Math.min(1,(p===undefined?1:p)*2.5);if(o.sh){cx.shadowColor='rgba(0,0,0,.85)';cx.shadowBlur=fs*.3*o.sh;cx.shadowOffsetY=fs*.06*o.sh}
+  let a=-tw/R/2;[...s].forEach((ch,i)=>{const mid=a+ws[i]/R/2;a+=ws[i]/R;const px=x0+Math.sin(mid)*R,py=up?y0+R-Math.cos(mid)*R:y0-R+Math.cos(mid)*R;cx.save();cx.translate(px,py);cx.rotate(up?mid:-mid);
+    if((o.sw??1)>0){cx.strokeStyle=o.sc||'#000';cx.strokeText(ch,0,0)}cx.fillStyle=o.c||'#fff';cx.fillText(ch,0,0);cx.restore()});cx.restore()}
+text=function(o,p){const te=o&&o.te;if(!te)return T0(o,p);const c2=o.c2||'#ff4d9d',B=o.bg?{}:{};
+  if(te==='hollow')return T0({...o,sc:o.c||'#fff',sw:.28,c:'rgba(0,0,0,0)',bg:null,s:0},p);
+  if(te==='grad'){const fs=Math.round(Math.min(W,H)*.075*(o.z||1)),yc=H*(o.y??50)/100,g=cx.createLinearGradient(0,yc-fs*.8,0,yc+fs*.8);g.addColorStop(0,o.c||'#fff');g.addColorStop(1,c2);return T0({...o,c:g},p)}
+  if(te==='long'){for(let i=16;i>=1;i--)T0({...o,x:(o.x??50)+i*.12,y:(o.y??50)+i*.22,c:c2,sw:0,sh:0,bg:null,s:0},p);return T0(o,p)}
+  if(te==='neon'){T0({...o,s:2,c:c2,sw:0,bg:null},p);return T0({...o,s:2,sw:0,c:'#ffffff'},p)}
+  if(te==='arcU')return arc(o,p,true);if(te==='arcD')return arc(o,p,false);
+  return T0(o,p)};
+// panel
+const box=document.createElement('div');box.className='cc-sty';box.style.cssText='margin:10px 0;padding:10px;border-radius:12px;background:rgba(255,255,255,.04)';
+box.innerHTML='<div class="mu" style="margin-bottom:6px">Efek teks (pilih teks dulu)</div><div id="cc-te" style="display:flex;flex-wrap:wrap;gap:6px"></div><label style="display:flex;align-items:center;gap:8px;margin-top:8px;font-size:13px">Warna 2 (gradien / bayangan / neon) <input type="color" id="cc-c2" value="#ff4d9d"></label>';
+const host=$('#t2');if(host)host.append(box);
+const E=[['Normal',''],['Berongga','hollow'],['Gradien','grad'],['Bayangan panjang','long'],['Neon','neon'],['Melengkung ↑','arcU'],['Melengkung ↓','arcD']];
+const cur=()=>{try{return selx>=0?tx[selx]:null}catch{return null}};
+const row=$('#cc-te');E.forEach(([n,k])=>{const b=document.createElement('button');b.type='button';b.className='chip';b.textContent=n;b.onclick=()=>{const o=cur();if(!o)return msg('Pilih teks dulu');snap();if(k)o.te=k;else delete o.te;draw();autosave()};row&&row.append(b)});
+const c2=$('#cc-c2');if(c2){c2.oninput=()=>{const o=cur();if(!o)return;o.c2=c2.value;draw();autosave()};c2.addEventListener('pointerdown',()=>{if(cur())snap()},true)}
+window.ccTE=E;
+})();
+</script>
 </body></html>
