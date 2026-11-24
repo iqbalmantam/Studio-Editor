@@ -219,3 +219,5 @@ Terbaru: **Bagikan hasil ekspor** (Web Share, langsung ke WhatsApp/TikTok/IG di 
 Timeline: **Magnet** (blok teks, overlay, dan trek audio menempel ke playhead, awal/akhir klip, dan item lain; bisa dimatikan) dan **Pilih banyak klip** (Ctrl/Shift+klik atau mode "Pilih banyak" di HP, lalu Hapus atau Duplikat sekaligus).
 
 Pengeditan cerdas (tanpa server): **Reframe otomatis** (bingkai mengikuti subjek memakai model segmentasi orang lokal, untuk mengubah 16:9 jadi 9:16) dan **Hapus bagian diam** (klip dipotong otomatis di jeda suara).
+
+**Caption AI (Whisper):** transkripsi ucapan di browser memakai Whisper (transformers.js). Model (tiny ~40 MB atau base ~75 MB) diunduh sekali dari internet lalu tersimpan di cache browser. Memakai WebGPU bila ada, jika tidak WASM. Hasilnya jadi caption yang bisa diedit di tab Teks.

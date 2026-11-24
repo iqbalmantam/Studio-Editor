@@ -769,7 +769,7 @@ html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .
 <div class="mu">Geser playhead ke posisi yang diinginkan, lalu ketuk Split atau Trim. Seret ujung klip di timeline untuk trim. Foto juga bisa ditambahkan lewat + Klip; atur lamanya dengan Durasi foto.</div>
 </div>
 <div class="tp" id="t2">
-<div class="g"><button class="b" id="at">Aa Teks</button><button class="b p" id="ac">💬 Auto-caption</button><button class="b" id="stk">😀 Stiker</button><button class="b" id="srt">⬇ .srt</button><select id="lg" title="Bahasa caption"><option value="id-ID">Bahasa Indonesia</option><option value="en-US">English</option></select></div>
+<div class="g"><button class="b" id="at">Aa Teks</button><button class="b p" id="ac">💬 Auto-caption</button><button class="b p" id="acw">🧠 Caption AI (Whisper)</button><select id="wsl" class="b" title="Bahasa ucapan"><option value="indonesian">Indonesia</option><option value="english">Inggris</option><option value="">Deteksi otomatis</option></select><select id="wsm" class="b" title="Model"><option value="Xenova/whisper-tiny">Cepat (~40 MB)</option><option value="Xenova/whisper-base">Akurat (~75 MB)</option></select><button class="b" id="stk">😀 Stiker</button><button class="b" id="srt">⬇ .srt</button><select id="lg" title="Bahasa caption"><option value="id-ID">Bahasa Indonesia</option><option value="en-US">English</option></select></div>
 <div><div id="tx"></div><div id="nt" class="mu">Teks dan caption muncul di sini. Kolom kanan: waktu mulai dan selesai (detik). Seret teks langsung di layar preview untuk mengatur posisi bebas.</div></div>
 <div class="mu">Auto-caption memakai pengenalan suara browser: video diputar dan suaranya ditangkap lewat mikrofon, jadi nyalakan volume dan jangan pakai headset. Hasilnya bisa diedit.</div>
 </div>
@@ -2148,7 +2148,7 @@ function openFx(){openSheet('Efek visual',(b,ad)=>{ad($('#fxs'));const v=$('#fxv
 function openFilter(){openSheet('Filter',(b,ad)=>{b.append(selChips('#fl'));ad($('#scp'));ad($('#scn'));ad($('#scr'))})}
 function openTrans(){openSheet('Transisi',b=>{b.append(selChips('#fd'));b.append(row(chip('Atur per sambungan klip',()=>{if(!guard())return msg('Pilih klip di timeline dulu');ccPick('clip');openSheet('Animasi dan fade',(bb,a2)=>{a2($('#cc-an'));a2($('#cc-af'))})})))})}
 function openAdj(){openSheet('Penyesuaian warna',(b,ad)=>{['#br','#ct','#sa'].forEach(i=>{const e=$(i);ad(e&&e.closest('label'))});ad($('#crs'))})}
-function openCap(){openSheet('Auto caption',(b,ad)=>{ad($('#lg'));b.append(row(chip('Mulai auto-caption',()=>{closeSheet();$('#ac').click()}),chip('Ekspor .srt',click('#srt'))));const n=document.createElement('div');n.className='mu';n.textContent='Auto-caption memakai pengenalan suara browser: video diputar dan suaranya ditangkap lewat mikrofon, jadi nyalakan volume dan jangan pakai headset. Hasilnya bisa diedit.';b.append(n)})}
+function openCap(){openSheet('Auto caption',(b,ad)=>{ad($('#lg'));b.append(row(chip('Caption AI (Whisper)',()=>{closeSheet();$('#acw').click()}),chip('Mulai auto-caption',()=>{closeSheet();$('#ac').click()}),chip('Ekspor .srt',click('#srt'))));const n=document.createElement('div');n.className='mu';n.textContent='Auto-caption memakai pengenalan suara browser: video diputar dan suaranya ditangkap lewat mikrofon, jadi nyalakan volume dan jangan pakai headset. Hasilnya bisa diedit.';b.append(n)})}
 function openStk(){openSheet('Stiker',(b,ad)=>{ad($('#pem'))})}
 Object.assign(IC,{rev:'<path d="M11 6 4 12l7 6zM20 6l-7 6 7 6z"/>'});Object.assign(IC,{fxs:'<path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4"/>'});Object.assign(IC,{stab:'<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10v-1h1M16 10v-1h-1M8 14v1h1M16 14v1h-1"/>'});Object.assign(IC,{dck:'<path d="M3 12h3l3-7 4 14 3-7h5"/>'});Object.assign(IC,{mag:'<path d="M6 3v8a6 6 0 0 0 12 0V3h-4v8a2 2 0 0 1-4 0V3zM6 7h4M14 7h4"/>',msl:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><path d="m5 7 2 2 3-4"/>'});Object.assign(IC,{rfm:'<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/>',slc:'<path d="M3 12h4M17 12h4M9 8v8M15 8v8"/>'});Object.assign(IC,{tpl:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/>'});Object.assign(IC,{tts:'<path d="M4 6h10M9 6v12M17 9v6M20 7v10"/>',ext:'<path d="M4 6h16v12H4z"/><path d="M12 9v6M9 12l3 3 3-3"/>',snd:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',rec:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',trk:'<path d="M3 8h18M3 12h12M3 16h8"/>',dwn:'<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>'});
 function openTrk(){openSheet('Trek audio terpilih',(b,ad)=>{const ga=()=>aus[sela];if(ga())b.append(slider('Fade masuk (satuan 0,1 dtk)',0,100,Math.round((ga().fi||0)*10),q=>{const x=ga();if(x){q?x.fi=q/10:delete x.fi}},()=>snap()),slider('Fade keluar (satuan 0,1 dtk)',0,100,Math.round((ga().fo||0)*10),q=>{const x=ga();if(x){q?x.fo=q/10:delete x.fo}},()=>snap()));b.append(row(chip('Volume',click('#avl')),chip('−0,5 dtk',click('#anl')),chip('+0,5 dtk',click('#anr')),chip('Ke playhead',click('#apl'))),row(chip('Split trek',click('#asp')),chip('Trim awal',click('#ati')),chip('Trim akhir',click('#ato')),chip('Hapus trek',()=>{click('#adl')();closeSheet()})))})}
@@ -3003,6 +3003,49 @@ $('#cut').onclick=async()=>{const g=segs[sel];if(!g)return msg('Pilih klip dulu'
     snap();const copies=pieces.map(p=>{const c=Object.assign({},g,{in:+p[0].toFixed(3),out:+p[1].toFixed(3)});delete c.bk0;return c});
     segs.splice(sel,1,...copies);tl();rl&&rl();await seek(Math.min(T,total()));msg('Dihapus '+(saved/sp).toFixed(1)+' dtk bagian diam ('+pieces.length+' potongan)')
   }catch(e){msg('Gagal: '+(e&&e.message||e))}finally{busy=false}};
+})();
+</script>
+<script id="cc-m38-whisper">
+(()=>{
+const $=s=>document.querySelector(s),TF='https://cdn.jsdelivr.net/npm/@huggingface/transformers@3.5.1';
+let pipe=null,pipeM='',busy=false;
+const ls=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch{return null}};
+const sl=$('#wsl'),sm=$('#wsm');if(ls('cc_wl')!==null)sl.value=ls('cc_wl');if(ls('cc_wm'))sm.value=ls('cc_wm');
+sl.onchange=()=>ls('cc_wl',sl.value);sm.onchange=()=>ls('cc_wm',sm.value);
+async function getPipe(model){
+  if(window.__wh)return window.__wh;
+  if(pipe&&pipeM===model)return pipe;
+  let tf;try{tf=await import(TF)}catch{throw new Error('Butuh internet untuk mengunduh model pertama kali')}
+  const dev=navigator.gpu?'webgpu':'wasm';let last=0;
+  const mk=d=>tf.pipeline('automatic-speech-recognition',model,{device:d,dtype:d==='webgpu'?{encoder_model:'fp32',decoder_model_merged:'q4'}:'q8',progress_callback:p=>{if(p&&p.status==='progress'&&p.total){const pc=Math.round(p.loaded/p.total*100);if(pc!==last&&pc%5===0){last=pc;msg('Mengunduh model… '+pc+'%')}}}});
+  try{pipe=await mk(dev)}catch(e){if(dev==='webgpu'){pipe=await mk('wasm')}else throw e}
+  pipeM=model;return pipe}
+// audio klip -> timeline mono 16 kHz
+async function tlAudio(){
+  const SR=16000,tot=total(),out=new Float32Array(Math.ceil(tot*SR)+1),cache=new Map();
+  for(let i=0;i<segs.length;i++){const g=segs[i];if(g.fz||!(g.vol>0))continue;
+    let b=cache.get(g.u);if(!b){const dc=new AudioContext({sampleRate:SR});try{b=await dc.decodeAudioData(await(await fetch(g.u)).arrayBuffer())}catch{continue}finally{try{dc.close()}catch{}}cache.set(g.u,b)}
+    const x=b.getChannelData(0),st=start(i),d=dur(g),sp=g.sp||1,o0=Math.floor(st*SR),n=Math.floor(d*SR);
+    for(let k=0;k<n&&o0+k<out.length;k++){const p=(g.in*SR)+k*sp,a=Math.floor(p);if(a+1>=x.length)break;const f=p-a;out[o0+k]=(x[a]*(1-f)+x[a+1]*f)*Math.min(1,g.vol)}}
+  return out}
+function split(text,a,b){const t=text.trim().replace(/\s+/g,' ');if(t.length<=44)return[[a,b,t]];
+  const words=t.split(' '),lines=[];let cur='';for(const w of words){if((cur+' '+w).trim().length>38&&cur){lines.push(cur);cur=w}else cur=(cur+' '+w).trim()}if(cur)lines.push(cur);
+  const tl=lines.reduce((s,l)=>s+l.length,0),r=[];let t0=a;for(const l of lines){const t1=t0+(b-a)*l.length/tl;r.push([t0,t1,l]);t0=t1}return r}
+$('#acw').onclick=async()=>{if(busy)return;if(!segs.length)return msg('Tambah klip dulu');if(playing)stop();busy=true;
+  try{msg('Menyiapkan audio…');const au=await tlAudio();let mx=0;for(let i=0;i<au.length;i+=50)mx=Math.max(mx,Math.abs(au[i]));if(mx<.005)throw new Error('Klip tidak punya suara');
+    msg('Memuat model Whisper…');const p=await getPipe(sm.value);
+    msg('Mengenali ucapan… (bisa beberapa menit)');
+    const lang=sl.value,opt={return_timestamps:true,chunk_length_s:30,stride_length_s:5,task:'transcribe'};if(lang)opt.language=lang;
+    const r=await p(au,opt);const ch=(r&&r.chunks)||(r&&r.text?[{timestamp:[0,total()],text:r.text}]:[]);
+    const tot=total(),items=[];
+    for(const c of ch){const a0=c.timestamp&&c.timestamp[0]!=null?c.timestamp[0]:0,b0=c.timestamp&&c.timestamp[1]!=null?c.timestamp[1]:Math.min(tot,a0+3),txt=(c.text||'').trim();
+      if(!txt||/^[\[(♪\s.]+$/.test(txt)||/^[\[(].*[\])]$/.test(txt)||/^[♪\s]*$/.test(txt))continue;
+      for(const[a,b,t]of split(txt,Math.max(0,a0),Math.min(tot,Math.max(b0,a0+.8))))if(a<tot)items.push({a:+a.toFixed(2),b:+Math.min(tot,Math.max(b,a+.5)).toFixed(2),t,x:50,y:82,z:1,c:'#ffffff',ai:1})}
+    if(!items.length)throw new Error('Tidak ada ucapan yang terdeteksi');
+    snap();for(let i=tx.length-1;i>=0;i--)if(tx[i].ai)tx.splice(i,1);items.forEach(o=>tx.push(o));rl();draw();if(window.tl)tl();autosave();
+    msg(items.length+' caption dibuat. Rapikan di tab Teks.')
+  }catch(e){msg('Caption AI gagal: '+(e&&e.message||e))}finally{busy=false}};
+window.__whSplit=split;
 })();
 </script>
 </body></html>
