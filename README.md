@@ -223,3 +223,5 @@ Pengeditan cerdas (tanpa server): **Reframe otomatis** (bingkai mengikuti subjek
 **Caption AI (Whisper):** transkripsi ucapan di browser memakai Whisper (transformers.js). Model (tiny ~40 MB atau base ~75 MB) diunduh sekali dari internet lalu tersimpan di cache browser. Memakai WebGPU bila ada, jika tidak WASM. Hasilnya jadi caption yang bisa diedit di tab Teks.
 
 Menu **Caption otomatis** kini satu pintu: pilih bahasa dan model, mulai AI (atau metode mikrofon sebagai cadangan), impor SRT, dan terapkan **gaya caption** sekali tekan (Klasik, Kuning tebal, Kotak hitam/kuning, Neon, Hijau tebal, Elegan, Minimal, Komik) ke semua teks.
+
+**Lanjutkan tanpa galeri:** file video/audio proyek kini disimpan di IndexedDB browser, jadi "Lanjutkan"/"Proyek terakhir" langsung membuka proyek tanpa meminta memilih file lagi (termasuk saat PWA ditutup lalu dibuka). Media proyek lama dibersihkan otomatis saat proyek baru tersimpan.

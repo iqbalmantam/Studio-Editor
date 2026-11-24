@@ -1051,7 +1051,7 @@ function rl(){const el=$('#tx');el.innerHTML='';if(selx>=tx.length)selx=-1;tx.fo
 const r2=document.createElement('div');r2.className='r2';const c=document.createElement('input');c.type='color';c.title='Warna';c.value=o.c||'#ffffff';c.onpointerdown=snap;c.oninput=()=>{o.c=c.value;draw();autosave()};
 const mk=(k,opts)=>{const e=document.createElement('select');opts.forEach(([l,val])=>{const p=document.createElement('option');p.textContent=l;p.value=val;e.append(p)});e.value=o[k];e.onchange=()=>{snap();o[k]=+e.value;if(k=='y')o.x=50;draw();if(k=='an')prevAnim(o)};return e};
 o.z=o.z||1;o.s=o.s||0;o.an=o.an||0;o.f=o.f||0;r2.append(c,mk('z',[['Kecil',.7],['Sedang',1],['Besar',1.4],['Raksasa',2.5]]),mk('y',[['Atas',15],['Tengah',50],['Bawah',82]]),mk('s',[['Outline',0],['Kotak',1],['Glow',2],['Kuning',3]]),mk('f',[['Font: Sans',0],['Font: Serif',1],['Font: Mono',2],['Font: Tebal',3],['Font: Tulis',4]]),mk('an',[['Tanpa animasi',0],['Pop',1],['Naik',2],['Ketik',3],['Memantul',4],['Zoom masuk',5]]));el.append(r,r2)});$('#nt').style.display=tx.length?'none':'block';txl()}
-$('#fi').onchange=async e=>{if(freshNext){freshNext=false;newProject()}for(const f of e.target.files){if(f.type.startsWith('image/')){await addImage(f);continue}const u=URL.createObjectURL(f);const d=await new Promise(r=>{const x=document.createElement('video');x.preload='metadata';x.onloadedmetadata=()=>r(x);x.onerror=()=>r(null);x.src=u});if(!d||!isFinite(d.duration)||d.duration<=0){URL.revokeObjectURL(u);msg('Gagal membaca video '+f.name);continue}const nm=f.name.replace(/\.[^.]+$/,'').slice(0,14);if(pend){let hit=0;pend.segs.forEach(g=>{if(g.name==nm&&!g.fz&&!g.u){g.u=u;hit++}});(pend.aus||[]).forEach(a=>{if(a.name==nm&&!a.u){a.u=u;hit++}});if(!hit)msg('Tidak cocok dengan proyek: '+f.name);if(pend.segs.every(g=>g.u||g.fz)){snap();segs=pend.segs;aus=(pend.aus||[]).filter(a=>a.u);sela=aus.length?0:-1;pend=null;sel=0;tl();rl();await seek(0);msg('Proyek berhasil dimuat!')}else{const left=[...new Set(pend.segs.filter(g=>!g.u&&!g.fz).map(g=>g.name))];msg('Masih butuh file: '+left.join(', '))}continue}if(!segs.length){if(!presetLock)setSize(d.videoWidth>=d.videoHeight);presetLock=false}snap();segs.push({u,name:nm,in:0,out:d.duration,dur:d.duration,bytes:f.size,sp:1,vol:1,th:await th(d)})}e.target.value='';tl();if(segs.length)await seek(T)};
+$('#fi').onchange=async e=>{if(freshNext){freshNext=false;newProject()}for(const f of e.target.files){if(f.type.startsWith('image/')){await addImage(f);continue}const u=URL.createObjectURL(f);const d=await new Promise(r=>{const x=document.createElement('video');x.preload='metadata';x.onloadedmetadata=()=>r(x);x.onerror=()=>r(null);x.src=u});if(!d||!isFinite(d.duration)||d.duration<=0){URL.revokeObjectURL(u);msg('Gagal membaca video '+f.name);continue}const nm=f.name.replace(/\.[^.]+$/,'').slice(0,14);if(pend){let hit=0;pend.segs.forEach(g=>{if(g.name==nm&&!g.fz&&!g.u){g.u=u;hit++}});(pend.aus||[]).forEach(a=>{if(a.name==nm&&!a.u){a.u=u;hit++}});if(!hit)msg('Tidak cocok dengan proyek: '+f.name);if(pend.segs.every(g=>g.u||g.fz)){snap();segs=pend.segs;aus=(pend.aus||[]).filter(a=>a.u);sela=aus.length?0:-1;pend=null;sel=0;tl();rl();await seek(0);msg('Proyek berhasil dimuat!')}else{const left=[...new Set(pend.segs.filter(g=>!g.u&&!g.fz).map(g=>g.name))];msg('Masih butuh file: '+left.join(', '))}continue}if(!segs.length){if(!presetLock)setSize(d.videoWidth>=d.videoHeight);presetLock=false}snap();segs.push({u,name:nm,in:0,out:d.duration,dur:d.duration,bytes:f.size,sp:1,vol:1,th:await th(d)});window.mfPut&&mfPut(nm,f.size,f)}e.target.value='';tl();if(segs.length)await seek(T)};
 $('#pl').onclick=()=>playing?stop():play();
 $('#sc').oninput=e=>{if(playing)stop();seek(e.target.value/1000*total())};
 $('#sp').onclick=()=>{const l=locate(T);if(!l)return;const s=segs[l.i],d=dur(s);if(l.off<.1||l.off>d-.1)return msg('Geser playhead ke tengah klip dulu');const m=s.in+l.off*s.sp;snap();segs.splice(l.i,1,{...s,out:m},{...s,in:m});sel=l.i+1;tl()};
@@ -1200,7 +1200,7 @@ $('#mvl').oninput=e=>{ma.volume=e.target.value/100};
 $('#pj').onclick=()=>{if(!segs.length)return msg('Tambah klip dulu');save(new Blob([PJ()],{type:'application/json'}),'proyek.json')};
 $('#po').onclick=()=>$('#fp').click();
 $('#fp').onchange=async e=>{const f=e.target.files[0];e.target.value='';if(!f)return;try{const p=JSON.parse(await f.text());if(!p.segs)throw 0;for(const g of p.segs)if(g.img){const im=await loadImg(g.img);if(im){fzs.set(g.fid,scaled(im,1920));g.u='img'}}p.segs=p.segs.filter(g=>!g.fz||g.u);if(playing)stop();snap();tx=p.tx||[];setR(p.ri||0);fill=+p.fill||0;fade=+p.fade||0;br=p.br??100;ct=p.ct??100;sa=p.sa??100;filt=p.filt||'none';$('#fl').value=filt;$('#br').value=br;$('#ct').value=ct;$('#sa').value=sa;$('#ft').textContent='Layar: '+LF[fill];$('#fd').value=fade;fxo=p.fxo||{};fxi=p.fxi??60;window.ccTrkLoad&&ccTrkLoad(p.trk);window.ccBtLoad&&ccBtLoad(p.bt);clearOvs(false);await ovLoad(p.ovl||(p.ovp?[p.ovp]:null));
-for(const q of [...p.segs,...(p.aus||[])])if(q.bk&&!q.u){try{const bl=await kv('get','bk'+q.bk);if(bl)q.u=URL.createObjectURL(bl)}catch{}}
+for(const q of [...p.segs,...(p.aus||[])])if(!q.u&&!q.fz){try{let bl=null;if(q.bk)bl=await kv('get','bk'+q.bk);else if(q.bytes)bl=await kv('get','mf:'+q.name+':'+q.bytes);if(bl)q.u=URL.createObjectURL(bl)}catch{}}
 const needVid=p.segs.some(g=>!g.u)||((p.aus||[]).some(a=>!a.u));
 if(!needVid){segs=p.segs;aus=(p.aus||[]).filter(a=>a.u);sela=aus.length?0:-1;pend=null;sel=0;syncFx();tl();rl();await seek(0);msg('Proyek berhasil dimuat!')}
 else{pend=p;segs=[];aus=[];syncFx();tl();rl();draw();const names=[...new Set([...p.segs.filter(g=>!g.u).map(g=>g.name),...(p.aus||[]).filter(a=>!a.u).map(a=>a.name)])];msg('Pilih ulang file video asli: '+names.join(', '))}}catch{msg('File proyek tidak valid')}};
@@ -1212,7 +1212,7 @@ $('#axv').onclick=()=>$('#fxa').click();
 $('#fxa').onchange=async e=>{const fs=[...e.target.files];e.target.value='';if(!fs.length)return;if(playing)stop();snap();let at=T,n=0;
 for(const f of fs){const u=URL.createObjectURL(f);const d=await new Promise(r=>{const el=document.createElement('video');el.preload='metadata';el.onloadedmetadata=()=>r(el.duration);el.onerror=()=>r(0);el.src=u;setTimeout(()=>r(0),8000)});
 if(!d||!isFinite(d)){URL.revokeObjectURL(u);msg('Tidak bisa membaca '+f.name);continue}
-aus.push({id:'a'+Date.now()+Math.random().toString(36).slice(2,5),u,name:f.name.replace(/\.[^.]+$/,'').slice(0,14),in:0,out:d,sp:1,at,vol:1});sela=aus.length-1;at+=d;n++}
+aus.push({id:'a'+Date.now()+Math.random().toString(36).slice(2,5),u,name:f.name.replace(/\.[^.]+$/,'').slice(0,14),in:0,out:d,sp:1,at,vol:1,bytes:f.size});mfPut(f.name.replace(/\.[^.]+$/,'').slice(0,14),f.size,f);sela=aus.length-1;at+=d;n++}
 if(n){tl();msg(n>1?n+' audio diekstrak ke trek':'Audio diekstrak ke trek hijau')}else rhist=[]};
 $('#adt').onclick=()=>{const g=segs[sel];if(!g)return msg('Pilih klip dulu');if(g.fz)return msg('Klip freeze/foto tidak punya audio');if(playing)stop();snap();aus.push({id:'a'+Date.now()+Math.random().toString(36).slice(2,5),u:g.u,name:g.name,in:g.in,out:g.out,sp:g.sp,at:start(sel),vol:g.vol>0?g.vol:1});sela=aus.length-1;g.vol=0;tl();msg('Audio dipisah ke trek hijau di bawah timeline')};
 let ad0=null;$('#atl').onpointerdown=e=>{const b=e.target.closest('.ab');if(!b)return;sela=+b.dataset.i;if(playing)stop();snap();ad0={x:e.clientX,at:aus[sela].at,w:$('#atl').getBoundingClientRect().width||1,T:vw()};e.currentTarget.setPointerCapture(e.pointerId);al()};
@@ -3088,6 +3088,19 @@ function menu(){ccAct.openSheet('Caption otomatis',b=>{
   w.append(g);b.append(w)})}
 ccAct.capMenu=menu;ccAct.applyCapStyle=applyStyle;
 $('#acm').onclick=menu;
+})();
+</script>
+<script id="cc-m40-media-store">
+(()=>{
+// Simpan file media di IndexedDB agar "Lanjutkan" tidak meminta pilih ulang dari galeri.
+const IDX='mfidx';let gcT=0;
+const idx=async()=>{try{return(await kv('get',IDX))||[]}catch{return[]}};
+window.mfPut=async(name,size,file)=>{try{const k='mf:'+name+':'+size,L=await idx();if(!L.includes(k)){await kv('put',k,file);L.push(k);await kv('put',IDX,L)}}catch{}};
+async function gc(){if(Date.now()-gcT<4000)return;gcT=Date.now();try{const use=new Set([...segs,...aus].filter(q=>q&&!q.fz&&q.bytes).map(q=>'mf:'+q.name+':'+q.bytes)),L=await idx(),keep=[];
+  for(const k of L){if(use.has(k))keep.push(k);else{try{await kv('delete',k)}catch{}}}
+  if(keep.length!==L.length)await kv('put',IDX,keep)}catch{}}
+if(typeof saveDraft==='function'){const o=saveDraft;saveDraft=async function(){const r=await o.apply(this,arguments);gc();return r}}
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch{}
 })();
 </script>
 </body></html>
