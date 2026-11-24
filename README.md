@@ -217,3 +217,5 @@ Tambahan: `manifest.webmanifest`, `sw.js`, dan folder `icons/`. Setelah dibuka l
 Terbaru: **Bagikan hasil ekspor** (Web Share, langsung ke WhatsApp/TikTok/IG di HP), **Duck musik** (musik atau trek audio otomatis mengecil saat klip berisi suara bicara, dengan jeda naik-turun halus), dan **Impor SRT** (melengkapi ekspor SRT yang sudah ada).
 
 Timeline: **Magnet** (blok teks, overlay, dan trek audio menempel ke playhead, awal/akhir klip, dan item lain; bisa dimatikan) dan **Pilih banyak klip** (Ctrl/Shift+klik atau mode "Pilih banyak" di HP, lalu Hapus atau Duplikat sekaligus).
+
+Pengeditan cerdas (tanpa server): **Reframe otomatis** (bingkai mengikuti subjek memakai model segmentasi orang lokal, untuk mengubah 16:9 jadi 9:16) dan **Hapus bagian diam** (klip dipotong otomatis di jeda suara).
