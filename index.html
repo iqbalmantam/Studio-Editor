@@ -3147,7 +3147,25 @@ function menu(){ccAct.openSheet('Caption otomatis',b=>{
   const g=document.createElement('div');g.className='cc-cs';STY.forEach(S=>{const[bn,sp]=tile(S);const t=document.createElement('div');bn.append();g.append(bn);const nm=document.createElement('small');});
   // label nama di bawah contoh
   [...g.children].forEach((bn,i)=>{bn.title=STY[i].n;const nm=document.createElement('div');nm.textContent=STY[i].n;nm.style.cssText='font-size:10px;opacity:.65;margin-top:4px';bn.style.flexDirection='column';bn.append(nm)});
-  w.append(g);b.append(w)})}
+  w.append(g,lab('Edit massal'),btn('🛠 Cari-ganti, huruf, pecah/gabung, geser waktu','',()=>bulk()));b.append(w)})}
+const caps=()=>tx.filter(o=>o.t).sort((p,q)=>p.a-q.a);
+const wc=t=>t.trim().split(/\s+/).filter(Boolean);
+function done(m){if(window.rl)rl();draw();if(window.tl)tl();autosave();msg(m)}
+function bulk(){ccAct.openSheet('Edit caption massal',b=>{
+  const L=caps();const inf=document.createElement('div');inf.className='mu';inf.textContent=L.length+' caption';b.append(inf);
+  if(!L.length)return;
+  const inp=(ph,v)=>{const i=document.createElement('input');i.type='text';i.placeholder=ph;if(v)i.value=v;i.style.cssText='width:100%;margin:3px 0;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:#15171d;color:#fff;box-sizing:border-box';return i};
+  const f=inp('Cari kata'),r=inp('Ganti dengan');
+  b.append(lab('Cari & ganti'),f,r,btn('Ganti semua','p',()=>{const q=f.value;if(!q)return msg('Isi kata yang dicari');snap();let n=0;const re=new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'gi');caps().forEach(o=>{const t=o.t.replace(re,()=>{n++;return r.value});o.t=t});done(n+' kata diganti')}));
+  const cs=[['KAPITAL',t=>t.toUpperCase()],['huruf kecil',t=>t.toLowerCase()],['Huruf Awal',t=>t.toLowerCase().replace(/(^|\s)(\S)/g,(m,a,c)=>a+c.toUpperCase())],['Kalimat',t=>{t=t.toLowerCase();return t.charAt(0).toUpperCase()+t.slice(1)}]];
+  const cr=document.createElement('div');cr.className='cc-chips';cs.forEach(([n,fn])=>{const c=document.createElement('button');c.type='button';c.className='chip';c.textContent=n;c.onclick=()=>{snap();caps().forEach(o=>o.t=fn(o.t));done('Huruf: '+n)};cr.append(c)});b.append(lab('Huruf'),cr);
+  const nw=inp('Kata per baris (mis. 4)','4');nw.inputMode='numeric';
+  b.append(lab('Pecah / gabung'),nw,btn('✂ Pecah caption panjang','',()=>{const N=Math.max(1,parseInt(nw.value)||4);snap();const out=[];let c=0;caps().forEach(o=>{const w=wc(o.t);if(w.length<=N){out.push(o);return}const parts=[];for(let i=0;i<w.length;i+=N)parts.push(w.slice(i,i+N).join(' '));const tl=parts.reduce((s,p)=>s+p.length,0),D=o.b-o.a;let t0=o.a;parts.forEach((p,i)=>{const d=D*p.length/tl;out.push({...o,t:p,a:+t0.toFixed(2),b:+(t0+d).toFixed(2)});t0+=d});c++});tx=tx.filter(o=>!o.t).concat(out);done(c+' caption dipecah')}),
+    btn('⧉ Gabung caption pendek','',()=>{const N=Math.max(1,parseInt(nw.value)||4);snap();const out=[];let c=0;caps().forEach(o=>{const l=out[out.length-1];if(l&&wc(l.t).length+wc(o.t).length<=N&&o.a-l.b<.5){l.t+=' '+o.t;l.b=Math.max(l.b,o.b);c++}else out.push({...o})});tx=tx.filter(o=>!o.t).concat(out);done(c+' caption digabung')}));
+  const sh=inp('Detik (mis. -0.3 atau 0.5)','0.3');sh.inputMode='decimal';
+  b.append(lab('Geser waktu semua caption'),sh,btn('Geser','',()=>{const d=parseFloat(String(sh.value).replace(',','.'));if(!d)return msg('Isi detik, mis. 0.3');snap();caps().forEach(o=>{const D=o.b-o.a;o.a=Math.max(0,+(o.a+d).toFixed(2));o.b=+(o.a+D).toFixed(2)});done('Digeser '+d+' detik')}),
+    btn('🗑 Hapus semua caption','',()=>{if(!confirm('Hapus semua caption?'))return;snap();tx=tx.filter(o=>!o.t);done('Caption dihapus')}))})}
+window.ccBulk=bulk;
 ccAct.capMenu=menu;ccAct.applyCapStyle=applyStyle;
 $('#acm').onclick=menu;
 })();

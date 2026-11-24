@@ -231,3 +231,6 @@ Tombol **🪄 Magic resize** (panel Rasio / sheet Rasio di HP): ubah ukuran proy
 
 ## Kolase
 Tombol **▦ Kolase** (panel Rasio / sheet Rasio di HP): pilih tata letak (2 atas-bawah, 2 kiri-kanan, 3 baris, 2×2, 1 besar + 2), lalu pilih foto/video sesuai urutan slot. Media dipasang sebagai overlay yang bisa digeser/diubah ukurannya; klip utama jadi latar.
+
+## Edit caption massal
+Menu Caption otomatis → **🛠 Edit massal**: cari-ganti kata, ubah huruf (KAPITAL / kecil / Huruf Awal / Kalimat), pecah caption panjang atau gabung yang pendek (kata per baris), geser waktu semua caption, hapus semua.
