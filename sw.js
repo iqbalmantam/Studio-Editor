@@ -1,6 +1,6 @@
 // Service worker Mantam Studio Editor: cache offline.
 // Naikkan VER setiap rilis agar cache lama dibuang.
-const VER='v2',CORE='mse-core-'+VER,RUN='mse-run-'+VER;
+const VER='v3',CORE='mse-core-'+VER,RUN='mse-run-'+VER;
 const PRE=['./','./index.html','./manifest.webmanifest','./vendor/mp4-muxer.min.js','./icons/icon-192.png','./icons/icon-512.png','./icons/maskable-512.png','./icons/apple-touch-icon.png'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CORE).then(c=>Promise.all(PRE.map(u=>c.add(u).catch(()=>0)))).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k.startsWith('mse-')&&k!==CORE&&k!==RUN).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
