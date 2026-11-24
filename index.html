@@ -3017,9 +3017,9 @@ async function getPipe(model){
   if(pipe&&pipeM===model)return pipe;
   let tf;try{tf=await import(TF)}catch{throw new Error('Butuh internet untuk mengunduh model pertama kali')}
   const dev=navigator.gpu?'webgpu':'wasm';let last=0;
-  const mk=d=>tf.pipeline('automatic-speech-recognition',model,{device:d,dtype:d==='webgpu'?{encoder_model:'fp32',decoder_model_merged:'q4'}:'q8',progress_callback:p=>{if(p&&p.status==='progress'&&p.total){const pc=Math.round(p.loaded/p.total*100);if(pc!==last&&pc%5===0){last=pc;msg('Mengunduh model… '+pc+'%')}}}});
+  const mk=d=>tf.pipeline('automatic-speech-recognition',model,{device:d,dtype:d==='webgpu'?{encoder_model:'fp32',decoder_model_merged:'q4'}:'q8',progress_callback:p=>{if(p&&(p.status==='ready'))msg('Model siap. Mengenali ucapan…');else if(p&&p.status==='done'&&last>=95)msg('Menyiapkan model… (jangan tutup halaman)');if(p&&p.status==='progress'&&p.total){const pc=Math.round(p.loaded/p.total*100);if(pc!==last&&pc%5===0){last=pc;msg('Mengunduh model… '+pc+'%')}}}});
   try{pipe=await mk(dev)}catch(e){if(dev==='webgpu'){pipe=await mk('wasm')}else throw e}
-  pipeM=model;return pipe}
+  pipeM=model;msg('Model siap. Mengenali ucapan…');return pipe}
 // audio klip -> timeline mono 16 kHz
 async function tlAudio(){
   const SR=16000,tot=total(),out=new Float32Array(Math.ceil(tot*SR)+1),cache=new Map();
