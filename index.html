@@ -3016,9 +3016,11 @@ async function getPipe(model){
   if(window.__wh)return window.__wh;
   if(pipe&&pipeM===model)return pipe;
   let tf;try{tf=await import(TF)}catch{throw new Error('Butuh internet untuk mengunduh model pertama kali')}
-  const dev=navigator.gpu?'webgpu':'wasm';let last=0;
+  const mob=/android|iphone|ipad|mobile/i.test(navigator.userAgent),dev=(navigator.gpu&&!mob)?'webgpu':'wasm';let last=0;
   const mk=d=>tf.pipeline('automatic-speech-recognition',model,{device:d,dtype:d==='webgpu'?{encoder_model:'fp32',decoder_model_merged:'q4'}:'q8',progress_callback:p=>{if(p&&(p.status==='ready'))msg('Model siap. Mengenali ucapan…');else if(p&&p.status==='done'&&last>=95)msg('Menyiapkan model… (jangan tutup halaman)');if(p&&p.status==='progress'&&p.total){const pc=Math.round(p.loaded/p.total*100);if(pc!==last&&pc%5===0){last=pc;msg('Mengunduh model… '+pc+'%')}}}});
-  try{pipe=await mk(dev)}catch(e){if(dev==='webgpu'){pipe=await mk('wasm')}else throw e}
+  const t0=Date.now(),tk=setInterval(()=>msg('Menyiapkan model… '+Math.round((Date.now()-t0)/1000)+' dtk (pertama kali agak lama)'),1500);
+  const lim=(pr,ms)=>Promise.race([pr,new Promise((_,j)=>setTimeout(()=>j(new Error('waktu habis memuat model')),ms))]);
+  try{try{pipe=await lim(mk(dev),dev==='webgpu'?60000:240000)}catch(e){if(dev==='webgpu'){msg('WebGPU bermasalah, beralih ke mode WASM…');pipe=await lim(mk('wasm'),240000)}else throw e}}finally{clearInterval(tk)}
   pipeM=model;msg('Model siap. Mengenali ucapan…');return pipe}
 // audio klip -> timeline mono 16 kHz
 async function tlAudio(){
@@ -3036,7 +3038,7 @@ $('#acw').onclick=async()=>{if(busy)return;if(!segs.length)return msg('Tambah kl
     msg('Memuat model Whisper…');const p=await getPipe(sm.value);
     msg('Mengenali ucapan… (bisa beberapa menit)');
     const lang=sl.value,opt={return_timestamps:true,chunk_length_s:30,stride_length_s:5,task:'transcribe'};if(lang)opt.language=lang;
-    const r=await p(au,opt);const ch=(r&&r.chunks)||(r&&r.text?[{timestamp:[0,total()],text:r.text}]:[]);
+    const t1=Date.now(),tk2=setInterval(()=>msg('Mengenali ucapan… '+Math.round((Date.now()-t1)/1000)+' dtk'),1500);let r;try{r=await p(au,opt)}finally{clearInterval(tk2)}const ch=(r&&r.chunks)||(r&&r.text?[{timestamp:[0,total()],text:r.text}]:[]);
     const tot=total(),items=[];
     for(const c of ch){const a0=c.timestamp&&c.timestamp[0]!=null?c.timestamp[0]:0,b0=c.timestamp&&c.timestamp[1]!=null?c.timestamp[1]:Math.min(tot,a0+3),txt=(c.text||'').trim();
       if(!txt||/^[\[(♪\s.]+$/.test(txt)||/^[\[(].*[\])]$/.test(txt)||/^[♪\s]*$/.test(txt))continue;
