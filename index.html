@@ -3033,19 +3033,44 @@ async function tlAudio(){
 function split(text,a,b){const t=text.trim().replace(/\s+/g,' ');if(t.length<=44)return[[a,b,t]];
   const words=t.split(' '),lines=[];let cur='';for(const w of words){if((cur+' '+w).trim().length>38&&cur){lines.push(cur);cur=w}else cur=(cur+' '+w).trim()}if(cur)lines.push(cur);
   const tl=lines.reduce((s,l)=>s+l.length,0),r=[];let t0=a;for(const l of lines){const t1=t0+(b-a)*l.length/tl;r.push([t0,t1,l]);t0=t1}return r}
+function regions(au,SR){
+  const F=Math.round(SR*.02),nf=Math.floor(au.length/F),r=new Float32Array(nf);
+  for(let f=0;f<nf;f++){let e=0;for(let i=0;i<F;i+=2){const v=au[f*F+i];e+=v*v}r[f]=Math.sqrt(e/(F/2))}
+  const srt=[...r].sort((a,b)=>a-b),p95=srt[Math.floor(nf*.95)]||0,thr=Math.max(.006,p95*.07);
+  const R=[];let st=-1,last=-1;const gap=Math.round(.6/.02);
+  for(let f=0;f<nf;f++){if(r[f]>thr){if(st<0)st=f;last=f}else if(st>=0&&f-last>gap){R.push([st,last+1]);st=-1}}
+  if(st>=0)R.push([st,last+1]);
+  const pad=Math.round(.25/.02),out=[];
+  for(const[a,b]of R){const a0=Math.max(0,a-pad),b0=Math.min(nf,b+pad);if(out.length&&a0<=out[out.length-1][1])out[out.length-1][1]=b0;else out.push([a0,b0])}
+  return out.map(([a,b])=>[a*.02,b*.02])}
+// kemas wilayah bersuara jadi jendela <=28 dtk; pemetaan balik ke timeline
+function pack(au,SR,reg){const W=[];let cur=null;const GAP=Math.round(.3*SR);
+  const flush=()=>{if(cur){W.push(cur);cur=null}};
+  for(const[a,b]of reg){let a0=a;while(a0<b-.01){const len=Math.min(b-a0,28);
+    if(cur&&cur.len+len+.3>28)flush();
+    if(!cur)cur={parts:[],len:0};
+    cur.parts.push({tl:a0,w:cur.len,d:len});cur.len+=len+.3;a0+=len}}
+  flush();
+  return W.map(w=>{const buf=new Float32Array(Math.ceil(w.len*SR)+1);for(const p of w.parts){const s0=Math.floor(p.tl*SR),n=Math.min(Math.floor(p.d*SR),au.length-s0);buf.set(au.subarray(s0,s0+n),Math.floor(p.w*SR))}return{buf,parts:w.parts}})}
+const toTl=(w,t,end)=>{if(end){let b=w.parts[0];for(const p of w.parts)if(t>=p.w)b=p;return b.tl+Math.max(0,Math.min(t-b.w,b.d))}for(const p of w.parts)if(t<p.w+p.d)return p.tl+Math.max(0,t-p.w);const q=w.parts[w.parts.length-1];return q.tl+q.d};
 $('#acw').onclick=async()=>{if(busy)return;if(!segs.length)return msg('Tambah klip dulu');if(playing)stop();busy=true;
-  try{msg('Menyiapkan audio…');const au=await tlAudio();let mx=0;for(let i=0;i<au.length;i+=50)mx=Math.max(mx,Math.abs(au[i]));if(mx<.005)throw new Error('Klip tidak punya suara');
+  try{msg('Menyiapkan audio…');const SR=16000,au=await tlAudio();let mx=0;for(let i=0;i<au.length;i+=50)mx=Math.max(mx,Math.abs(au[i]));if(mx<.005)throw new Error('Klip tidak punya suara');
+    const reg=regions(au,SR);if(!reg.length)throw new Error('Tidak ada ucapan yang terdeteksi');
+    const wins=pack(au,SR,reg),spoken=reg.reduce((t,r)=>t+r[1]-r[0],0),totS=au.length/SR;
     msg('Memuat model Whisper…');const p=await getPipe(sm.value);
-    msg('Mengenali ucapan… (bisa beberapa menit)');
     const lang=sl.value,opt={return_timestamps:true,chunk_length_s:30,stride_length_s:5,task:'transcribe'};if(lang)opt.language=lang;
-    const t1=Date.now(),tk2=setInterval(()=>msg('Mengenali ucapan… '+Math.round((Date.now()-t1)/1000)+' dtk'),1500);let r;try{r=await p(au,opt)}finally{clearInterval(tk2)}const ch=(r&&r.chunks)||(r&&r.text?[{timestamp:[0,total()],text:r.text}]:[]);
-    const tot=total(),items=[];
-    for(const c of ch){const a0=c.timestamp&&c.timestamp[0]!=null?c.timestamp[0]:0,b0=c.timestamp&&c.timestamp[1]!=null?c.timestamp[1]:Math.min(tot,a0+3),txt=(c.text||'').trim();
-      if(!txt||/^[\[(♪\s.]+$/.test(txt)||/^[\[(].*[\])]$/.test(txt)||/^[♪\s]*$/.test(txt))continue;
-      for(const[a,b,t]of split(txt,Math.max(0,a0),Math.min(tot,Math.max(b0,a0+.8))))if(a<tot)items.push({a:+a.toFixed(2),b:+Math.min(tot,Math.max(b,a+.5)).toFixed(2),t,x:50,y:82,z:1,c:'#ffffff',ai:1})}
+    const tot=total(),items=[];const t1=Date.now();let k=0;
+    const tk=setInterval(()=>msg('Mengenali ucapan… bagian '+Math.min(k+1,wins.length)+'/'+wins.length+' ('+Math.round((Date.now()-t1)/1000)+' dtk)'),1000);
+    try{for(k=0;k<wins.length;k++){const w=wins[k],r=await p(w.buf,opt),ch=(r&&r.chunks)||(r&&r.text?[{timestamp:[0,w.len||28],text:r.text}]:[]);
+      for(const c of ch){const a0=c.timestamp&&c.timestamp[0]!=null?c.timestamp[0]:0,b0=c.timestamp&&c.timestamp[1]!=null?c.timestamp[1]:a0+3,txt=(c.text||'').trim();
+        if(!txt||/^[\[(♪\s.]+$/.test(txt)||/^[\[(].*[\])]$/.test(txt)||/^[♪\s]*$/.test(txt))continue;
+        const A=toTl(w,a0,false),B=Math.max(toTl(w,b0,true),A+.8);
+        for(const[a,b,t]of split(txt,Math.max(0,A),Math.min(tot,B)))if(a<tot)items.push({a:+a.toFixed(2),b:+Math.min(tot,Math.max(b,a+.5)).toFixed(2),t,x:50,y:82,z:1,c:'#ffffff',ai:1})}}}
+    finally{clearInterval(tk)}
     if(!items.length)throw new Error('Tidak ada ucapan yang terdeteksi');
+    items.sort((a,b)=>a.a-b.a);for(let i=1;i<items.length;i++)if(items[i].a<items[i-1].b)items[i-1].b=Math.max(items[i-1].a+.3,items[i].a);
     snap();for(let i=tx.length-1;i>=0;i--)if(tx[i].ai)tx.splice(i,1);items.forEach(o=>tx.push(o));rl();draw();if(window.tl)tl();autosave();
-    msg(items.length+' caption dibuat. Rapikan di tab Teks.')
+    msg(items.length+' caption dibuat (bagian diam '+Math.round((1-spoken/totS)*100)+'% dilewati). Rapikan di tab Teks.')
   }catch(e){msg('Caption AI gagal: '+(e&&e.message||e))}finally{busy=false}};
 window.__whSplit=split;
 })();
