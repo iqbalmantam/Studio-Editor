@@ -785,7 +785,7 @@ html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .
 <label>Volume VO<input type="range" id="vvl" min="0" max="100" value="100" title="Volume voice-over"></label>
 </div>
 <div class="tp" id="t4">
-<div class="g"><button class="b" id="rs">Rasio 9:16</button><button class="b" id="mgz">🪄 Magic resize</button><button class="b" id="ft">Layar: Fit</button><button class="b" id="wm">🖼 Watermark</button></div>
+<div class="g"><button class="b" id="rs">Rasio 9:16</button><button class="b" id="mgz">🪄 Magic resize</button><button class="b" id="kol">▦ Kolase</button><button class="b" id="ft">Layar: Fit</button><button class="b" id="wm">🖼 Watermark</button></div>
 <select id="fl"><option value="none">Filter: Normal</option><option value="sepia(.4) saturate(1.3)">Hangat</option><option value="hue-rotate(15deg) saturate(1.2) brightness(1.05)">Dingin</option><option value="grayscale(1)">Hitam putih</option><option value="saturate(1.6) contrast(1.1)">Vivid</option><option value="sepia(.7) contrast(.9)">Vintage</option><option value="contrast(1.3) brightness(.9) saturate(1.2)">Dramatis</option><option value="sepia(.2) contrast(1.2) saturate(.9) hue-rotate(-10deg)">Sinematik</option><option value="brightness(1.15) saturate(1.1)">Cerah</option><option value="blur(3px)">Blur</option><option value="invert(1)">Negatif</option><option value="grayscale(1) contrast(1.4) brightness(.9)">Noir</option><option value="contrast(.85) brightness(1.1) saturate(.8) sepia(.1)">Pudar (matte)</option><option value="hue-rotate(290deg) saturate(1.8) contrast(1.15)">Neon / Cyber</option><option value="sepia(.25) hue-rotate(-12deg) saturate(1.5) contrast(1.1)">Teal & Orange</option><option value="sepia(.35) saturate(1.5) hue-rotate(-18deg) brightness(1.05)">Senja</option><option value="brightness(1.15) saturate(.7) contrast(.9)">Pastel</option><option value="contrast(1.4) saturate(1.4) brightness(1.02)">HDR</option><option value="sepia(.25) contrast(1.1) brightness(1.1) saturate(1.3)">Polaroid</option><option value="sepia(.5) contrast(1.15) brightness(.95) saturate(.8)">Film lama</option><option value="brightness(1.1) contrast(1.05) saturate(1.3)">Siang cerah</option><option value="brightness(.75) contrast(1.2) saturate(.8) hue-rotate(10deg)">Malam</option><option value="hue-rotate(-40deg) saturate(1.4) contrast(1.05)">Hijau hutan</option><option value="hue-rotate(250deg) saturate(1.3) brightness(1.05)">Ungu mimpi</option><option value="contrast(1.6) saturate(1.1)">Kontras tinggi</option><option value="brightness(1.1) contrast(.9) blur(1px)">Lembut (glow)</option></select>
 <div class="sh">🎯 Berlaku untuk</div><div class="seg" id="scp"><button data-s="all" class="on">Semua klip</button><button data-s="clip">Klip terpilih</button></div><div class="mu" id="scn"></div><button class="b" id="scr" hidden>↺ Samakan dengan pengaturan umum</button>
 <select id="fd"><option value="0">Transisi: Mati</option><option value="1">Transisi: Fade</option><option value="2">Transisi: Zoom masuk</option><option value="6">Transisi: Zoom keluar</option><option value="3">Transisi: Geser samping</option><option value="4">Transisi: Naik</option><option value="5">Transisi: Putar</option><option value="7">Transisi: Blur</option><option value="8">Transisi: Flash putih</option><option value="9">Transisi: Wipe</option></select>
@@ -2131,7 +2131,7 @@ function openMove(){openSheet('Pindahkan klip',b=>{b.append(row(chip('◀ Ke kir
 function openMaskFor(selId){const s=$(selId);if(!s)return;openSheet('Mask',(b,ad)=>{const lab=s.closest('label');ad(lab);const p=lab&&lab.nextElementSibling;if(p&&p.classList.contains('cc-mk'))ad(p)})}
 function openRatio(){openSheet('Rasio layar',b=>{const r=document.createElement('div');r.className='cc-rtrow';
 R.forEach((_,i)=>{const w=R[i][0],h=R[i][1],k=Math.max(w,h),t=document.createElement('button');t.type='button';t.className='cc-rt'+(ri===i?' on':'');
-t.innerHTML='<span><i style="width:'+Math.round(26*w/k)+'px;height:'+Math.round(26*h/k)+'px"></i></span><b>'+R[i][2]+'</b>';t.onclick=()=>{snap();setR(i);draw();openRatio()};r.append(t)});b.append(r);if(window.ccAct&&ccAct.openMagic){const mb=document.createElement('button');mb.type='button';mb.className='chip';mb.textContent='🪄 Magic resize (sesuaikan semua)';mb.onclick=()=>ccAct.openMagic();const mr=document.createElement('div');mr.className='cc-chips';mr.append(mb);b.append(mr)}})}
+t.innerHTML='<span><i style="width:'+Math.round(26*w/k)+'px;height:'+Math.round(26*h/k)+'px"></i></span><b>'+R[i][2]+'</b>';t.onclick=()=>{snap();setR(i);draw();openRatio()};r.append(t)});b.append(r);if(window.ccAct&&ccAct.openMagic){const mb=document.createElement('button');mb.type='button';mb.className='chip';mb.textContent='🪄 Magic resize (sesuaikan semua)';mb.onclick=()=>ccAct.openMagic();const mr=document.createElement('div');mr.className='cc-chips';mr.append(mb);const kb=document.createElement('button');kb.type='button';kb.className='chip';kb.textContent='▦ Kolase';kb.onclick=()=>ccAct.openCollage();mr.append(kb);b.append(mr)}})}
 function editText(){const o=tx[selx];if(!o)return msg('Pilih teks dulu');
 openSheet('Edit teks',b=>{const inp=document.createElement('input');inp.type='text';inp.className='cc-ti';inp.value=o.t||'';inp.placeholder='Tulis teks...';inp.addEventListener('pointerdown',()=>snap(),{once:true});inp.oninput=()=>{const q=tx[selx];if(q){q.t=inp.value;draw();autosave()}};b.append(inp);
 b.append(row(...[['Kecil',.7],['Sedang',1],['Besar',1.4],['Raksasa',2.5]].map(([n,z])=>chip(n,()=>{snap();o.z=z;draw();autosave();editText()},o.z===z))));
@@ -3235,6 +3235,26 @@ ccAct.openMagic=open;
 $('#mgz').onclick=open;
 try{const M=window.MODES;}catch{}
 window.ccMagic=apply;
+})();
+</script>
+<script id="cc-m43-collage">
+(()=>{
+const LY=[['2 atas-bawah',[[50,25,100,50],[50,75,100,50]]],['2 kiri-kanan',[[25,50,50,100],[75,50,50,100]]],['3 baris',[[50,16.7,100,33.3],[50,50,100,33.3],[50,83.3,100,33.4]]],['2×2',[[25,25,50,50],[75,25,50,50],[25,75,50,50],[75,75,50,50]]],['1 besar + 2',[[50,33.3,100,66.6],[25,83.3,50,33.4],[75,83.3,50,33.4]]]];
+const chip=(t,fn,on)=>{const b=document.createElement('button');b.type='button';b.className='chip'+(on?' on':'');b.textContent=t;b.onclick=fn;return b};
+let li=0;
+const inp=document.createElement('input');inp.type='file';inp.accept='video/*,image/*';inp.multiple=true;inp.hidden=true;document.body.append(inp);
+const wait=(n0)=>new Promise(r=>{const t0=Date.now(),iv=setInterval(()=>{if(ovs.length>n0||Date.now()-t0>6000){clearInterval(iv);r(ovs.length>n0)}},100)});
+function place(o,[cx,cy,w,h],tot){const e=o.el,vw=e.videoWidth||e.width||1,vh=e.videoHeight||e.height||1,ar=vw/vh,bw=W*w/100-6,bh=H*h/100-6,ww=Math.min(bw,bh*ar);o.s=Math.max(5,Math.min(100,ww/W*100));o.x=cx;o.y=cy;o.a=0;if(o.kind!='e'&&o.kind!='i'){o.d=tot?Math.min(o.d,tot):o.d}else o.d=tot||5;o.op=100;o.rot=0;delete o.kf}
+inp.onchange=async e=>{const fs=[...e.target.files];e.target.value='';const L=LY[li][1];if(!fs.length)return;if(playing)stop();
+  const tot=segs.length?total():0;let n=0;
+  for(let i=0;i<Math.min(fs.length,L.length);i++){const f=fs[i],img=f.type.startsWith('image/'),tg=$(img?'#fg':'#fq'),n0=ovs.length;tg.onchange({target:{files:[f],value:''}});if(!await wait(n0))continue;const o=ovs[ovs.length-1];await new Promise(r=>setTimeout(r,150));place(o,L[i],tot);n++}
+  selOv(ovs.length-1);draw();autosave();try{so()}catch{}
+  msg('Kolase '+LY[li][0]+': '+n+' media dipasang'+(fs.length>L.length?' ('+(fs.length-L.length)+' lebih diabaikan)':'')+(n<L.length?' · slot kosong: '+(L.length-n):''))};
+function open(){ccAct.openSheet('Kolase',b=>{
+  const t=document.createElement('div');t.className='mu';t.textContent='Pilih tata letak, lalu pilih foto/video sesuai urutan slot. Klip utama jadi latar.';b.append(t);
+  const r=document.createElement('div');r.className='cc-chips';const mk=()=>{r.innerHTML='';LY.forEach(([n],i)=>r.append(chip(n,()=>{li=i;mk()},i===li)))};mk();
+  const go=document.createElement('button');go.type='button';go.className='b p';go.textContent='Pilih media';go.onclick=()=>{ccAct.closeSheet();inp.click()};b.append(r,go)})}
+ccAct.openCollage=open;$('#kol').onclick=open;window.ccCollageFiles=(fs,i)=>{li=i||0;inp.onchange({target:{files:fs,value:''}})};
 })();
 </script>
 </body></html>

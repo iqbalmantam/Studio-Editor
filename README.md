@@ -228,3 +228,6 @@ Menu **Caption otomatis** kini satu pintu: pilih bahasa dan model, mulai AI (ata
 
 ## Magic resize
 Tombol **🪄 Magic resize** (panel Rasio / sheet Rasio di HP): ubah ukuran proyek ke 9:16, 16:9, 1:1, 4:5, 5:4 (+HD/4K) sekaligus. Klip bisa di-Fit, Isi layar, Blur latar, atau Reframe AI per klip. Ukuran stiker disesuaikan otomatis; bingkai dihapus (buat ulang sesuai rasio baru).
+
+## Kolase
+Tombol **▦ Kolase** (panel Rasio / sheet Rasio di HP): pilih tata letak (2 atas-bawah, 2 kiri-kanan, 3 baris, 2×2, 1 besar + 2), lalu pilih foto/video sesuai urutan slot. Media dipasang sebagai overlay yang bisa digeser/diubah ukurannya; klip utama jadi latar.
