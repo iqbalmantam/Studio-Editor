@@ -221,3 +221,5 @@ Timeline: **Magnet** (blok teks, overlay, dan trek audio menempel ke playhead, a
 Pengeditan cerdas (tanpa server): **Reframe otomatis** (bingkai mengikuti subjek memakai model segmentasi orang lokal, untuk mengubah 16:9 jadi 9:16) dan **Hapus bagian diam** (klip dipotong otomatis di jeda suara).
 
 **Caption AI (Whisper):** transkripsi ucapan di browser memakai Whisper (transformers.js). Model (tiny ~40 MB atau base ~75 MB) diunduh sekali dari internet lalu tersimpan di cache browser. Memakai WebGPU bila ada, jika tidak WASM. Hasilnya jadi caption yang bisa diedit di tab Teks.
+
+Menu **Caption otomatis** kini satu pintu: pilih bahasa dan model, mulai AI (atau metode mikrofon sebagai cadangan), impor SRT, dan terapkan **gaya caption** sekali tekan (Klasik, Kuning tebal, Kotak hitam/kuning, Neon, Hijau tebal, Elegan, Minimal, Komik) ke semua teks.

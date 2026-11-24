@@ -769,7 +769,7 @@ html.cc-web:not(:has(#tl[data-sel="1"],#otl[data-sel="1"],#ttl[data-sel="1"])) .
 <div class="mu">Geser playhead ke posisi yang diinginkan, lalu ketuk Split atau Trim. Seret ujung klip di timeline untuk trim. Foto juga bisa ditambahkan lewat + Klip; atur lamanya dengan Durasi foto.</div>
 </div>
 <div class="tp" id="t2">
-<div class="g"><button class="b" id="at">Aa Teks</button><button class="b p" id="ac">💬 Auto-caption</button><button class="b p" id="acw">🧠 Caption AI (Whisper)</button><select id="wsl" class="b" title="Bahasa ucapan"><option value="indonesian">Indonesia</option><option value="english">Inggris</option><option value="">Deteksi otomatis</option></select><select id="wsm" class="b" title="Model"><option value="Xenova/whisper-tiny">Cepat (~40 MB)</option><option value="Xenova/whisper-base">Akurat (~75 MB)</option></select><button class="b" id="stk">😀 Stiker</button><button class="b" id="srt">⬇ .srt</button><select id="lg" title="Bahasa caption"><option value="id-ID">Bahasa Indonesia</option><option value="en-US">English</option></select></div>
+<div class="g"><button class="b" id="at">Aa Teks</button><button class="b p" id="ac">💬 Auto-caption</button><button class="b p" id="acm">💬 Caption otomatis…</button><button class="b p" id="acw">🧠 Caption AI (Whisper)</button><select id="wsl" class="b" title="Bahasa ucapan"><option value="indonesian">Indonesia</option><option value="english">Inggris</option><option value="">Deteksi otomatis</option></select><select id="wsm" class="b" title="Model"><option value="Xenova/whisper-tiny">Cepat (~40 MB)</option><option value="Xenova/whisper-base">Akurat (~75 MB)</option></select><button class="b" id="stk">😀 Stiker</button><button class="b" id="srt">⬇ .srt</button><select id="lg" title="Bahasa caption"><option value="id-ID">Bahasa Indonesia</option><option value="en-US">English</option></select></div>
 <div><div id="tx"></div><div id="nt" class="mu">Teks dan caption muncul di sini. Kolom kanan: waktu mulai dan selesai (detik). Seret teks langsung di layar preview untuk mengatur posisi bebas.</div></div>
 <div class="mu">Auto-caption memakai pengenalan suara browser: video diputar dan suaranya ditangkap lewat mikrofon, jadi nyalakan volume dan jangan pakai headset. Hasilnya bisa diedit.</div>
 </div>
@@ -2148,7 +2148,7 @@ function openFx(){openSheet('Efek visual',(b,ad)=>{ad($('#fxs'));const v=$('#fxv
 function openFilter(){openSheet('Filter',(b,ad)=>{b.append(selChips('#fl'));ad($('#scp'));ad($('#scn'));ad($('#scr'))})}
 function openTrans(){openSheet('Transisi',b=>{b.append(selChips('#fd'));b.append(row(chip('Atur per sambungan klip',()=>{if(!guard())return msg('Pilih klip di timeline dulu');ccPick('clip');openSheet('Animasi dan fade',(bb,a2)=>{a2($('#cc-an'));a2($('#cc-af'))})})))})}
 function openAdj(){openSheet('Penyesuaian warna',(b,ad)=>{['#br','#ct','#sa'].forEach(i=>{const e=$(i);ad(e&&e.closest('label'))});ad($('#crs'))})}
-function openCap(){openSheet('Auto caption',(b,ad)=>{ad($('#lg'));b.append(row(chip('Caption AI (Whisper)',()=>{closeSheet();$('#acw').click()}),chip('Mulai auto-caption',()=>{closeSheet();$('#ac').click()}),chip('Ekspor .srt',click('#srt'))));const n=document.createElement('div');n.className='mu';n.textContent='Auto-caption memakai pengenalan suara browser: video diputar dan suaranya ditangkap lewat mikrofon, jadi nyalakan volume dan jangan pakai headset. Hasilnya bisa diedit.';b.append(n)})}
+function openCap(){if(window.ccAct&&ccAct.capMenu)return ccAct.capMenu();openSheet('Auto caption',(b,ad)=>{ad($('#lg'));b.append(row(chip('Caption AI (Whisper)',()=>{closeSheet();$('#acw').click()}),chip('Mulai auto-caption',()=>{closeSheet();$('#ac').click()}),chip('Ekspor .srt',click('#srt'))));const n=document.createElement('div');n.className='mu';n.textContent='Auto-caption memakai pengenalan suara browser: video diputar dan suaranya ditangkap lewat mikrofon, jadi nyalakan volume dan jangan pakai headset. Hasilnya bisa diedit.';b.append(n)})}
 function openStk(){openSheet('Stiker',(b,ad)=>{ad($('#pem'))})}
 Object.assign(IC,{rev:'<path d="M11 6 4 12l7 6zM20 6l-7 6 7 6z"/>'});Object.assign(IC,{fxs:'<path d="M12 3a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V6a3 3 0 0 0-3-3zM6 11a6 6 0 0 0 12 0M12 17v4"/>'});Object.assign(IC,{stab:'<rect x="4" y="6" width="16" height="12" rx="2"/><path d="M8 10v-1h1M16 10v-1h-1M8 14v1h1M16 14v1h-1"/>'});Object.assign(IC,{dck:'<path d="M3 12h3l3-7 4 14 3-7h5"/>'});Object.assign(IC,{mag:'<path d="M6 3v8a6 6 0 0 0 12 0V3h-4v8a2 2 0 0 1-4 0V3zM6 7h4M14 7h4"/>',msl:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/><path d="m5 7 2 2 3-4"/>'});Object.assign(IC,{rfm:'<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/><circle cx="12" cy="12" r="3"/>',slc:'<path d="M3 12h4M17 12h4M9 8v8M15 8v8"/>'});Object.assign(IC,{tpl:'<rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/>'});Object.assign(IC,{tts:'<path d="M4 6h10M9 6v12M17 9v6M20 7v10"/>',ext:'<path d="M4 6h16v12H4z"/><path d="M12 9v6M9 12l3 3 3-3"/>',snd:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',rec:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/>',trk:'<path d="M3 8h18M3 12h12M3 16h8"/>',dwn:'<path d="M12 4v11M7 11l5 5 5-5M5 20h14"/>'});
 function openTrk(){openSheet('Trek audio terpilih',(b,ad)=>{const ga=()=>aus[sela];if(ga())b.append(slider('Fade masuk (satuan 0,1 dtk)',0,100,Math.round((ga().fi||0)*10),q=>{const x=ga();if(x){q?x.fi=q/10:delete x.fi}},()=>snap()),slider('Fade keluar (satuan 0,1 dtk)',0,100,Math.round((ga().fo||0)*10),q=>{const x=ga();if(x){q?x.fo=q/10:delete x.fo}},()=>snap()));b.append(row(chip('Volume',click('#avl')),chip('−0,5 dtk',click('#anl')),chip('+0,5 dtk',click('#anr')),chip('Ke playhead',click('#apl'))),row(chip('Split trek',click('#asp')),chip('Trim awal',click('#ati')),chip('Trim akhir',click('#ato')),chip('Hapus trek',()=>{click('#adl')();closeSheet()})))})}
@@ -3046,6 +3046,46 @@ $('#acw').onclick=async()=>{if(busy)return;if(!segs.length)return msg('Tambah kl
     msg(items.length+' caption dibuat. Rapikan di tab Teks.')
   }catch(e){msg('Caption AI gagal: '+(e&&e.message||e))}finally{busy=false}};
 window.__whSplit=split;
+})();
+</script>
+<script id="cc-m39-capmenu">
+(()=>{
+const $=s=>document.querySelector(s);
+const st=document.createElement('style');st.textContent='#ac,#acw,#wsl,#wsm{display:none!important}.cc-cs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:6px 0 10px}.cc-cs button{border:1px solid rgba(255,255,255,.12);border-radius:12px;background:#15171d;color:#fff;padding:12px 4px;cursor:pointer;min-height:58px;display:flex;align-items:center;justify-content:center}.cc-cs span{font-size:15px;line-height:1.1;text-align:center;padding:2px 6px;border-radius:4px}.cc-cm select{width:100%;padding:10px;border-radius:10px;margin:4px 0 8px;background:#1d1f26;color:inherit;border:1px solid rgba(255,255,255,.12);font:inherit}.cc-cm .cc-lb{font-size:12px;opacity:.7;margin-top:6px}';document.head.append(st);
+const STY=[
+{n:'Klasik',c:'#ffffff',f:0,sw:1,sc:'#000000',sh:1,z:1,s:0,bg:null},
+{n:'Kuning tebal',c:'#ffd400',f:3,sw:1.6,sc:'#000000',sh:1,z:1.1,s:0,bg:null},
+{n:'Kotak hitam',c:'#ffffff',f:0,sw:0,sh:0,z:1,s:0,bg:'#000000',ba:.7},
+{n:'Kotak kuning',c:'#111111',f:3,sw:0,sh:0,z:1,s:0,bg:'#ffd400',ba:1},
+{n:'Neon',c:'#22f3ff',f:0,sw:0,sh:0,z:1.05,s:2,bg:null},
+{n:'Hijau tebal',c:'#7CFC00',f:3,sw:1.6,sc:'#000000',sh:1,z:1.1,s:0,bg:null},
+{n:'Elegan',c:'#ffffff',f:1,sw:.5,sc:'#000000',sh:1.5,z:1,s:0,bg:null},
+{n:'Minimal',c:'#ffffff',f:0,sw:0,sh:2,z:.95,s:0,bg:null},
+{n:'Komik',c:'#ffffff',f:4,sw:1.8,sc:'#e11d48',sh:1,z:1.1,s:0,bg:null}];
+const FF=['system-ui,sans-serif','Georgia,serif','ui-monospace,monospace','Impact,sans-serif','"Segoe Script","Comic Sans MS",cursive'];
+function applyStyle(S,only){
+  const L=tx.filter((o,i)=>o.t&&(only===undefined||i===only));if(!L.length)return msg('Belum ada teks. Buat caption dulu.');
+  snap();L.forEach(o=>{o.c=S.c;o.f=S.f;o.z=S.z;o.s=S.s;o.sw=S.sw;o.sh=S.sh;if(S.sc)o.sc=S.sc;else delete o.sc;if(S.bg){o.bg=S.bg;o.ba=S.ba??.6}else{delete o.bg;delete o.ba}});
+  if(window.rl)rl();draw();autosave();msg('Gaya "'+S.n+'" diterapkan ke '+L.length+' teks')}
+function tile(S){const b=document.createElement('button');b.type='button';const sp=document.createElement('span');sp.textContent='Contoh teks';
+  sp.style.cssText='font-family:'+FF[S.f]+';color:'+S.c+';font-weight:700;'+(S.bg?'background:'+S.bg+(S.ba<1?'cc':'')+';':'')+(S.sw>0?'-webkit-text-stroke:'+(S.sw*.8)+'px '+(S.sc||'#000')+';paint-order:stroke fill;':'')+(S.s===2?'text-shadow:0 0 8px '+S.c+';':S.sh?'text-shadow:0 1px '+(S.sh*3)+'px #000;':'');
+  b.append(sp);b.onclick=()=>applyStyle(S);const l=document.createElement('div');return[b,sp]}
+function sel(src,opts){const e=document.createElement('select');[...src.options].forEach(o=>{const n=document.createElement('option');n.value=o.value;n.textContent=o.textContent;e.append(n)});e.value=src.value;e.onchange=()=>{src.value=e.value;src.dispatchEvent(new Event('change'))};return e}
+const lab=t=>{const d=document.createElement('div');d.className='cc-lb';d.textContent=t;return d};
+const btn=(t,cls,fn)=>{const b=document.createElement('button');b.type='button';b.className='b '+cls;b.style.cssText='width:100%;margin:4px 0';b.textContent=t;b.onclick=fn;return b};
+function menu(){ccAct.openSheet('Caption otomatis',b=>{
+  const w=document.createElement('div');w.className='cc-cm';
+  w.append(lab('Bahasa ucapan'),sel($('#wsl')),lab('Model AI (diunduh sekali)'),sel($('#wsm')),
+    btn('🧠 Buat caption otomatis (AI, akurat)','p',()=>{try{ccAct.closeSheet()}catch{}$('#acw').click()}),
+    btn('🎤 Metode mikrofon (cadangan, tanpa unduh)','',()=>{try{ccAct.closeSheet()}catch{}$('#ac').click()}),
+    btn('⬆ Impor file SRT','',()=>{try{ccAct.closeSheet()}catch{}const x=$('#srti');x&&x.click()}),
+    lab('Gaya caption (diterapkan ke semua teks)'));
+  const g=document.createElement('div');g.className='cc-cs';STY.forEach(S=>{const[bn,sp]=tile(S);const t=document.createElement('div');bn.append();g.append(bn);const nm=document.createElement('small');});
+  // label nama di bawah contoh
+  [...g.children].forEach((bn,i)=>{bn.title=STY[i].n;const nm=document.createElement('div');nm.textContent=STY[i].n;nm.style.cssText='font-size:10px;opacity:.65;margin-top:4px';bn.style.flexDirection='column';bn.append(nm)});
+  w.append(g);b.append(w)})}
+ccAct.capMenu=menu;ccAct.applyCapStyle=applyStyle;
+$('#acm').onclick=menu;
 })();
 </script>
 </body></html>
